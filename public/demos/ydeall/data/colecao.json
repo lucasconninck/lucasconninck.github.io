@@ -1,0 +1,36 @@
+{
+  "titulo_secao": "Encontre o seu estilo",
+  "subtitulo": "Do casual sofisticado ao look de festa. Toda peça pode ser encomendada com a Samira pelo WhatsApp.",
+  "categorias": [
+    {
+      "nome": "Vestidos ",
+      "descricao": "Midi, longos & slip",
+      "imagem": "/assets/uploads/010-fuil37kp10.webp"
+    },
+    {
+      "nome": "Conjuntos",
+      "descricao": "Cropped & pantalona",
+      "imagem": "/assets/uploads/blusa-preta-laco-no-decote-e-mangas-bufantes_332782_301_1.webp"
+    },
+    {
+      "nome": "Blazers & Alfaiataria",
+      "descricao": "Elegância estruturada",
+      "imagem": "/assets/uploads/images.jpg"
+    },
+    {
+      "nome": "Saias",
+      "descricao": "Do trabalho ao lazer",
+      "imagem": "/assets/uploads/dia1-principessa-mar2452849-copiar.webp"
+    },
+    {
+      "nome": "Macacões",
+      "descricao": "Conforto com estilo",
+      "imagem": "/assets/uploads/cj-179-5-5qhryny5kz.webp"
+    },
+    {
+      "nome": "Novidades",
+      "descricao": "Acabou de chegar",
+      "imagem": ""
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+# dependências
+node_modules/
+
+# saída de build (é gerada por `npm run build`, não versionar)
+dist/
+
+# sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# logs
+npm-debug.log*
+*.log

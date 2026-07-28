@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>[NOME DA CLÍNICA] — Estética Avançada em [CIDADE]</title>
+<meta name="description" content="[NOME DA CLÍNICA]: estética avançada em [CIDADE]. Protocolos faciais e corporais personalizados, com acompanhamento próximo e resultados que se sustentam.">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="[NOME DA CLÍNICA] — Estética Avançada em [CIDADE]">
+<meta property="og:description" content="Protocolos faciais e corporais personalizados, com acompanhamento próximo e resultados que se sustentam.">
+<meta property="og:image" content="img/placeholder/editorial-1.svg">
+<meta property="og:locale" content="pt_BR">
+<meta name="theme-color" content="#F3F0EB">
+
+<link rel="icon" href="img/placeholder/marca-simbolo.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================================
+   MODELO — CLÍNICA DE ESTÉTICA
+   Direção: editorial de agência. Inter caixa-alta, tracking largo, peso 600.
+   Base off-white quente + preto, respiro de champanhe. Duas seções escuras
+   pra o champanhe brilhar. Sem nada que persiga o cursor.
+   Ordem: tokens → base → animação de entrada → utilitários → seções
+   → overlays → responsivo → captura/movimento reduzido.
+   ========================================================================= */
+
+/* ============ 1. TOKENS ============ */
+:root{
+  /* champanhe: dois tons. o escuro lê em fundo claro, o pérola brilha no preto */
+  --champ:       #8A6836;   /* sobre claro  */
+  --champ-deep:  #6E5228;   /* hover sobre claro */
+  --champ-pearl: #E8D5B0;   /* sobre escuro */
+  --champ-soft:  #C9AC76;
+
+  --ink:      #000000;
+  --ink-70:   rgba(0,0,0,.70);
+  --ink-55:   rgba(0,0,0,.55);
+  --ink-40:   rgba(0,0,0,.40);
+  --rule:     rgba(0,0,0,.13);
+
+  --paper:    #F3F0EB;   /* off-white quente, base do site */
+  --paper-2:  #EAE5DD;   /* variação pra alternar seções   */
+
+  --dark:     #0C0C0C;
+  --dark-2:   #131313;
+  --dark-rule:rgba(255,255,255,.13);
+  --on-dark-70: rgba(255,255,255,.70);
+  --on-dark-50: rgba(255,255,255,.50);
+
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --wrap: 1440px;
+  --gut:  clamp(20px, 4vw, 48px);
+
+  --ease: cubic-bezier(.22,1,.36,1);
+
+  --track:  .18em;   /* tracking-widest */
+  --track-s:.12em;   /* tracking-wide   */
+}
+
+/* ============ 2. RESET / BASE ============ */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top: 96px;
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  font-family: var(--sans);
+  font-weight:400;
+  font-size: clamp(15px, .35vw + 14px, 16.5px);
+  line-height:1.7;
+  color: var(--ink);
+  background: var(--paper);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+body.is-locked{ overflow:hidden; }
+
+img{ display:block; max-width:100%; height:auto; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+input,select,textarea{ font:inherit; color:inherit; }
+::selection{ background: var(--ink); color: var(--paper); }
+
+:focus-visible{ outline:2px solid var(--champ); outline-offset:3px; border-radius:2px; }
+
+/* grão fino por cima de tudo — o que dá o acabamento "filmado" */
+.grain{
+  position:fixed; inset:0; z-index:700; pointer-events:none;
+  opacity:.05; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============ 3. ANIMAÇÃO DE ENTRADA ============
+   Roda no load, em CSS puro — funciona mesmo se o JS falhar.
+   --i é o índice do stagger; a curva é a mesma da referência. */
+@keyframes vFadeDown{ from{ opacity:0; transform:translateY(-20px); } to{ opacity:1; transform:none; } }
+@keyframes vFadeUp{   from{ opacity:0; transform:translateY(32px);  } to{ opacity:1; transform:none; } }
+@keyframes vWordUp{   from{ transform:translateY(110%); }            to{ transform:translateY(0); } }
+
+[data-in="down"]{ animation: vFadeDown .5s var(--ease) both; animation-delay: calc(var(--i,0) * .1s); }
+[data-in="up"]{   animation: vFadeUp   .6s var(--ease) both; animation-delay: calc(var(--i,0) * .12s); }
+
+/* revelação em clip, palavra por palavra */
+.clip{ display:block; overflow:hidden; }
+.clip > span{
+  display:block;
+  animation: vWordUp .7s var(--ease) both;
+  animation-delay: calc(.4s + var(--w,0) * .14s);
+}
+
+/* revelação no scroll (resto da página) */
+[data-reveal]{
+  opacity:0; transform: translateY(28px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+[data-reveal].is-in{ opacity:1; transform:none; }
+
+.img-reveal{ overflow:hidden; position:relative; background: var(--paper-2); }
+.img-reveal img{
+  width:100%; height:100%; object-fit:cover;
+  clip-path: inset(0 0 100% 0);
+  transform: scale(1.12);
+  transition: clip-path 1.2s var(--ease), transform 1.6s var(--ease);
+}
+.img-reveal.is-in img{ clip-path: inset(0 0 0 0); transform: scale(1); }
+
+/* ============ 4. UTILITÁRIOS ============ */
+.wrap{ width:100%; max-width: var(--wrap); margin-inline:auto; padding-inline: var(--gut); }
+
+.section{ padding: clamp(76px, 9vw, 150px) 0; position:relative; }
+.section--alt{ background: var(--paper-2); }
+.section--dark{ background: var(--dark); color:#fff; }
+
+/* rótulo pequeno em caixa-alta — a assinatura tipográfica do site */
+.label{
+  display:inline-flex; align-items:center; gap:12px;
+  font-size:10.5px; font-weight:600; letter-spacing: var(--track);
+  text-transform:uppercase; color: var(--ink);
+}
+.label::before{ content:''; width:22px; height:1px; background: var(--champ); flex:none; }
+.label--dark{ color: var(--champ-pearl); }
+.label--dark::before{ background: var(--champ-pearl); }
+
+/* título de seção: Inter 600, caixa-alta, colado */
+.h2{
+  font-size: clamp(1.9rem, 6vw, 5rem);
+  font-weight:600; line-height:.92; letter-spacing:-.02em;
+  text-transform:uppercase; margin-top:26px;
+}
+.h2 em{ font-style:normal; color: var(--champ); }
+.section--dark .h2 em{ color: var(--champ-pearl); }
+
+.lead{ margin-top:26px; max-width: 52ch; color: var(--ink-70); }
+.section--dark .lead{ color: var(--on-dark-70); }
+
+.section__head{ max-width: 780px; margin-bottom: clamp(44px, 5vw, 80px); }
+.section__head--center{ margin-inline:auto; text-align:center; }
+.section__head--center .label{ justify-content:center; }
+
+.micro{
+  font-size:11px; line-height:1.7; letter-spacing:.04em;
+  color: var(--ink-40); margin-top:34px;
+}
+.micro--center{ text-align:center; max-width:70ch; margin-inline:auto; }
+.section--dark .micro{ color: var(--on-dark-50); }
+
+/* marcação de pendência — nada foi inventado neste site */
+.pendente{
+  display:inline-block; padding:2px 9px; border-radius:2px;
+  background: rgba(138,104,54,.14); border:1px dashed rgba(138,104,54,.5);
+  color: var(--champ-deep); font-size:.85em; font-weight:600;
+  letter-spacing:.08em; white-space:nowrap;
+}
+.section--dark .pendente,
+.footer .pendente,
+.menu .pendente{
+  background: rgba(232,213,176,.12); border-color: rgba(232,213,176,.4); color: var(--champ-pearl);
+}
+
+/* link com seta diagonal — o CTA da referência */
+.arrow-link{
+  display:inline-flex; align-items:center; gap:.45em;
+  font-weight:600; letter-spacing: var(--track-s); text-transform:uppercase;
+  color: var(--champ); white-space:nowrap;
+  transition: color .35s var(--ease);
+}
+.arrow-link svg{ width:1em; height:1em; flex:none; transition: transform .4s var(--ease); }
+.arrow-link:hover{ color: var(--champ-deep); }
+.arrow-link:hover svg{ transform: translate(3px,-3px); }
+.arrow-link--dark{ color: var(--champ-pearl); }
+.arrow-link--dark:hover{ color:#fff; }
+
+/* botões: pílula, sem gradiente, sem perseguir o mouse */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:16px 30px; border-radius:999px;
+  font-size:11.5px; font-weight:600; letter-spacing: var(--track); text-transform:uppercase;
+  background: var(--ink); color:#fff; border:1px solid var(--ink);
+  transition: background .4s var(--ease), color .4s var(--ease),
+              border-color .4s var(--ease), transform .25s var(--ease);
+}
+.btn:hover{ background: var(--champ-deep); border-color: var(--champ-deep); color:#fff; }
+.btn:active{ transform: scale(.98); }
+.btn svg{ width:14px; height:14px; }
+
+.btn--light{ background:#fff; color: var(--ink); border-color:#fff; }
+.btn--light:hover{ background: var(--champ-pearl); border-color: var(--champ-pearl); color: var(--ink); }
+.btn--outline{ background:transparent; color: var(--ink); border-color: rgba(0,0,0,.25); }
+.btn--outline:hover{ background: var(--ink); border-color: var(--ink); color:#fff; }
+.btn--ghost{ background:transparent; color:#fff; border-color: var(--dark-rule); }
+.btn--ghost:hover{ background:#fff; border-color:#fff; color: var(--ink); }
+.btn--sm{ padding:12px 22px; font-size:10.5px; }
+
+/* ============ 5. HERO ============ */
+.hero{
+  position:relative; min-height:100svh;
+  display:flex; flex-direction:column;
+  overflow:hidden; background: var(--paper);
+}
+
+.hero__media{ position:absolute; inset:0; z-index:0; }
+.hero__media img,
+.hero__media video{
+  width:100%; height:100%; object-fit:cover; object-position: 72% 26%;
+  /* a foto é tratada pra virar fundo claro: preto lê por cima */
+  filter: grayscale(1) contrast(.84) brightness(1.38);
+  transform: scale(1.06);
+  animation: heroDrift 26s ease-in-out infinite alternate;
+}
+.hero__media video{ position:absolute; inset:0; }
+@keyframes heroDrift{ from{ transform:scale(1.06) translate3d(0,0,0); } to{ transform:scale(1.14) translate3d(-1.5%,-1%,0); } }
+
+/* lavagem off-white: garante contraste onde o texto pousa */
+.hero__wash{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:
+    radial-gradient(135% 100% at 90% 98%, rgba(243,240,235,.98) 0%, rgba(243,240,235,.74) 40%, rgba(243,240,235,0) 100%),
+    radial-gradient(90% 60% at 6% 4%,    rgba(243,240,235,.94) 0%, rgba(243,240,235,0) 70%),
+    linear-gradient(180deg, rgba(243,240,235,.80) 0%, rgba(243,240,235,.36) 28%, rgba(243,240,235,.46) 62%, rgba(243,240,235,.92) 100%);
+}
+
+.hero__inner{
+  position:relative; z-index:2;
+  flex:1; display:flex; flex-direction:column;
+  width:100%; max-width: var(--wrap); margin-inline:auto; min-width:0;
+}
+
+/* --- nav --- */
+.nav{
+  display:flex; align-items:center; justify-content:space-between; gap:20px;
+  padding: 22px var(--gut) 0;
+}
+.nav__links{ display:none; gap: clamp(22px, 3vw, 44px); }
+.nav__link{
+  font-size:12.5px; font-weight:600; letter-spacing: var(--track);
+  text-transform:uppercase; color: var(--ink); position:relative; padding-block:4px;
+}
+.nav__link::after{
+  content:''; position:absolute; left:0; bottom:0; width:100%; height:1px;
+  background: var(--champ); transform: scaleX(0); transform-origin:right;
+  transition: transform .45s var(--ease);
+}
+.nav__link:hover::after,
+.nav__link.is-active::after{ transform: scaleX(1); transform-origin:left; }
+
+/* marca: círculo com borda champanhe, símbolo real da clínica em preto */
+.mark{
+  display:flex; align-items:center; gap:12px; flex:none;
+}
+.mark__ring{
+  width:34px; height:34px; border-radius:50%;
+  border:1.5px solid var(--champ);
+  display:grid; place-items:center; flex:none;
+  transition: border-color .4s var(--ease), transform .5s var(--ease);
+}
+.mark__ring img{ width:16px; filter: brightness(0); }
+.mark:hover .mark__ring{ transform: rotate(-10deg); border-color: var(--ink); }
+.mark__word{
+  font-size:13px; font-weight:700; letter-spacing: var(--track);
+  text-transform:uppercase; color: var(--ink);
+}
+
+/* botão redondo (hambúrguer / fechar) */
+.round-btn{
+  width:38px; height:38px; border-radius:50%; flex:none;
+  background: var(--ink); color:#fff;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  transition: background .4s var(--ease), transform .3s var(--ease);
+}
+.round-btn:hover{ background: var(--champ-deep); }
+.round-btn:active{ transform: scale(.94); }
+.round-btn span{ display:block; width:15px; height:1.5px; background:#fff; border-radius:2px; }
+.round-btn svg{ width:16px; height:16px; }
+
+/* --- linha de etapas (o "stats row" da referência) --- */
+.hero__stats{
+  flex:1; display:flex; align-items:center; justify-content:flex-end;
+  padding: 40px var(--gut); gap: clamp(20px, 4vw, 56px);
+}
+.stat{ text-align:right; }
+.stat__n{
+  display:block; font-size: clamp(1.5rem, 5vw, 3.5rem);
+  font-weight:600; line-height:1; letter-spacing:-.03em; color: var(--ink);
+}
+.stat__n i{ font-style:normal; font-size:.5em; color: var(--champ); margin-right:.12em; vertical-align:.55em; }
+.stat__l{
+  display:block; margin-top:10px;
+  font-size:10px; font-weight:600; letter-spacing: var(--track);
+  text-transform:uppercase; color: var(--ink); line-height:1.35;
+  white-space:pre-line;
+}
+
+/* --- bloco inferior --- */
+.hero__bottom{
+  display:flex; flex-direction:column; gap: clamp(24px, 3vw, 48px);
+  padding: 0 var(--gut) clamp(32px, 4vw, 52px);
+}
+
+.hero__rowA{ display:flex; align-items:center; justify-content:space-between; gap:16px; min-width:0; }
+.hero__tagline{
+  font-size: clamp(9.5px, 1.1vw, 13px); font-weight:600;
+  letter-spacing: var(--track); text-transform:uppercase; line-height:1.6;
+  max-width: 150px; color: var(--ink);
+}
+.hero__cta{ font-size: clamp(1rem, 2.2vw, 1.5rem); letter-spacing: var(--track-s); }
+
+.hero__rowB{ display:flex; align-items:flex-end; justify-content:space-between; gap: clamp(12px, 2vw, 32px); }
+.hero__desc{
+  width: clamp(120px, 20vw, 300px); flex:none;
+  font-size: clamp(9px, 1vw, 13px); font-weight:600;
+  letter-spacing: var(--track); text-transform:uppercase; line-height:1.7;
+  color: var(--ink); text-align:left;
+  padding-bottom:.6em;
+}
+
+.hero__title{
+  font-size: clamp(2rem, 9vw, 9rem);
+  font-weight:600; line-height:.88; letter-spacing:-.035em;
+  text-transform:uppercase; text-align:right; color: var(--ink);
+}
+.hero__title .champ{ color: var(--champ); }
+
+/* ============ 6. MENU MOBILE ============ */
+.menu{
+  position:fixed; inset:0; z-index:950;
+  background: var(--paper);
+  display:flex; flex-direction:column;
+  padding: 22px var(--gut) clamp(32px, 5vw, 48px);
+  opacity:0; visibility:hidden; transform: translateY(-12px);
+  transition: opacity .45s var(--ease), transform .55s var(--ease), visibility .45s;
+}
+.menu.is-open{ opacity:1; visibility:visible; transform:none; }
+
+.menu__top{ display:flex; align-items:center; justify-content:space-between; }
+.menu__nav{ display:flex; flex-direction:column; gap: clamp(18px, 3vw, 32px); margin-top: clamp(48px, 9vw, 72px); }
+.menu__link{
+  font-size: clamp(1.5rem, 7vw, 2.25rem); font-weight:600;
+  letter-spacing: var(--track); text-transform:uppercase; color: var(--ink);
+  opacity:0; transform: translateY(20px);
+  transition: opacity .55s var(--ease), transform .55s var(--ease), color .3s;
+}
+.menu.is-open .menu__link{ opacity:1; transform:none; }
+.menu__link:hover{ color: var(--champ); }
+
+.menu__foot{ margin-top:auto; padding-top:32px; display:flex; flex-direction:column; gap:14px; }
+.menu__cta{ font-size: clamp(1.05rem, 4vw, 1.35rem); }
+.menu__contato{
+  font-size:11px; font-weight:600; letter-spacing: var(--track);
+  text-transform:uppercase; color: var(--ink-55); line-height:2;
+}
+.menu__contato a:hover{ color: var(--champ); }
+
+/* ============ 7. MARQUEE ============ */
+.marquee{
+  background: var(--dark); color:#fff;
+  padding:18px 0; overflow:hidden; white-space:nowrap;
+}
+.marquee__track{
+  display:inline-flex; align-items:center; gap:22px;
+  animation: vMarquee 48s linear infinite; will-change:transform;
+}
+.marquee__track span{
+  font-size:11px; font-weight:600; letter-spacing: var(--track); text-transform:uppercase;
+  color: rgba(255,255,255,.82);
+}
+.marquee__track b{ color: var(--champ-pearl); font-weight:400; }
+.marquee:hover .marquee__track{ animation-play-state:paused; }
+@keyframes vMarquee{ to{ transform: translateX(-50%); } }
+
+/* ============ 8. A CLÍNICA ============ */
+.clinica__grid{
+  display:grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 96px);
+  align-items:center;
+}
+.clinica__media{ position:relative; }
+.clinica__media .img-reveal{ aspect-ratio: 4/5; }
+.clinica__badge{
+  position:absolute; left:-18px; bottom:-22px;
+  display:flex; align-items:center; gap:13px;
+  background: var(--paper); padding:18px 24px;
+  box-shadow: 0 26px 60px rgba(0,0,0,.14);
+}
+.clinica__badge img{ width:28px; filter: brightness(0); }
+.clinica__badge p{
+  font-size:10px; font-weight:600; letter-spacing: var(--track);
+  text-transform:uppercase; line-height:1.7; color: var(--ink-55);
+}
+.clinica__badge strong{ display:block; color: var(--ink); font-weight:700; }
+
+.clinica__text p{ color: var(--ink-70); margin-top:20px; }
+
+.pillars{
+  display:grid; grid-template-columns: repeat(3, 1fr); gap:24px;
+  margin-top:46px; padding-top:34px; border-top:1px solid var(--rule);
+}
+.pillar__n{
+  display:block; font-size: clamp(1.4rem, 2.4vw, 2.1rem); font-weight:600;
+  line-height:1; letter-spacing:-.03em; color: var(--champ);
+}
+.pillar__l{
+  display:block; margin-top:12px;
+  font-size:10px; font-weight:600; letter-spacing: var(--track);
+  text-transform:uppercase; line-height:1.55; color: var(--ink-70);
+}
+
+/* ============ 9. PROCEDIMENTOS ============ */
+.proc-grid{
+  display:grid; grid-template-columns: repeat(4, 1fr);
+  border-top:1px solid var(--rule); border-left:1px solid var(--rule);
+}
+.proc{
+  position:relative; text-align:left; overflow:hidden;
+  padding: 34px 26px 30px;
+  border-right:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  background: transparent;
+}
+.proc::before{
+  content:''; position:absolute; inset:0; z-index:0; background: var(--dark);
+  transform: translateY(100%); transition: transform .6s var(--ease);
+}
+.proc > *{ position:relative; z-index:1; }
+.proc:hover::before{ transform: translateY(0); }
+
+.proc__n{
+  display:block; font-size:10px; font-weight:600; letter-spacing: var(--track);
+  color: var(--champ); margin-bottom:26px; transition: color .5s var(--ease);
+}
+.proc__t{
+  font-size: clamp(.95rem, 1.3vw, 1.15rem); font-weight:600;
+  letter-spacing: var(--track-s); text-transform:uppercase; line-height:1.3;
+  color: var(--ink); transition: color .5s var(--ease);
+}
+.proc__d{
+  margin-top:12px; font-size:13.5px; line-height:1.65; color: var(--ink-55);
+  transition: color .5s var(--ease);
+}
+.proc__more{
+  display:inline-flex; align-items:center; gap:8px; margin-top:26px;
+  font-size:9.5px; font-weight:600; letter-spacing: var(--track); text-transform:uppercase;
+  color: var(--ink-40); transition: color .5s var(--ease), gap .4s var(--ease);
+}
+.proc__more svg{ width:11px; height:11px; }
+.proc:hover .proc__n{ color: var(--champ-pearl); }
+.proc:hover .proc__t{ color:#fff; }
+.proc:hover .proc__d{ color: var(--on-dark-50); }
+.proc:hover .proc__more{ color: var(--champ-pearl); gap:12px; }
+
+/* ============ 10. RESULTADOS ============ */
+.filters{ display:flex; flex-wrap:wrap; gap:9px; margin-bottom:44px; }
+.filter{
+  padding:11px 22px; border:1px solid rgba(0,0,0,.18); border-radius:999px;
+  font-size:10px; font-weight:600; letter-spacing: var(--track); text-transform:uppercase;
+  color: var(--ink-55);
+  transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
+}
+.filter:hover{ border-color: var(--champ); color: var(--champ-deep); }
+.filter.is-active{ background: var(--ink); border-color: var(--ink); color:#fff; }
+
+.ba-grid{ columns:2; column-gap:24px; }
+.ba-card{ break-inside:avoid; margin-bottom:24px; }
+.ba-card.is-hidden{ display:none; }
+
+.ba{
+  --pos:50%;
+  position:relative; aspect-ratio: var(--ratio, 1);
+  overflow:hidden; background: var(--paper-2); cursor: ew-resize;
+  touch-action: pan-y;
+}
+.ba__base,
+.ba__clip img{ width:100%; height:100%; object-fit:cover; }
+.ba__clip{ position:absolute; inset:0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+
+.ba__handle{
+  position:absolute; top:0; bottom:0; left: var(--pos);
+  width:1.5px; background: rgba(255,255,255,.92); transform: translateX(-.75px);
+  pointer-events:none; box-shadow: 0 0 20px rgba(0,0,0,.4);
+}
+.ba__handle i{
+  position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);
+  width:42px; height:42px; border-radius:50%;
+  background: rgba(255,255,255,.96); box-shadow: 0 6px 24px rgba(0,0,0,.3);
+  transition: transform .4s var(--ease);
+}
+.ba__handle i::before,
+.ba__handle i::after{
+  content:''; position:absolute; top:50%; width:5px; height:5px;
+  border-top:1.5px solid var(--ink); border-right:1.5px solid var(--ink);
+}
+.ba__handle i::before{ left:13px; transform: translateY(-50%) rotate(-135deg); }
+.ba__handle i::after{  right:13px; transform: translateY(-50%) rotate(45deg); }
+.ba:hover .ba__handle i{ transform: translate(-50%,-50%) scale(1.08); }
+
+.ba__tag{
+  position:absolute; top:13px;
+  padding:6px 12px; border-radius:999px;
+  font-size:9px; font-weight:600; letter-spacing: var(--track); text-transform:uppercase;
+  background: rgba(0,0,0,.62); color:#fff; pointer-events:none;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.ba__tag--a{ left:13px; }
+.ba__tag--d{ right:13px; background: rgba(138,104,54,.86); }
+
+/* o range invisível por cima dá teclado e toque de graça */
+.ba__range{
+  position:absolute; inset:0; width:100%; height:100%;
+  opacity:0; cursor: ew-resize; margin:0;
+  -webkit-appearance:none; appearance:none; background:transparent;
+}
+.ba__range::-webkit-slider-thumb{ -webkit-appearance:none; width:42px; height:100%; }
+.ba__range::-moz-range-thumb{ width:42px; height:100%; border:0; opacity:0; }
+.ba__range:focus-visible ~ .ba__handle i{ box-shadow: 0 0 0 3px var(--champ); }
+
+.ba-card__t{
+  margin-top:16px; font-size:12px; font-weight:600;
+  letter-spacing: var(--track-s); text-transform:uppercase; color: var(--ink);
+}
+.ba-card__m{
+  margin-top:5px; font-size:9.5px; font-weight:600; letter-spacing: var(--track);
+  text-transform:uppercase; color: var(--ink-40);
+}
+
+/* ============ 11. MÉTODO (escuro) ============ */
+.metodo{ overflow:hidden; }
+.metodo__glow{
+  position:absolute; top:-25%; left:50%; transform: translateX(-50%);
+  width:min(1000px, 120vw); aspect-ratio:1; pointer-events:none;
+  background: radial-gradient(circle, rgba(232,213,176,.14) 0%, transparent 62%);
+}
+.metodo .wrap{ position:relative; z-index:1; }
+
+.steps{
+  list-style:none; display:grid; grid-template-columns: repeat(4, 1fr);
+  border-top:1px solid var(--dark-rule); border-left:1px solid var(--dark-rule);
+}
+.step{
+  padding: 38px 26px 42px;
+  border-right:1px solid var(--dark-rule); border-bottom:1px solid var(--dark-rule);
+  transition: background .5s var(--ease);
+}
+.step:hover{ background: var(--dark-2); }
+.step__n{
+  display:block; font-size: clamp(1.6rem, 2.6vw, 2.4rem); font-weight:600;
+  line-height:1; letter-spacing:-.03em; color: rgba(255,255,255,.16);
+  margin-bottom:24px; transition: color .5s var(--ease);
+}
+.step:hover .step__n{ color: var(--champ-pearl); }
+.step__t{
+  font-size:12px; font-weight:600; letter-spacing: var(--track); text-transform:uppercase;
+  color:#fff; margin-bottom:14px;
+}
+.step p{ font-size:13.5px; line-height:1.7; color: var(--on-dark-50); }
+
+.metodo__cta{ margin-top:52px; text-align:center; }
+
+/* ============ 12. DEPOIMENTO ============ */
+.depo__grid{
+  display:grid; grid-template-columns: .8fr 1fr; gap: clamp(36px, 6vw, 90px);
+  align-items:center;
+}
+.depo__media .img-reveal{ aspect-ratio: 4/5; }
+
+.quote{
+  margin-top:30px;
+  font-size: clamp(1.25rem, 3.2vw, 2.6rem); font-weight:500;
+  line-height:1.22; letter-spacing:-.02em; color: var(--ink);
+}
+.quote .champ{ color: var(--champ); }
+
+.quote__by{ margin-top:34px; padding-left:18px; border-left:1px solid var(--champ); }
+.quote__by strong{
+  display:block; font-size:11.5px; font-weight:700;
+  letter-spacing: var(--track); text-transform:uppercase; color: var(--ink);
+}
+.quote__by span{
+  display:block; margin-top:5px; font-size:10px; font-weight:600;
+  letter-spacing: var(--track); text-transform:uppercase; color: var(--ink-40);
+}
+.depo__extra{ margin-top:30px; max-width:50ch; color: var(--ink-70); }
+
+/* ============ 13. MAGAZINE ============ */
+.mag-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; }
+.mag{
+  position:relative; overflow:hidden; cursor:zoom-in;
+  background: var(--paper-2); aspect-ratio: 4/5;
+  /* as páginas do Magazine têm fundo branco: a hairline separa do papel */
+  box-shadow: inset 0 0 0 1px var(--rule);
+}
+.mag img{
+  width:100%; height:100%; object-fit:cover;
+  transition: transform 1.1s var(--ease);
+}
+.mag::after{
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,.75) 100%);
+  opacity:0; transition: opacity .5s var(--ease);
+}
+.mag figcaption{
+  position:absolute; left:18px; bottom:16px; z-index:2;
+  font-size:9.5px; font-weight:600; letter-spacing: var(--track);
+  text-transform:uppercase; color:#fff;
+  opacity:0; transform: translateY(10px);
+  transition: opacity .5s var(--ease), transform .5s var(--ease);
+}
+.mag:hover img{ transform: scale(1.05); }
+.mag:hover::after{ opacity:1; }
+.mag:hover figcaption{ opacity:1; transform:none; }
+
+/* ============ 14. FAQ ============ */
+.faq__grid{ display:grid; grid-template-columns: .75fr 1.25fr; gap: clamp(36px, 6vw, 90px); align-items:start; }
+.faq__aside p{ color: var(--ink-70); margin-top:24px; }
+.faq__aside .arrow-link{ margin-top:28px; font-size:12px; }
+
+.accordion{ border-top:1px solid var(--rule); }
+.acc{ border-bottom:1px solid var(--rule); }
+.acc__q{
+  width:100%; display:flex; align-items:center; justify-content:space-between; gap:24px;
+  padding:26px 0; text-align:left;
+  font-size: clamp(12px, 1.2vw, 14px); font-weight:600;
+  letter-spacing: var(--track-s); text-transform:uppercase; color: var(--ink);
+  transition: color .35s var(--ease);
+}
+.acc__q:hover{ color: var(--champ); }
+.acc__icon{ position:relative; width:13px; height:13px; flex:none; }
+.acc__icon::before,
+.acc__icon::after{
+  content:''; position:absolute; top:50%; left:0; width:100%; height:1.5px;
+  background: currentColor; transition: transform .45s var(--ease);
+}
+.acc__icon::after{ transform: rotate(90deg); }
+.acc.is-open .acc__icon::after{ transform: rotate(0); }
+.acc.is-open .acc__q{ color: var(--champ); }
+
+.acc__a{ display:grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
+.acc.is-open .acc__a{ grid-template-rows: 1fr; }
+.acc__a > div{ overflow:hidden; }
+.acc__a p{
+  padding-bottom:28px; padding-right: clamp(0px, 6vw, 80px);
+  color: var(--ink-70); font-size:15px;
+  opacity:0; transform: translateY(-8px);
+  transition: opacity .5s var(--ease) .1s, transform .5s var(--ease) .1s;
+}
+.acc.is-open .acc__a p{ opacity:1; transform:none; }
+
+/* ============ 15. CONTATO (escuro) ============ */
+.contato{ padding-bottom:0; }
+.contato__grid{
+  display:grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 96px);
+  padding-bottom: clamp(64px, 8vw, 110px);
+}
+.contato__list{ list-style:none; margin-top:48px; display:grid; gap:26px; }
+.contato__list li{ display:grid; gap:7px; }
+.contato__label{
+  font-size:9.5px; font-weight:600; letter-spacing: var(--track);
+  text-transform:uppercase; color: var(--champ-pearl);
+}
+.contato__list a,
+.contato__list span:not(.contato__label){
+  font-size:15px; color: rgba(255,255,255,.88); line-height:1.6;
+}
+.contato__list a{ transition: color .35s var(--ease); }
+.contato__list a:hover{ color: var(--champ-pearl); }
+
+.form{ display:grid; gap:26px; align-content:start; }
+.field{ position:relative; }
+.field input,
+.field select,
+.field textarea{
+  width:100%; padding:16px 0 12px; background:transparent;
+  border:0; border-bottom:1px solid var(--dark-rule); border-radius:0;
+  color:#fff; font-size:16px; font-weight:400;
+}
+.field textarea{ resize:vertical; min-height:92px; }
+.field select{ -webkit-appearance:none; appearance:none; cursor:pointer; }
+.field select option{ background: var(--dark-2); color:#fff; }
+.field::after{
+  content:''; position:absolute; left:0; right:0; bottom:0; height:1px;
+  background: var(--champ-pearl); transform: scaleX(0); transform-origin:left;
+  transition: transform .5s var(--ease);
+}
+.field:focus-within::after{ transform: scaleX(1); }
+.field label{
+  position:absolute; left:0; top:16px; pointer-events:none;
+  font-size:11px; font-weight:600; letter-spacing: var(--track);
+  text-transform:uppercase; color: var(--on-dark-50);
+  transform-origin: left top;
+  transition: transform .4s var(--ease), color .4s var(--ease);
+}
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label,
+.field textarea:focus + label,
+.field textarea:not(:placeholder-shown) + label,
+.field select:focus + label,
+.field select:valid + label{
+  transform: translateY(-19px) scale(.85);
+  color: var(--champ-pearl);
+}
+.field:has(select)::before{
+  content:''; position:absolute; right:2px; top:20px;
+  width:6px; height:6px;
+  border-right:1px solid var(--on-dark-50); border-bottom:1px solid var(--on-dark-50);
+  transform: rotate(45deg); pointer-events:none;
+}
+.form__submit{ justify-self:start; margin-top:6px; }
+.form__note{
+  font-size:10px; font-weight:600; letter-spacing: var(--track-s);
+  text-transform:uppercase; line-height:1.8; color: var(--on-dark-50);
+}
+
+.mapa{ height: clamp(280px, 34vw, 420px); filter: grayscale(1) contrast(1.05) brightness(.8); }
+.mapa iframe{ width:100%; height:100%; border:0; display:block; }
+
+/* ============ 16. FOOTER ============ */
+.footer{ background:#070707; color: var(--on-dark-50); padding: 64px 0 40px; }
+.footer__inner{ display:grid; grid-template-columns: 1.2fr 1fr 1fr; gap:40px; align-items:start; }
+.footer__logo{ width:140px; margin-bottom:16px; }
+.footer__brand p{ font-size:9.5px; font-weight:600; letter-spacing: var(--track); text-transform:uppercase; }
+.footer__nav{ display:grid; gap:12px; }
+.footer__nav a{
+  width:fit-content; font-size:10px; font-weight:600; letter-spacing: var(--track);
+  text-transform:uppercase; transition: color .35s var(--ease);
+}
+.footer__nav a:hover{ color: var(--champ-pearl); }
+.footer__meta{ font-size:10px; font-weight:600; letter-spacing: var(--track-s); line-height:2.2; text-align:right; }
+
+/* ============ 17. FLUTUANTES ============ */
+.wpp{
+  position:fixed; right:20px; bottom:20px; z-index:800;
+  width:52px; height:52px; border-radius:50%;
+  display:grid; place-items:center;
+  background: var(--ink); box-shadow: 0 14px 34px rgba(0,0,0,.28);
+  transform: scale(0); transition: transform .5s var(--ease), background .4s var(--ease);
+}
+.wpp.is-in{ transform: scale(1); }
+.wpp:hover{ background: var(--champ-deep); }
+.wpp svg{ width:26px; height:26px; fill:#fff; }
+
+.totop{
+  position:fixed; right:20px; bottom:82px; z-index:800;
+  width:40px; height:40px; border-radius:50%;
+  border:1px solid rgba(0,0,0,.2); background: var(--paper);
+  display:grid; place-items:center;
+  opacity:0; visibility:hidden; transform: translateY(8px);
+  transition: opacity .45s var(--ease), transform .45s var(--ease), visibility .45s, background .35s;
+}
+.totop.is-in{ opacity:1; visibility:visible; transform:none; }
+.totop i{
+  width:7px; height:7px;
+  border-top:1.5px solid var(--ink); border-left:1.5px solid var(--ink);
+  transform: rotate(45deg) translate(2px,2px);
+}
+.totop:hover{ background: var(--ink); }
+.totop:hover i{ border-color:#fff; }
+
+/* ============ 18. MODAL ============ */
+.modal{
+  position:fixed; inset:0; z-index:960;
+  display:grid; place-items:center; padding: var(--gut);
+  visibility:hidden; opacity:0;
+  transition: opacity .45s var(--ease), visibility .45s;
+}
+.modal.is-open{ visibility:visible; opacity:1; }
+.modal__backdrop{
+  position:absolute; inset:0; background: rgba(0,0,0,.62);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.modal__panel{
+  position:relative; width:min(600px,100%); max-height:86vh; overflow-y:auto;
+  background: var(--paper); padding: clamp(30px, 5vw, 52px);
+  transform: translateY(24px) scale(.97); transition: transform .55s var(--ease);
+}
+.modal.is-open .modal__panel{ transform:none; }
+.modal__close{
+  position:absolute; top:16px; right:18px;
+  width:34px; height:34px; border-radius:50%; display:grid; place-items:center;
+  transition: background .3s, transform .4s var(--ease);
+}
+.modal__close svg{ width:15px; height:15px; }
+.modal__close:hover{ background: rgba(0,0,0,.07); transform: rotate(90deg); }
+.modal__n{ font-size:10px; font-weight:600; letter-spacing: var(--track); color: var(--champ); }
+.modal__t{
+  font-size: clamp(1.2rem, 2.6vw, 1.9rem); font-weight:600;
+  letter-spacing:-.01em; text-transform:uppercase; line-height:1.1;
+  margin:16px 0 22px; color: var(--ink);
+}
+.modal__body p{ color: var(--ink-70); margin-bottom:18px; }
+.modal__body ul{ list-style:none; display:grid; gap:11px; margin:22px 0 4px; }
+.modal__body li{
+  position:relative; padding-left:20px; font-size:14.5px; color: var(--ink-70);
+}
+.modal__body li::before{
+  content:''; position:absolute; left:0; top:11px; width:9px; height:1px; background: var(--champ);
+}
+.modal__cta{ margin-top:28px; }
+
+/* ============ 19. LIGHTBOX ============ */
+.lightbox{
+  position:fixed; inset:0; z-index:970;
+  display:grid; place-items:center; padding: 6vh 7vw;
+  background: rgba(6,6,6,.95);
+  visibility:hidden; opacity:0;
+  transition: opacity .4s var(--ease), visibility .4s;
+}
+.lightbox.is-open{ visibility:visible; opacity:1; }
+.lightbox img{
+  max-width:100%; max-height:88vh; object-fit:contain;
+  transform: scale(.94); transition: transform .5s var(--ease);
+  box-shadow: 0 40px 100px rgba(0,0,0,.6);
+}
+.lightbox.is-open img{ transform: scale(1); }
+.lightbox__close{
+  position:absolute; top:20px; right:24px;
+  width:40px; height:40px; border-radius:50%; display:grid; place-items:center;
+  border:1px solid rgba(255,255,255,.24); color:#fff;
+  transition: background .3s, transform .4s var(--ease);
+}
+.lightbox__close svg{ width:16px; height:16px; }
+.lightbox__close:hover{ background: rgba(255,255,255,.12); transform: rotate(90deg); }
+.lightbox__nav{
+  position:absolute; top:50%; transform: translateY(-50%);
+  width:48px; height:48px; border-radius:50%;
+  border:1px solid rgba(255,255,255,.24);
+  transition: background .35s, border-color .35s;
+}
+.lightbox__nav:hover{ background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.55); }
+.lightbox__nav::after{
+  content:''; position:absolute; top:50%; left:50%;
+  width:8px; height:8px; border-top:1.5px solid #fff; border-right:1.5px solid #fff;
+}
+.lightbox__nav--prev{ left:18px; }
+.lightbox__nav--prev::after{ transform: translate(-30%,-50%) rotate(-135deg); }
+.lightbox__nav--next{ right:18px; }
+.lightbox__nav--next::after{ transform: translate(-70%,-50%) rotate(45deg); }
+
+/* ============ 20. RESPONSIVO ============
+   Mobile-first na prática: os três degraus da referência são 640 / 768 / 1080. */
+@media (min-width: 768px){
+  .nav__links{ display:flex; }
+  .nav{ padding-top:26px; }
+  .hero__desc{ text-align:right; }
+  .hero__stats{ padding-block:0; }
+}
+
+@media (max-width: 1080px){
+  .proc-grid{ grid-template-columns: repeat(2, 1fr); }
+  .steps{ grid-template-columns: repeat(2, 1fr); }
+  .mag-grid{ grid-template-columns: repeat(2, 1fr); }
+  .footer__inner{ grid-template-columns: 1fr 1fr; }
+  .footer__meta{
+    grid-column: 1 / -1; text-align:left;
+    padding-top:24px; border-top:1px solid var(--dark-rule);
+  }
+}
+
+@media (max-width: 900px){
+  .clinica__grid,
+  .depo__grid,
+  .faq__grid,
+  .contato__grid{ grid-template-columns: 1fr; }
+
+  .depo__media{ order:-1; }
+  .depo__media .img-reveal{ aspect-ratio: 3/4; max-height:60vh; }
+  .clinica__badge{ left:12px; bottom:-18px; padding:14px 18px; }
+
+  .ba-grid{ columns:1; }
+  .hero{ min-height: 94svh; }
+}
+
+@media (max-width: 640px){
+  .proc-grid{ grid-template-columns: 1fr; }
+  .steps{ grid-template-columns: 1fr; }
+  .mag-grid{ grid-template-columns: 1fr; }
+  .pillars{ grid-template-columns: 1fr; gap:20px; }
+  .clinica__badge{ position:static; margin-top:18px; padding:16px 0; box-shadow:none; }
+
+  .hero__stats{ justify-content:flex-start; gap:16px; padding-block:28px; flex-wrap:wrap; }
+  .stat{ text-align:left; }
+  .hero__rowA{ align-items:flex-start; }
+  .hero__rowB{ flex-direction:column; align-items:flex-start; gap:20px; }
+  .hero__title{ text-align:left; }
+  .hero__desc{ width:100%; padding-bottom:0; }
+
+  .lightbox__nav{ width:40px; height:40px; }
+  .lightbox__nav--prev{ left:6px; }
+  .lightbox__nav--next{ right:6px; }
+}
+
+/* celular estreito: o CTA do hero é nowrap e não cabe ao lado da tagline */
+@media (max-width: 560px){
+  .hero__rowA{ flex-direction:column; align-items:flex-start; gap:18px; }
+  .hero__tagline{ max-width:none; }
+  .hero__cta{ font-size:1.05rem; }
+}
+
+/* ============ 21. MODO CAPTURA (?print) ============
+   Pra gerar PDF de apresentação e screenshots: entrega tudo revelado. */
+html.is-print{ scroll-behavior:auto !important; }
+html.is-print [data-reveal]{ opacity:1 !important; transform:none !important; }
+html.is-print [data-in],
+html.is-print .clip > span{ animation:none !important; opacity:1 !important; transform:none !important; }
+html.is-print .img-reveal img{ clip-path:none !important; transform:none !important; }
+html.is-print .hero__media img,
+html.is-print .hero__media video{ animation:none !important; transform:none !important; }
+
+/* ============ 22. MOVIMENTO REDUZIDO ============ */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  [data-reveal]{ opacity:1 !important; transform:none !important; }
+  [data-in],
+  .clip > span{ animation:none !important; opacity:1 !important; transform:none !important; }
+  .img-reveal img{ clip-path:none !important; transform:none !important; }
+  .marquee__track{ animation:none !important; }
+  .hero__media img,
+  .hero__media video{ animation:none !important; transform:none !important; }
+}
+
+/* impressão */
+@media print{
+  .nav,.menu,.wpp,.totop,.mapa,.grain{ display:none !important; }
+  body{ background:#fff; }
+  [data-reveal]{ opacity:1 !important; transform:none !important; }
+  [data-in],.clip > span{ animation:none !important; opacity:1 !important; transform:none !important; }
+}
+
+</style>
+
+<!--
+  ==========================================================================
+  ESQUELETO — modelo de site pra clínica de estética
+  ==========================================================================
+  Layout, animações e estrutura prontos. Todo o conteúdo é placeholder:
+  não há nome, foto, contato nem depoimento de cliente real aqui.
+
+  ONDE TROCAR O TEXTO
+  Busque no HTML por  [  — todo placeholder está entre colchetes maiúsculos:
+  [NOME DA CLÍNICA] · [CIDADE — UF] · [ENDEREÇO] · [@INSTAGRAM] ·
+  [NOME DO PROGRAMA] · [NOME DA PACIENTE] · [A CONFIRMAR]
+
+  ONDE TROCAR AS IMAGENS
+  Tudo em  img/placeholder/  — troque o arquivo mantendo o nome, ou aponte
+  o src pra pasta nova. Proporções em que cada uma foi desenhada:
+    hero.svg .......... 1600x2000  fundo do hero (retrato, corta bem)
+    ambiente.svg ...... 1200x1500  foto do espaço, seção A CLÍNICA
+    antes.svg ......... 900x1200   lado "antes" dos comparadores
+    depois.svg ........ 900x1200   lado "depois" dos comparadores
+    editorial-1..6.svg  1000x1400  galeria com lightbox
+    marca-simbolo.svg . 200x200    símbolo no nav, no menu e no selo
+    marca-logo.svg .... 600x180    logotipo do rodapé (fundo escuro)
+
+  CONSTANTES NO <script>
+    WHATSAPP ..... vazio = os CTAs só rolam pra #contato. Preencha com
+                   dígitos: 55 + DDD + número.
+    HERO_VIDEO ... vazio = usa img/placeholder/hero.svg de fundo.
+
+  ANTES DE PUBLICAR COM CONTEÚDO REAL
+  - Estética/saúde é publicidade regulada: nunca prometer resultado.
+  - Antes/depois exige autorização de imagem de cada paciente (LGPD) e
+    segue a regra do conselho da responsável técnica.
+  - Responsável técnica (nome + registro) é obrigatória no rodapé.
+  ==========================================================================
+-->
+</head>
+
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ============================================================ HERO -->
+<section class="hero" id="inicio">
+
+  <!-- fundo: vídeo se HERO_VIDEO estiver preenchido, senão a foto da clínica -->
+  <div class="hero__media" aria-hidden="true">
+    <img src="img/placeholder/hero.svg" alt="">
+  </div>
+  <div class="hero__wash" aria-hidden="true"></div>
+
+  <div class="hero__inner">
+
+    <!-- ---------- NAV ---------- -->
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#inicio" class="mark" data-in="down" style="--i:0" aria-label="[NOME DA CLÍNICA] — início">
+        <span class="mark__ring"><img src="img/placeholder/marca-simbolo.svg" alt=""></span>
+        <span class="mark__word">[NOME DA CLÍNICA]</span>
+      </a>
+
+      <div class="nav__links">
+        <a href="#clinica"       class="nav__link" data-in="down" style="--i:1">A clínica</a>
+        <a href="#procedimentos" class="nav__link" data-in="down" style="--i:2">Procedimentos</a>
+        <a href="#resultados"    class="nav__link" data-in="down" style="--i:3">Resultados</a>
+        <a href="#metodo"        class="nav__link" data-in="down" style="--i:4">Método</a>
+      </div>
+
+      <button class="round-btn" id="burger" data-in="down" style="--i:5"
+              aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- ---------- ETAPAS ---------- -->
+    <div class="hero__stats">
+      <div class="stat" data-in="up" style="--i:2">
+        <span class="stat__n"><i>/</i>01</span>
+        <span class="stat__l">Avaliação
+antes de tudo</span>
+      </div>
+      <div class="stat" data-in="up" style="--i:3">
+        <span class="stat__n"><i>/</i>02</span>
+        <span class="stat__l">Protocolo
+desenhado</span>
+      </div>
+      <div class="stat" data-in="up" style="--i:4">
+        <span class="stat__n"><i>/</i>03</span>
+        <span class="stat__l">Evolução
+medida</span>
+      </div>
+    </div>
+
+    <!-- ---------- BLOCO INFERIOR ---------- -->
+    <div class="hero__bottom">
+
+      <div class="hero__rowA">
+        <p class="hero__tagline" data-in="up" style="--i:5">
+          Estética<br>avançada<br>[CIDADE — UF]
+        </p>
+        <a href="#contato" class="arrow-link hero__cta" data-in="up" style="--i:6"
+           data-wpp="Olá! Vim pelo site e gostaria de agendar uma avaliação.">
+          Agendar avaliação
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="hero__rowB">
+        <p class="hero__desc" data-in="up" style="--i:7">
+          Protocolos faciais e corporais desenhados pra sua pele, seu corpo e o seu tempo
+        </p>
+        <h1 class="hero__title">
+          <span class="clip"><span style="--w:0">Beleza</span></span>
+          <span class="clip"><span style="--w:1">de dentro</span></span>
+          <span class="clip"><span style="--w:2" class="champ">pra fora</span></span>
+        </h1>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ MENU MOBILE -->
+<div class="menu" id="menu" aria-hidden="true">
+  <div class="menu__top">
+    <a href="#inicio" class="mark" aria-label="[NOME DA CLÍNICA] — início">
+      <span class="mark__ring"><img src="img/placeholder/marca-simbolo.svg" alt=""></span>
+      <span class="mark__word">[NOME DA CLÍNICA]</span>
+    </a>
+    <button class="round-btn" id="menuClose" aria-label="Fechar menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="menu__nav" aria-label="Navegação">
+    <a href="#clinica"       class="menu__link">A clínica</a>
+    <a href="#procedimentos" class="menu__link">Procedimentos</a>
+    <a href="#resultados"    class="menu__link">Resultados</a>
+    <a href="#metodo"        class="menu__link">Método</a>
+    <a href="#magazine"      class="menu__link">Magazine</a>
+    <a href="#faq"           class="menu__link">Dúvidas</a>
+  </nav>
+
+  <div class="menu__foot">
+    <a href="#contato" class="arrow-link menu__cta"
+       data-wpp="Olá! Vim pelo site e gostaria de agendar uma avaliação.">
+      Agendar avaliação
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
+      </svg>
+    </a>
+    <p class="menu__contato">
+      <a href="#" target="_blank" rel="noopener">[@INSTAGRAM]</a><br>
+      <a href="#contato" target="_blank" rel="noopener">[A CONFIRMAR]</a>
+    </p>
+  </div>
+</div>
+
+<main>
+
+<!-- ============================================================ MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Rejuvenescimento facial</span><b>/</b>
+    <span>Redução de medidas</span><b>/</b>
+    <span>Tratamento de acne</span><b>/</b>
+    <span>Flacidez corporal</span><b>/</b>
+    <span>Lifting e papada</span><b>/</b>
+    <span>Drenagem linfática</span><b>/</b>
+    <span>Limpeza de pele</span><b>/</b>
+    <span>Gordura localizada</span><b>/</b>
+  </div>
+</div>
+
+<!-- ============================================================ A CLÍNICA -->
+<section class="section clinica" id="clinica">
+  <div class="wrap clinica__grid">
+
+    <div class="clinica__media" data-reveal>
+      <div class="img-reveal">
+        <img src="img/placeholder/ambiente.svg" alt="Espaco da clinica">
+      </div>
+      <div class="clinica__badge" data-reveal data-delay="250">
+        <img src="img/placeholder/marca-simbolo.svg" alt="">
+        <p>Estética avançada<strong>[CIDADE — UF]</strong></p>
+      </div>
+    </div>
+
+    <div class="clinica__text">
+      <p class="label" data-reveal>A clínica</p>
+      <h2 class="h2" data-reveal data-delay="100">
+        Autoestima tratada com a <em>mesma seriedade</em> que a técnica
+      </h2>
+      <p data-reveal data-delay="200">
+        A [NOME DA CLÍNICA] nasceu de uma ideia simples: cuidar de alguém vai muito além do procedimento.
+        Cada atendimento começa com uma avaliação real — entender a sua rotina, o seu histórico
+        e o que você espera de verdade — antes de qualquer protocolo ser desenhado.
+      </p>
+      <p data-reveal data-delay="280">
+        É por isso que a maior parte das mulheres que chega aqui por indicação continua com a gente
+        muito depois do primeiro resultado. Não vendemos sessão avulsa: construímos processo.
+      </p>
+
+      <div class="pillars" data-reveal data-delay="360">
+        <div class="pillar">
+          <span class="pillar__n">01</span>
+          <span class="pillar__l">Avaliação antes de qualquer protocolo</span>
+        </div>
+        <div class="pillar">
+          <span class="pillar__n">02</span>
+          <span class="pillar__l">Evolução medida e registrada em foto</span>
+        </div>
+        <div class="pillar">
+          <span class="pillar__n">03</span>
+          <span class="pillar__l">Acompanhamento até a manutenção</span>
+        </div>
+      </div>
+
+      <p class="micro" data-reveal data-delay="420">
+        Tempo de clínica, número de atendimentos e taxa de retorno entram aqui:
+        <span class="pendente">[A CONFIRMAR]</span><br>
+        Foto do espaço e da equipe: <span class="pendente">[A CONFIRMAR]</span>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ PROCEDIMENTOS -->
+<section class="section section--alt procedimentos" id="procedimentos">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="label" data-reveal>O que fazemos</p>
+      <h2 class="h2" data-reveal data-delay="100">Procedimentos</h2>
+      <p class="lead" data-reveal data-delay="180">
+        Cada protocolo é montado depois da avaliação — o que está abaixo é o ponto de partida,
+        nunca a receita pronta. Toque em um card pra entender como funciona.
+      </p>
+    </header>
+
+    <div class="proc-grid">
+
+      <button class="proc" data-reveal data-modal="p1">
+        <span class="proc__n">01</span>
+        <h3 class="proc__t">Rejuvenescimento facial</h3>
+        <p class="proc__d">Firmeza, viço e textura — trabalhando a pele por camadas.</p>
+        <span class="proc__more">Ver detalhes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </span>
+      </button>
+
+      <button class="proc" data-reveal data-delay="80" data-modal="p2">
+        <span class="proc__n">02</span>
+        <h3 class="proc__t">Tratamento de acne</h3>
+        <p class="proc__d">Controle das lesões ativas e cuidado com as marcas que ficam.</p>
+        <span class="proc__more">Ver detalhes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </span>
+      </button>
+
+      <button class="proc" data-reveal data-delay="160" data-modal="p3">
+        <span class="proc__n">03</span>
+        <h3 class="proc__t">Lifting e papada</h3>
+        <p class="proc__d">Contorno de mandíbula e sustentação do terço inferior do rosto.</p>
+        <span class="proc__more">Ver detalhes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </span>
+      </button>
+
+      <button class="proc" data-reveal data-delay="240" data-modal="p4">
+        <span class="proc__n">04</span>
+        <h3 class="proc__t">Limpeza de pele profunda</h3>
+        <p class="proc__d">A base de tudo. Pele limpa responde melhor a qualquer protocolo.</p>
+        <span class="proc__more">Ver detalhes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </span>
+      </button>
+
+      <button class="proc" data-reveal data-modal="p5">
+        <span class="proc__n">05</span>
+        <h3 class="proc__t">Redução de medidas</h3>
+        <p class="proc__d">Protocolo corporal progressivo, com medição a cada etapa.</p>
+        <span class="proc__more">Ver detalhes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </span>
+      </button>
+
+      <button class="proc" data-reveal data-delay="80" data-modal="p6">
+        <span class="proc__n">06</span>
+        <h3 class="proc__t">Flacidez corporal</h3>
+        <p class="proc__d">Estímulo de colágeno e firmeza pra pele que perdeu sustentação.</p>
+        <span class="proc__more">Ver detalhes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </span>
+      </button>
+
+      <button class="proc" data-reveal data-delay="160" data-modal="p7">
+        <span class="proc__n">07</span>
+        <h3 class="proc__t">Gordura localizada</h3>
+        <p class="proc__d">Foco nas regiões que não respondem só a dieta e treino.</p>
+        <span class="proc__more">Ver detalhes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </span>
+      </button>
+
+      <button class="proc" data-reveal data-delay="240" data-modal="p8">
+        <span class="proc__n">08</span>
+        <h3 class="proc__t">Drenagem linfática</h3>
+        <p class="proc__d">Retenção, inchaço e pós-operatório com técnica manual.</p>
+        <span class="proc__more">Ver detalhes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </span>
+      </button>
+
+    </div>
+
+    <p class="micro micro--center" data-reveal>
+      Nomes comerciais dos protocolos, indicações e valores:
+      <span class="pendente">[A CONFIRMAR]</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ RESULTADOS -->
+<section class="section resultados" id="resultados">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="label" data-reveal>Antes e depois</p>
+      <h2 class="h2" data-reveal data-delay="100">Resultados reais</h2>
+      <p class="lead" data-reveal data-delay="180">
+        Arraste a linha pra comparar. [Uma linha dizendo de onde vêm as fotos — casos
+        atendidos na própria clínica, com autorização de cada paciente.]
+      </p>
+    </header>
+
+    <div class="filters" data-reveal data-delay="240" role="tablist" aria-label="Filtrar resultados">
+      <button class="filter is-active" data-filter="todos"    role="tab" aria-selected="true">Todos</button>
+      <button class="filter"           data-filter="facial"   role="tab" aria-selected="false">Facial</button>
+      <button class="filter"           data-filter="corporal" role="tab" aria-selected="false">Corporal</button>
+    </div>
+
+    <div class="ba-grid" id="baGrid">
+
+      <article class="ba-card" data-cat="corporal" data-reveal>
+        <div class="ba" data-ba style="--ratio:1.73">
+          <img class="ba__base" src="img/placeholder/depois.svg" alt="Abdômen após o protocolo">
+          <div class="ba__clip"><img src="img/placeholder/antes.svg" alt="Abdômen antes do protocolo"></div>
+          <input type="range" class="ba__range" min="0" max="100" value="50" step="0.1" aria-label="Comparar antes e depois — abdômen">
+          <span class="ba__tag ba__tag--a">Antes</span>
+          <span class="ba__tag ba__tag--d">Depois</span>
+          <span class="ba__handle" aria-hidden="true"><i></i></span>
+        </div>
+        <h3 class="ba-card__t">Redução de medidas · abdômen</h3>
+        <p class="ba-card__m">Protocolo corporal</p>
+      </article>
+
+      <article class="ba-card" data-cat="facial" data-reveal data-delay="80">
+        <div class="ba" data-ba style="--ratio:2.44">
+          <img class="ba__base" src="img/placeholder/depois.svg" alt="Pele do rosto após o tratamento">
+          <div class="ba__clip"><img src="img/placeholder/antes.svg" alt="Pele do rosto antes do tratamento"></div>
+          <input type="range" class="ba__range" min="0" max="100" value="50" step="0.1" aria-label="Comparar antes e depois — acne">
+          <span class="ba__tag ba__tag--a">Antes</span>
+          <span class="ba__tag ba__tag--d">Depois</span>
+          <span class="ba__handle" aria-hidden="true"><i></i></span>
+        </div>
+        <h3 class="ba-card__t">Tratamento de acne · maçãs do rosto</h3>
+        <p class="ba-card__m">Protocolo facial</p>
+      </article>
+
+      <article class="ba-card" data-cat="facial" data-reveal>
+        <div class="ba" data-ba style="--ratio:0.48">
+          <img class="ba__base" src="img/placeholder/depois.svg" alt="Contorno do queixo após o tratamento">
+          <div class="ba__clip"><img src="img/placeholder/antes.svg" alt="Contorno do queixo antes do tratamento"></div>
+          <input type="range" class="ba__range" min="0" max="100" value="50" step="0.1" aria-label="Comparar antes e depois — papada">
+          <span class="ba__tag ba__tag--a">Antes</span>
+          <span class="ba__tag ba__tag--d">Depois</span>
+          <span class="ba__handle" aria-hidden="true"><i></i></span>
+        </div>
+        <h3 class="ba-card__t">Lifting · papada e contorno</h3>
+        <p class="ba-card__m">Protocolo facial</p>
+      </article>
+
+      <article class="ba-card" data-cat="corporal" data-reveal data-delay="80">
+        <div class="ba" data-ba style="--ratio:1.01">
+          <img class="ba__base" src="img/placeholder/depois.svg" alt="Abdômen de perfil após o protocolo">
+          <div class="ba__clip"><img src="img/placeholder/antes.svg" alt="Abdômen de perfil antes do protocolo"></div>
+          <input type="range" class="ba__range" min="0" max="100" value="50" step="0.1" aria-label="Comparar antes e depois — abdômen de perfil">
+          <span class="ba__tag ba__tag--a">Antes</span>
+          <span class="ba__tag ba__tag--d">Depois</span>
+          <span class="ba__handle" aria-hidden="true"><i></i></span>
+        </div>
+        <h3 class="ba-card__t">Firmeza corporal · perfil</h3>
+        <p class="ba-card__m">Protocolo corporal</p>
+      </article>
+
+      <article class="ba-card" data-cat="facial" data-reveal>
+        <div class="ba" data-ba style="--ratio:1.82">
+          <img class="ba__base" src="img/placeholder/depois.svg" alt="Rosto após o protocolo de rejuvenescimento">
+          <div class="ba__clip"><img src="img/placeholder/antes.svg" alt="Rosto antes do protocolo de rejuvenescimento"></div>
+          <input type="range" class="ba__range" min="0" max="100" value="50" step="0.1" aria-label="Comparar antes e depois — rejuvenescimento">
+          <span class="ba__tag ba__tag--a">Antes</span>
+          <span class="ba__tag ba__tag--d">Depois</span>
+          <span class="ba__handle" aria-hidden="true"><i></i></span>
+        </div>
+        <h3 class="ba-card__t">Rejuvenescimento · textura e manchas</h3>
+        <p class="ba-card__m">Protocolo facial</p>
+      </article>
+
+      <article class="ba-card" data-cat="corporal" data-reveal data-delay="80">
+        <div class="ba" data-ba style="--ratio:0.59">
+          <img class="ba__base" src="img/placeholder/depois.svg" alt="Abdômen masculino após o protocolo">
+          <div class="ba__clip"><img src="img/placeholder/antes.svg" alt="Abdômen masculino antes do protocolo"></div>
+          <input type="range" class="ba__range" min="0" max="100" value="50" step="0.1" aria-label="Comparar antes e depois — flacidez">
+          <span class="ba__tag ba__tag--a">Antes</span>
+          <span class="ba__tag ba__tag--d">Depois</span>
+          <span class="ba__handle" aria-hidden="true"><i></i></span>
+        </div>
+        <h3 class="ba-card__t">Flacidez pós-emagrecimento</h3>
+        <p class="ba-card__m">Protocolo corporal</p>
+      </article>
+
+      <article class="ba-card" data-cat="facial" data-reveal>
+        <div class="ba" data-ba style="--ratio:2.46">
+          <img class="ba__base" src="img/placeholder/depois.svg" alt="Perfil do rosto após o tratamento de acne">
+          <div class="ba__clip"><img src="img/placeholder/antes.svg" alt="Perfil do rosto antes do tratamento de acne"></div>
+          <input type="range" class="ba__range" min="0" max="100" value="50" step="0.1" aria-label="Comparar antes e depois — acne de perfil">
+          <span class="ba__tag ba__tag--a">Antes</span>
+          <span class="ba__tag ba__tag--d">Depois</span>
+          <span class="ba__handle" aria-hidden="true"><i></i></span>
+        </div>
+        <h3 class="ba-card__t">Controle de acne · perfil</h3>
+        <p class="ba-card__m">Protocolo facial</p>
+      </article>
+
+      <article class="ba-card" data-cat="corporal" data-reveal data-delay="80">
+        <div class="ba" data-ba style="--ratio:0.87">
+          <img class="ba__base" src="img/placeholder/depois.svg" alt="Abdômen frontal após o protocolo">
+          <div class="ba__clip"><img src="img/placeholder/antes.svg" alt="Abdômen frontal antes do protocolo"></div>
+          <input type="range" class="ba__range" min="0" max="100" value="50" step="0.1" aria-label="Comparar antes e depois — abdômen frontal">
+          <span class="ba__tag ba__tag--a">Antes</span>
+          <span class="ba__tag ba__tag--d">Depois</span>
+          <span class="ba__handle" aria-hidden="true"><i></i></span>
+        </div>
+        <h3 class="ba-card__t">Firmeza e estrias · abdômen</h3>
+        <p class="ba-card__m">Protocolo corporal</p>
+      </article>
+
+    </div>
+
+    <p class="micro micro--center" data-reveal>
+      Resultados variam de pessoa pra pessoa. As imagens mostram casos individuais e não
+      representam garantia de resultado.<br>
+      Autorização de uso de imagem de cada paciente: <span class="pendente">[A CONFIRMAR]</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ MÉTODO -->
+<section class="section section--dark metodo" id="metodo">
+  <div class="metodo__glow" aria-hidden="true"></div>
+  <div class="wrap">
+
+    <header class="section__head section__head--center">
+      <p class="label label--dark" data-reveal>Programa assinatura</p>
+      <h2 class="h2" data-reveal data-delay="100">[NOME DO <em>PROGRAMA</em>]</h2>
+      <p class="lead" data-reveal data-delay="180" style="margin-inline:auto">
+        Criado pra quem tem rotina cheia, noite mal dormida e pouco tempo pra si mesma.
+        Um acompanhamento que cabe na vida real — e não o contrário.
+      </p>
+    </header>
+
+    <ol class="steps">
+      <li class="step" data-reveal>
+        <span class="step__n">01</span>
+        <h3 class="step__t">Avaliação completa</h3>
+        <p>Histórico, rotina, medidas e objetivo. Uma conversa longa antes de qualquer aparelho ligar.</p>
+      </li>
+      <li class="step" data-reveal data-delay="120">
+        <span class="step__n">02</span>
+        <h3 class="step__t">Protocolo desenhado</h3>
+        <p>Combinação de procedimentos e frequência definidas pro seu caso, com prazo claro.</p>
+      </li>
+      <li class="step" data-reveal data-delay="240">
+        <span class="step__n">03</span>
+        <h3 class="step__t">Execução com medição</h3>
+        <p>Cada etapa é registrada. Você vê a evolução em número e em foto, não só no espelho.</p>
+      </li>
+      <li class="step" data-reveal data-delay="360">
+        <span class="step__n">04</span>
+        <h3 class="step__t">Manutenção</h3>
+        <p>O que fazer depois pra o resultado durar — em casa, na rotina, sem virar um segundo emprego.</p>
+      </li>
+    </ol>
+
+    <div class="metodo__cta" data-reveal data-delay="200">
+      <a href="#contato" class="btn btn--light"
+         data-wpp="Olá! Quero saber mais sobre o programa [NOME DO PROGRAMA].">
+        Quero saber se serve pra mim
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ DEPOIMENTO -->
+<section class="section depoimento" id="depoimentos">
+  <div class="wrap depo__grid">
+
+    <div class="depo__media" data-reveal>
+      <div class="img-reveal">
+        <img src="img/placeholder/editorial-1.svg" alt="[NOME DA PACIENTE] — [PUBLICAÇÃO], edição [N]">
+      </div>
+    </div>
+
+    <div class="depo__body">
+      <p class="label" data-reveal>[PUBLICAÇÃO] · Edição [N]</p>
+
+      <blockquote class="quote" data-reveal data-delay="120">
+        “[DEPOIMENTO EM UMA FRASE — o trecho mais forte, com
+        <span class="champ">o miolo em destaque</span> aqui no meio.]”
+      </blockquote>
+
+      <div class="quote__by" data-reveal data-delay="260">
+        <strong>[NOME DA PACIENTE]</strong>
+        <span>[NOME DO PROGRAMA]</span>
+      </div>
+
+      <p class="depo__extra" data-reveal data-delay="340">
+        “[Segunda frase do depoimento, mais curta.]” [Uma linha sua conectando a fala
+        ao jeito da clínica trabalhar — por que esse depoimento resume o atendimento.]
+      </p>
+
+      <a href="#magazine" class="arrow-link" data-reveal data-delay="400" style="margin-top:28px;font-size:12px">
+        Ler a edição completa
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================ MAGAZINE -->
+<section class="section section--alt magazine" id="magazine">
+  <div class="wrap">
+    <header class="section__head">
+      <p class="label" data-reveal>Conteúdo</p>
+      <h2 class="h2" data-reveal data-delay="100">Magazine [NOME DA CLÍNICA]</h2>
+      <p class="lead" data-reveal data-delay="180">
+        A cada edição, a história de uma paciente contada por inteiro. Clique pra ampliar.
+      </p>
+    </header>
+
+    <div class="mag-grid">
+      <figure class="mag" data-reveal data-lightbox="img/placeholder/editorial-1.svg">
+        <img src="img/placeholder/editorial-1.svg" alt="Capa da edição 4 do Magazine [NOME DA CLÍNICA]">
+        <figcaption>Capa · Edição 4</figcaption>
+      </figure>
+      <figure class="mag" data-reveal data-delay="60" data-lightbox="img/placeholder/editorial-2.svg">
+        <img src="img/placeholder/editorial-2.svg" alt="Página: antes do método [NOME DO PROGRAMA]">
+        <figcaption>Antes do método</figcaption>
+      </figure>
+      <figure class="mag" data-reveal data-delay="120" data-lightbox="img/placeholder/editorial-3.svg">
+        <img src="img/placeholder/editorial-3.svg" alt="Página: o primeiro passo e o processo">
+        <figcaption>O primeiro passo</figcaption>
+      </figure>
+      <figure class="mag" data-reveal data-delay="180" data-lightbox="img/placeholder/editorial-4.svg">
+        <img src="img/placeholder/editorial-4.svg" alt="Página: o reencontro com sua essência">
+        <figcaption>O reencontro</figcaption>
+      </figure>
+      <figure class="mag" data-reveal data-delay="240" data-lightbox="img/placeholder/editorial-5.svg">
+        <img src="img/placeholder/editorial-5.svg" alt="Página: muito além do emagrecimento">
+        <figcaption>Além do emagrecimento</figcaption>
+      </figure>
+      <figure class="mag" data-reveal data-delay="300" data-lightbox="img/placeholder/editorial-6.svg">
+        <img src="img/placeholder/editorial-6.svg" alt="Página: cuidar de si mesma é um ato de amor">
+        <figcaption>Um ato de amor</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FAQ -->
+<section class="section faq" id="faq">
+  <div class="wrap faq__grid">
+
+    <div class="faq__aside">
+      <p class="label" data-reveal>Dúvidas</p>
+      <h2 class="h2" data-reveal data-delay="100">Antes de agendar</h2>
+      <p data-reveal data-delay="180">
+        Não achou o que procurava? Chama no WhatsApp — a gente responde pessoalmente,
+        sem robô no meio.
+      </p>
+      <a href="#contato" class="arrow-link" data-reveal data-delay="240"
+         data-wpp="Olá! Vim pelo site e fiquei com uma dúvida.">
+        Falar com a clínica
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+      </a>
+    </div>
+
+    <div class="accordion" data-reveal data-delay="120">
+
+      <div class="acc">
+        <button class="acc__q" aria-expanded="false">
+          Como funciona a primeira consulta?
+          <i class="acc__icon"></i>
+        </button>
+        <div class="acc__a"><div><p>
+          É uma avaliação, não uma venda. A gente conversa sobre o seu histórico, examina a
+          área que te incomoda, tira medidas e fotos de acompanhamento. Só depois disso montamos
+          a proposta de protocolo — com número de sessões, intervalo e valor fechado.
+        </p></div></div>
+      </div>
+
+      <div class="acc">
+        <button class="acc__q" aria-expanded="false">
+          Em quanto tempo eu vejo resultado?
+          <i class="acc__icon"></i>
+        </button>
+        <div class="acc__a"><div><p>
+          Depende do protocolo e do ponto de partida. Alguns tratamentos faciais mostram diferença
+          já na primeira semana; protocolos corporais costumam pedir um ciclo completo pra
+          resultado consolidado. Na avaliação você recebe uma estimativa honesta — inclusive se
+          o caso não for pra gente.
+        </p></div></div>
+      </div>
+
+      <div class="acc">
+        <button class="acc__q" aria-expanded="false">
+          Dói? Preciso de afastamento?
+          <i class="acc__icon"></i>
+        </button>
+        <div class="acc__a"><div><p>
+          A maior parte dos procedimentos é confortável e você volta pra rotina no mesmo dia.
+          Quando houver algum desconforto ou período de recuperação, isso é dito antes do
+          agendamento — nunca na hora.
+        </p></div></div>
+      </div>
+
+      <div class="acc">
+        <button class="acc__q" aria-expanded="false">
+          Vocês atendem homens?
+          <i class="acc__icon"></i>
+        </button>
+        <div class="acc__a"><div><p>
+          Sim. Boa parte dos protocolos corporais e faciais atende homens e mulheres —
+          alguns dos resultados publicados aqui são de pacientes masculinos.
+        </p></div></div>
+      </div>
+
+      <div class="acc">
+        <button class="acc__q" aria-expanded="false">
+          Quais as formas de pagamento?
+          <i class="acc__icon"></i>
+        </button>
+        <div class="acc__a"><div><p>
+          Formas de pagamento aceitas, parcelamento e condições de pacote:
+          <span class="pendente">[A CONFIRMAR]</span>
+        </p></div></div>
+      </div>
+
+      <div class="acc">
+        <button class="acc__q" aria-expanded="false">
+          Onde fica a clínica?
+          <i class="acc__icon"></i>
+        </button>
+        <div class="acc__a"><div><p>
+          Estamos na [ENDEREÇO] — [CIDADE/UF]. Ponto de referência e estacionamento:
+          <span class="pendente">[A CONFIRMAR]</span>
+        </p></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CONTATO -->
+<section class="section section--dark contato" id="contato">
+  <div class="wrap contato__grid">
+
+    <div class="contato__info">
+      <p class="label label--dark" data-reveal>Contato</p>
+      <h2 class="h2" data-reveal data-delay="100">Vamos <em>começar?</em></h2>
+      <p class="lead" data-reveal data-delay="180">
+        Conta pra gente o que te incomoda. A avaliação é o primeiro passo e não compromete nada.
+      </p>
+
+      <ul class="contato__list">
+        <li data-reveal data-delay="240">
+          <span class="contato__label">WhatsApp</span>
+          <a href="#contato" target="_blank" rel="noopener">[A CONFIRMAR]</a>
+        </li>
+        <li data-reveal data-delay="290">
+          <span class="contato__label">Endereço</span>
+          <span>[ENDEREÇO]<br>[CIDADE — UF]</span>
+        </li>
+        <li data-reveal data-delay="340">
+          <span class="contato__label">Horários</span>
+          <span class="pendente">[A CONFIRMAR]</span>
+        </li>
+        <li data-reveal data-delay="390">
+          <span class="contato__label">Instagram</span>
+          <a href="#" target="_blank" rel="noopener">[@INSTAGRAM]</a>
+        </li>
+      </ul>
+    </div>
+
+    <form class="form" data-reveal data-delay="200" id="form" novalidate>
+      <div class="field">
+        <input type="text" id="nome" name="nome" required placeholder=" ">
+        <label for="nome">Seu nome</label>
+      </div>
+      <div class="field">
+        <input type="tel" id="tel" name="tel" required placeholder=" ">
+        <label for="tel">WhatsApp</label>
+      </div>
+      <div class="field">
+        <select id="interesse" name="interesse" required>
+          <option value="" disabled selected></option>
+          <option>Rejuvenescimento facial</option>
+          <option>Tratamento de acne</option>
+          <option>Lifting e papada</option>
+          <option>Limpeza de pele</option>
+          <option>Redução de medidas</option>
+          <option>Flacidez corporal</option>
+          <option>Gordura localizada</option>
+          <option>Drenagem linfática</option>
+          <option>Programa [NOME DO PROGRAMA]</option>
+          <option>Ainda não sei — quero avaliar</option>
+        </select>
+        <label for="interesse">Tenho interesse em</label>
+      </div>
+      <div class="field">
+        <textarea id="msg" name="msg" rows="4" placeholder=" "></textarea>
+        <label for="msg">Quer contar mais? (opcional)</label>
+      </div>
+
+      <button type="submit" class="btn btn--light form__submit">
+        Enviar pelo WhatsApp
+      </button>
+      <p class="form__note">
+        Ao enviar, abrimos o WhatsApp com sua mensagem pronta.<br>Nada é armazenado neste site.
+      </p>
+    </form>
+
+  </div>
+
+  <div class="mapa" data-reveal>
+    <!-- Mapa: troque o q= pelo endereço real e o iframe volta a funcionar.
+         Ex.: ?q=Rua+Exemplo,+123,+Cidade+-+UF&output=embed -->
+    <iframe
+      title="Localização da [NOME DA CLÍNICA] — [ENDEREÇO], [CIDADE/UF]"
+      src="about:blank" data-src="https://www.google.com/maps?q=[ENDERECO+URL]&output=embed"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================ FOOTER -->
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <img src="img/placeholder/marca-logo.svg" alt="[NOME DA CLÍNICA]" class="footer__logo">
+      <p>Estética avançada · [CIDADE — UF]</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Rodapé">
+      <a href="#clinica">A clínica</a>
+      <a href="#procedimentos">Procedimentos</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#metodo">[NOME DO PROGRAMA]</a>
+      <a href="#magazine">Magazine</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <div class="footer__meta">
+      <p>Responsável técnica: <span class="pendente">[A CONFIRMAR]</span></p>
+      <p>© <span id="ano">2026</span> [NOME DA CLÍNICA]</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================ FLUTUANTES -->
+<a href="#contato" class="wpp" id="wpp" data-wpp="Olá! Vim pelo site da [NOME DA CLÍNICA]."
+   aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.17 1.71 2.61 4.14 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+</a>
+
+<button class="totop" id="totop" aria-label="Voltar ao topo"><i></i></button>
+
+<!-- ============================================================ MODAL -->
+<div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel">
+    <button class="modal__close" data-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <span class="modal__n" id="modalNum"></span>
+    <h3 class="modal__t" id="modalTitle"></h3>
+    <div class="modal__body" id="modalBody"></div>
+    <a class="btn modal__cta" id="modalCta" target="_blank" rel="noopener">Agendar avaliação</a>
+  </div>
+</div>
+
+<!-- ============================================================ LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visualizar imagem">
+  <button class="lightbox__close" aria-label="Fechar">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+         stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+  <button class="lightbox__nav lightbox__nav--prev" aria-label="Anterior"></button>
+  <img id="lightboxImg" src="" alt="">
+  <button class="lightbox__nav lightbox__nav--next" aria-label="Próxima"></button>
+</div>
+
+<script>
+/* =========================================================================
+   MODELO — CLÍNICA DE ESTÉTICA · interações
+   Sem dependências. Tudo degrada com elegância se o JS falhar:
+   a entrada do hero é CSS puro, o resto continua legível e navegável.
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  /* -----------------------------------------------------------------------
+     CONSTANTES — os dois únicos lugares pra preencher.
+     ----------------------------------------------------------------------- */
+
+  // DDI + DDD + número, só dígitos. Vazio = os CTAs rolam pra #contato.
+  var WHATSAPP = '';
+
+  // Caminho do vídeo de fundo do hero (ex.: 'img/hero/hero.mp4').
+  // Vazio = usa a foto img/placeholder/hero.svg. Coloque o arquivo dentro de
+  // img/hero/ pra o site continuar funcionando offline.
+  var HERO_VIDEO = '';
+
+  var $  = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* modo captura: index.html?print — página já revelada, sem animação.
+     Serve pra gerar o PDF de apresentação e screenshots. */
+  var PRINT = /[?&](print|static)(=|&|$)/.test(location.search);
+  if (PRINT) document.documentElement.classList.add('is-print');
+
+  var reduced = PRINT || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ============ VÍDEO DO HERO ============ */
+  function initHeroVideo() {
+    if (!HERO_VIDEO || reduced) return;
+    var media = $('.hero__media');
+    if (!media) return;
+
+    var v = document.createElement('video');
+    v.autoplay = true; v.loop = true; v.muted = true; v.playsInline = true;
+    v.setAttribute('muted', '');           // Safari só respeita o atributo
+    v.setAttribute('playsinline', '');
+    v.poster = 'img/placeholder/hero.svg';
+    v.src = HERO_VIDEO;
+    // se o arquivo não existir, a foto que já está no DOM continua aparecendo
+    v.addEventListener('error', function () { v.remove(); });
+    media.appendChild(v);
+  }
+
+  /* ============ WHATSAPP: ativa os CTAs ============ */
+  function initWhatsapp() {
+    if (!WHATSAPP) return;                 // sem número → mantém href="#contato"
+    $$('[data-wpp]').forEach(function (el) {
+      var msg = el.getAttribute('data-wpp') || 'Olá! Vim pelo site da [NOME DA CLÍNICA].';
+      el.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg);
+      el.target = '_blank';
+      el.rel = 'noopener';
+    });
+  }
+
+  /* ============ FLUTUANTES ============ */
+  function initFloats() {
+    var totop = $('#totop');
+    var wpp   = $('#wpp');
+
+    function onScroll() {
+      var y = window.scrollY;
+      if (totop) totop.classList.toggle('is-in', y > 900);
+      if (wpp)   wpp.classList.toggle('is-in', y > 500);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if (totop) totop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    });
+  }
+
+  /* ============ MENU MOBILE ============ */
+  function initMenu() {
+    var burger = $('#burger');
+    var menu   = $('#menu');
+    var close  = $('#menuClose');
+    if (!burger || !menu) return;
+
+    function setOpen(open) {
+      burger.setAttribute('aria-expanded', String(open));
+      menu.classList.toggle('is-open', open);
+      menu.setAttribute('aria-hidden', String(!open));
+      document.body.classList.toggle('is-locked', open);
+
+      // escalona a entrada dos links, no mesmo ritmo do hero
+      $$('.menu__link', menu).forEach(function (l, i) {
+        l.style.transitionDelay = open ? (0.14 + i * 0.06) + 's' : '0s';
+      });
+
+      if (open) close.focus();
+      else burger.focus();
+    }
+
+    burger.addEventListener('click', function () { setOpen(true); });
+    close.addEventListener('click', function () { setOpen(false); });
+    $$('.menu__link, .menu__foot a', menu).forEach(function (l) {
+      l.addEventListener('click', function () { setOpen(false); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('is-open')) setOpen(false);
+    });
+  }
+
+  /* ============ REVELAÇÃO NO SCROLL ============ */
+  function initReveal() {
+    var targets = $$('[data-reveal], .img-reveal');
+    if (PRINT || !('IntersectionObserver' in window)) {
+      targets.forEach(function (t) { t.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var d = e.target.getAttribute('data-delay');
+        if (d) e.target.style.setProperty('--d', d + 'ms');
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    targets.forEach(function (t) { io.observe(t); });
+  }
+
+  /* ============ ANTES / DEPOIS ============ */
+  function initBeforeAfter() {
+    $$('[data-ba]').forEach(function (ba) {
+      var range = $('.ba__range', ba);
+      if (!range) return;
+
+      function set(v) {
+        v = Math.max(0, Math.min(100, v));
+        ba.style.setProperty('--pos', v + '%');
+        range.value = v;
+      }
+      function fromEvent(e) {
+        var r = ba.getBoundingClientRect();
+        var cx = (e.touches ? e.touches[0].clientX : e.clientX);
+        set(((cx - r.left) / r.width) * 100);
+      }
+
+      range.addEventListener('input', function () { set(parseFloat(range.value)); });
+
+      var dragging = false;
+      ba.addEventListener('pointerdown', function (e) {
+        dragging = true; ba.setPointerCapture(e.pointerId); fromEvent(e);
+      });
+      ba.addEventListener('pointermove', function (e) { if (dragging) fromEvent(e); });
+      ['pointerup', 'pointercancel'].forEach(function (ev) {
+        ba.addEventListener(ev, function () { dragging = false; });
+      });
+
+      // varredura de apresentação quando o card entra na tela
+      if (!reduced && 'IntersectionObserver' in window) {
+        var shown = false;
+        new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (e) {
+            if (!e.isIntersecting || shown) return;
+            shown = true; obs.disconnect();
+            var t0 = null;
+            requestAnimationFrame(function step(ts) {
+              if (!t0) t0 = ts;
+              var p = Math.min((ts - t0) / 1400, 1);
+              var ease = 1 - Math.pow(1 - p, 3);
+              set(15 + ease * 35);                 // 15% → 50%
+              if (p < 1) requestAnimationFrame(step);
+            });
+          });
+        }, { threshold: 0.45 }).observe(ba);
+        set(15);
+      } else {
+        set(50);
+      }
+    });
+  }
+
+  /* ============ FILTROS DE RESULTADO ============ */
+  function initFilters() {
+    var btns  = $$('.filter');
+    var cards = $$('.ba-card');
+    if (!btns.length) return;
+
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        btns.forEach(function (o) {
+          o.classList.toggle('is-active', o === b);
+          o.setAttribute('aria-selected', String(o === b));
+        });
+        var f = b.getAttribute('data-filter');
+        cards.forEach(function (c) {
+          var show = f === 'todos' || c.getAttribute('data-cat') === f;
+          c.classList.toggle('is-hidden', !show);
+        });
+      });
+    });
+  }
+
+  /* ============ ACORDEÃO ============ */
+  function initAccordion() {
+    $$('.acc__q').forEach(function (q) {
+      q.addEventListener('click', function () {
+        var acc  = q.closest('.acc');
+        var open = acc.classList.contains('is-open');
+        // um aberto por vez
+        $$('.acc').forEach(function (a) {
+          a.classList.remove('is-open');
+          $('.acc__q', a).setAttribute('aria-expanded', 'false');
+        });
+        if (!open) { acc.classList.add('is-open'); q.setAttribute('aria-expanded', 'true'); }
+      });
+    });
+  }
+
+  /* ============ MODAL DE PROCEDIMENTO ============ */
+  var PROCEDIMENTOS = {
+    p1: { num: '01', titulo: 'Rejuvenescimento facial',
+      texto: 'Trabalha a pele por camadas: textura na superfície, firmeza no colágeno mais profundo. O protocolo é montado conforme a idade da pele, o grau de flacidez e o tempo que você tem disponível.',
+      itens: ['Avaliação da pele antes de definir a combinação', 'Sessões espaçadas conforme a resposta de cada pele', 'Orientação de cuidado em casa entre as sessões'] },
+    p2: { num: '02', titulo: 'Tratamento de acne',
+      texto: 'Duas frentes ao mesmo tempo: controlar as lesões ativas e cuidar das marcas que a acne deixa. O ritmo é ditado pela pele — forçar etapa aqui costuma piorar.',
+      itens: ['Controle do processo inflamatório ativo', 'Cuidado com manchas e marcas residuais', 'Ajuste da rotina de cuidado diário'] },
+    p3: { num: '03', titulo: 'Lifting e papada',
+      texto: 'Foco no terço inferior do rosto: definição da linha da mandíbula e sustentação da região do queixo e pescoço.',
+      itens: ['Avaliação do grau de flacidez da região', 'Protocolo progressivo, com registro fotográfico', 'Plano de manutenção depois do ciclo'] },
+    p4: { num: '04', titulo: 'Limpeza de pele profunda',
+      texto: 'A base de tudo. Pele limpa e preparada responde melhor a qualquer protocolo que venha depois — e muitas vezes já resolve boa parte da queixa sozinha.',
+      itens: ['Extração e higienização profunda', 'Preparo da pele pra protocolos seguintes', 'Indicada como manutenção periódica'] },
+    p5: { num: '05', titulo: 'Redução de medidas',
+      texto: 'Protocolo corporal progressivo com medição a cada etapa. Você acompanha a evolução em número, não só na percepção do espelho.',
+      itens: ['Medidas registradas no início e a cada ciclo', 'Combinação definida conforme a região', 'Orientação de rotina pra sustentar o resultado'] },
+    p6: { num: '06', titulo: 'Flacidez corporal',
+      texto: 'Pra pele que perdeu sustentação — depois de emagrecimento, gestação ou com o tempo. O trabalho é de estímulo de firmeza, e pede constância.',
+      itens: ['Avaliação do grau e da região afetada', 'Ciclo com número de sessões definido na avaliação', 'Acompanhamento fotográfico da evolução'] },
+    p7: { num: '07', titulo: 'Gordura localizada',
+      texto: 'Direcionado às regiões que não respondem só a dieta e treino. A avaliação define se o caso é de gordura localizada mesmo ou de outra coisa — e isso muda tudo.',
+      itens: ['Avaliação da região antes de indicar', 'Protocolo por ciclo, com medição', 'Combinação com outros protocolos quando fizer sentido'] },
+    p8: { num: '08', titulo: 'Drenagem linfática',
+      texto: 'Técnica manual pra retenção de líquido, sensação de inchaço e recuperação de pós-operatório.',
+      itens: ['Sessão manual, sem aparelho', 'Indicada também no pós-operatório', 'Frequência definida conforme o objetivo'] }
+  };
+
+  function initModal() {
+    var modal = $('#modal');
+    if (!modal) return;
+    var lastFocus = null;
+
+    function open(key) {
+      var d = PROCEDIMENTOS[key];
+      if (!d) return;
+      lastFocus = document.activeElement;
+      $('#modalNum').textContent   = d.num;
+      $('#modalTitle').textContent = d.titulo;
+      $('#modalBody').innerHTML =
+        '<p>' + d.texto + '</p><ul>' + d.itens.map(function (i) { return '<li>' + i + '</li>'; }).join('') + '</ul>';
+
+      var cta = $('#modalCta');
+      var msg = 'Olá! Tenho interesse em ' + d.titulo + '. Vim pelo site.';
+      if (WHATSAPP) { cta.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg); cta.target = '_blank'; }
+      else { cta.href = '#contato'; cta.removeAttribute('target'); }
+
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('is-locked');
+      $('.modal__close', modal).focus();
+    }
+
+    function close() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('is-locked');
+      if (lastFocus) lastFocus.focus();
+    }
+
+    $$('[data-modal]').forEach(function (b) {
+      b.addEventListener('click', function () { open(b.getAttribute('data-modal')); });
+    });
+    $$('[data-close]', modal).forEach(function (b) { b.addEventListener('click', close); });
+    $('#modalCta').addEventListener('click', function () {
+      if (!WHATSAPP) close();                      // vira âncora pra #contato
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+    });
+  }
+
+  /* ============ LIGHTBOX ============ */
+  function initLightbox() {
+    var box = $('#lightbox');
+    if (!box) return;
+    var img  = $('#lightboxImg');
+    var figs = $$('[data-lightbox]');
+    var srcs = figs.map(function (f) { return f.getAttribute('data-lightbox'); });
+    var alts = figs.map(function (f) { var i = $('img', f); return i ? i.alt : ''; });
+    var idx  = 0;
+    var lastFocus = null;
+
+    function show(i) {
+      idx = (i + srcs.length) % srcs.length;
+      img.src = srcs[idx];
+      img.alt = alts[idx];
+    }
+    function open(i) {
+      lastFocus = document.activeElement;
+      show(i);
+      box.classList.add('is-open');
+      box.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('is-locked');
+      $('.lightbox__close', box).focus();
+    }
+    function close() {
+      box.classList.remove('is-open');
+      box.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('is-locked');
+      if (lastFocus) lastFocus.focus();
+    }
+
+    figs.forEach(function (f, i) { f.addEventListener('click', function () { open(i); }); });
+    $('.lightbox__close', box).addEventListener('click', close);
+    $('.lightbox__nav--prev', box).addEventListener('click', function () { show(idx - 1); });
+    $('.lightbox__nav--next', box).addEventListener('click', function () { show(idx + 1); });
+    box.addEventListener('click', function (e) { if (e.target === box) close(); });
+
+    document.addEventListener('keydown', function (e) {
+      if (!box.classList.contains('is-open')) return;
+      if (e.key === 'Escape')     close();
+      if (e.key === 'ArrowLeft')  show(idx - 1);
+      if (e.key === 'ArrowRight') show(idx + 1);
+    });
+  }
+
+  /* ============ SCROLL SPY ============ */
+  function initSpy() {
+    var links = $$('.nav__link');
+    var secs  = links.map(function (l) { return $(l.getAttribute('href')); }).filter(Boolean);
+    if (!secs.length || !('IntersectionObserver' in window)) return;
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (l) {
+          l.classList.toggle('is-active', l.getAttribute('href') === '#' + e.target.id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+
+    secs.forEach(function (s) { io.observe(s); });
+  }
+
+  /* ============ FORMULÁRIO → WHATSAPP ============ */
+  function initForm() {
+    var form = $('#form');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var nome = $('#nome').value.trim();
+      var tel  = $('#tel').value.trim();
+      var alvo = $('#interesse').value;
+      var msg  = $('#msg').value.trim();
+
+      if (!nome || !tel || !alvo) {
+        (!nome ? $('#nome') : !tel ? $('#tel') : $('#interesse')).focus();
+        return;
+      }
+
+      var texto = 'Olá! Sou ' + nome + '.\n'
+                + 'Tenho interesse em: ' + alvo + '.\n'
+                + 'WhatsApp: ' + tel + '.'
+                + (msg ? '\n\n' + msg : '');
+
+      if (WHATSAPP) {
+        window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+      } else {
+        alert('Protótipo: o número de WhatsApp ainda não foi preenchido.\n\n'
+            + 'A mensagem que seria enviada:\n\n' + texto);
+      }
+    });
+  }
+
+  /* ============ ANO NO RODAPÉ ============ */
+  function initAno() {
+    var el = $('#ano');
+    if (el) el.textContent = new Date().getFullYear();
+  }
+
+  /* ============ BOOT ============ */
+  function boot() {
+    initHeroVideo();
+    initWhatsapp();
+    initFloats();
+    initMenu();
+    initReveal();
+    initBeforeAfter();
+    initFilters();
+    initAccordion();
+    initModal();
+    initLightbox();
+    initSpy();
+    initForm();
+    initAno();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+</script>
+</body>
+</html>

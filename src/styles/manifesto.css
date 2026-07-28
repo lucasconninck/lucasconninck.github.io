@@ -1,0 +1,32 @@
+/* ============================================================
+   MANIFESTO — uma frase, iluminada palavra a palavra pelo scroll
+   ============================================================ */
+
+.manifesto {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  padding: var(--esp-7) var(--esp-4);
+}
+
+.manifesto p {
+  font-family: var(--fonte-titulo);
+  font-stretch: 118%;
+  font-weight: 600;
+  font-size: var(--titulo-g);
+  line-height: 1.12;
+  max-width: 24ch;
+  text-wrap: balance;
+}
+
+/* Cada palavra nasce apagada; o GSAP acende conforme o scroll passa. */
+.manifesto .palavra {
+  opacity: 0.16;
+}
+
+/* Sem movimento: a frase já nasce inteira, legível. */
+@media (prefers-reduced-motion: reduce) {
+  .manifesto .palavra {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,281 @@
+/* ============================================================
+   MÉTODO, SERVIÇOS E CONTATO — o caminho até o orçamento
+   ============================================================ */
+
+/* rótulo de seção, compartilhado */
+.rotulo {
+  display: block;
+  color: var(--apoio);
+  font-size: var(--texto-s);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: var(--esp-4);
+}
+
+/* --- MÉTODO ------------------------------------------------------- */
+
+.metodo {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: var(--esp-5);
+  padding: var(--esp-7) var(--esp-4);
+  border-top: 1px solid var(--linha);
+}
+
+.metodo-intro {
+  position: sticky;
+  top: 18vh;
+  align-self: start;
+}
+
+.metodo-intro h2 {
+  font-family: var(--fonte-titulo);
+  font-stretch: 118%;
+  font-weight: 700;
+  font-size: var(--titulo-m);
+  line-height: 1.05;
+  max-width: 14ch;
+}
+
+.metodo-intro p {
+  color: var(--apoio);
+  margin-top: var(--esp-3);
+  max-width: 34ch;
+}
+
+.metodo-passos {
+  counter-reset: passo;
+}
+
+.metodo-passo {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--esp-4);
+  padding: var(--esp-4) 0;
+  border-top: 1px solid var(--linha);
+  opacity: 0.35; /* apagado; o scroll acende (classe .ativo via JS) */
+  transition: opacity 0.5s var(--curva);
+}
+
+.metodo-passo.ativo {
+  opacity: 1;
+}
+
+.metodo-passo em {
+  font-style: normal;
+  font-family: var(--fonte-titulo);
+  font-stretch: 125%;
+  font-weight: 700;
+  font-size: var(--texto-l);
+  color: var(--apoio);
+  transition: color 0.5s var(--curva);
+}
+
+.metodo-passo.ativo em {
+  color: var(--acento);
+}
+
+.metodo-passo h3 {
+  font-family: var(--fonte-titulo);
+  font-stretch: 118%;
+  font-size: var(--texto-l);
+  font-weight: 700;
+}
+
+.metodo-passo p {
+  color: var(--apoio);
+  margin-top: var(--esp-1);
+  max-width: 52ch;
+}
+
+/* Sem movimento (ou sem JS): tudo legível desde o início */
+@media (prefers-reduced-motion: reduce) {
+  .metodo-passo {
+    opacity: 1;
+  }
+  .metodo-passo em {
+    color: var(--acento);
+  }
+}
+
+@media (max-width: 860px) {
+  .metodo {
+    grid-template-columns: 1fr;
+  }
+  .metodo-intro {
+    position: static;
+  }
+}
+
+/* --- SERVIÇOS ------------------------------------------------------ */
+
+.servicos {
+  padding: var(--esp-7) var(--esp-4);
+}
+
+.servico {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'nome nota'
+    'texto texto';
+  align-items: baseline;
+  gap: var(--esp-1) var(--esp-3);
+  padding: var(--esp-4) 0;
+  border-top: 1px solid var(--linha);
+}
+
+.servico:last-child {
+  border-bottom: 1px solid var(--linha);
+}
+
+.servico strong {
+  grid-area: nome;
+  font-family: var(--fonte-titulo);
+  font-stretch: 125%;
+  font-weight: 700;
+  font-size: var(--titulo-m);
+  line-height: 1.05;
+  transition: color 0.35s var(--curva);
+}
+
+.servico:hover strong {
+  color: var(--acento);
+}
+
+.servico-nota {
+  grid-area: nota;
+  font-style: normal;
+  color: var(--acento);
+  font-size: var(--texto-s);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid var(--acento);
+  border-radius: 999px;
+  padding: 0.3em 0.9em;
+  white-space: nowrap;
+}
+
+.servico p {
+  grid-area: texto;
+  color: var(--apoio);
+  max-width: 52ch;
+}
+
+@media (max-width: 640px) {
+  .servico {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'nome'
+      'nota'
+      'texto';
+  }
+  .servico-nota {
+    justify-self: start;
+  }
+}
+
+/* --- CONTATO -------------------------------------------------------- */
+
+.contato {
+  min-height: 88svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--esp-7) var(--esp-4);
+  border-top: 1px solid var(--linha);
+}
+
+.contato-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: var(--titulo-g);
+  font-weight: 800;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+
+.contato-titulo .linha {
+  display: block;
+  overflow: hidden; /* máscara da revelação, igual ao hero */
+}
+
+.contato-titulo .linha > span {
+  display: block;
+}
+
+.contato-acoes {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  flex-wrap: wrap;
+  margin-top: var(--esp-5);
+}
+
+/* linha de contatos diretos, abaixo dos dois botões */
+.contato-diretos {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-4);
+  flex-wrap: wrap;
+  margin-top: var(--esp-3);
+}
+
+.botao-whats {
+  background: var(--acento);
+  color: var(--fundo);
+  font-weight: 600;
+  font-size: var(--texto-m);
+  padding: 1.05em 2.2em;
+  border-radius: 999px;
+  transition: filter 0.35s var(--curva), transform 0.35s var(--curva);
+}
+
+.botao-whats:hover {
+  filter: brightness(1.07);
+  transform: translateY(-2px);
+}
+
+/* Segundo caminho: mesma forma, peso menor — não compete com a
+   oferta principal, mas é claramente clicável. */
+.botao-vazado {
+  border: 1px solid var(--linha);
+  color: var(--texto);
+  font-weight: 500;
+  font-size: var(--texto-m);
+  padding: 1.05em 2.2em;
+  border-radius: 999px;
+  transition: border-color 0.35s var(--curva), color 0.35s var(--curva),
+    transform 0.35s var(--curva);
+}
+
+.botao-vazado:hover {
+  border-color: var(--acento);
+  color: var(--acento);
+  transform: translateY(-2px);
+}
+
+.contato-numero {
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.contato-email {
+  color: var(--apoio);
+  border-bottom: 1px solid var(--linha);
+  padding-bottom: 2px;
+  transition: color 0.35s var(--curva), border-color 0.35s var(--curva);
+}
+
+.contato-email:hover {
+  color: var(--acento);
+  border-color: var(--acento);
+}
+
+.contato-nota {
+  color: var(--apoio);
+  margin-top: var(--esp-4);
+  font-size: var(--texto-s);
+}

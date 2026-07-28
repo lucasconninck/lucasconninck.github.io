@@ -1,0 +1,36 @@
+{
+  "titulo_secao": "Peças em destaque",
+  "subtitulo": "Uma amostra do que a Ydeall entrega. Cada look leva direto para a encomenda no WhatsApp.",
+  "pecas": [
+    {
+      "nome": "Vestido Longo Cetim",
+      "tag": "Sob encomenda",
+      "imagem": "/assets/uploads/010-fuil37kp10.webp"
+    },
+    {
+      "nome": "Conjunto Pantalona",
+      "tag": "Sob encomenda",
+      "imagem": "/assets/uploads/1.20260424110458.webp"
+    },
+    {
+      "nome": "Blazer Alfaiataria",
+      "tag": "Sob encomenda",
+      "imagem": "/assets/uploads/cj-179-5-5qhryny5kz.webp"
+    },
+    {
+      "nome": "Vestido Midi Tricô",
+      "tag": "Sob encomenda",
+      "imagem": "/assets/uploads/1.20260424110458.webp"
+    },
+    {
+      "nome": "Macacão Wide",
+      "tag": "Sob encomenda",
+      "imagem": "/assets/uploads/dia1-principessa-mar2452849-copiar.webp"
+    },
+    {
+      "nome": "Conjunto Estampado",
+      "tag": "Sob encomenda",
+      "imagem": "/assets/uploads/images.jpg"
+    }
+  ]
+}

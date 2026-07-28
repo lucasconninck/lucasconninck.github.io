@@ -1,0 +1,199 @@
+/* ============================================================
+   PROJETOS — vitrine horizontal pinada
+   A seção tem 380vh; o miolo fica sticky enquanto o trilho viaja.
+   As imagens dos cards são planos WebGL desenhados por cima dos
+   <img> (que ficam invisíveis, mas presentes pra acessibilidade).
+   ============================================================ */
+
+.projetos {
+  position: relative;
+  height: 380vh;
+}
+
+.projetos-fixo {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.projetos-cabeca {
+  position: absolute;
+  top: var(--esp-6); /* abaixo do topo fixo (Lucas Lima® / contato) */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: var(--esp-3) var(--esp-4);
+  color: var(--apoio);
+  font-size: var(--texto-s);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid var(--linha);
+}
+
+/* Barra de progresso: enche a linha de baixo do cabeçalho em champanhe
+   conforme a viagem horizontal avança. */
+.projetos-progresso {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px; /* em cima da própria border do cabeçalho */
+  height: 1px;
+  background: var(--acento);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Dica de rolagem: aparece no pé da vitrine e some quando o visitante
+   já percorreu 75% dela (controlado pelo JS). */
+.projetos-dica {
+  position: absolute;
+  bottom: var(--esp-3);
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--apoio);
+  font-size: var(--texto-s);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: opacity 0.45s var(--curva);
+}
+
+.projetos-dica b {
+  display: inline-block;
+  font-weight: 400;
+  color: var(--acento);
+  animation: dica-cutucar 1.6s var(--curva) infinite;
+}
+
+@keyframes dica-cutucar {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  55% {
+    transform: translateX(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projetos-dica b {
+    animation: none;
+  }
+}
+
+.projetos--simples .projetos-progresso,
+.projetos--simples .projetos-dica {
+  display: none; /* na lista vertical não há viagem pra indicar */
+}
+
+.projetos-trilho {
+  display: flex;
+  gap: clamp(2rem, 4vw, 4rem);
+  padding-inline: max(var(--esp-4), 7vw);
+  width: max-content;
+  will-change: transform;
+}
+
+.projeto {
+  display: block;
+  width: min(56vw, 720px);
+  flex-shrink: 0;
+}
+
+.projeto-visual {
+  aspect-ratio: 16 / 10; /* mesmo formato das capas: recorte nenhum */
+  margin: 0;
+  /* SEM fundo aqui: o canvas fica ATRÁS do DOM — qualquer cor opaca
+     taparia o plano WebGL que desenha a imagem neste retângulo. */
+  background: transparent;
+  overflow: hidden;
+}
+
+.projeto-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0; /* o plano WebGL é quem mostra a imagem */
+}
+
+.projeto-legenda {
+  display: flex;
+  align-items: baseline;
+  gap: var(--esp-2);
+  margin-top: var(--esp-2);
+}
+
+.projeto-legenda strong {
+  font-family: var(--fonte-titulo);
+  font-stretch: 118%;
+  font-weight: 700;
+  font-size: var(--texto-l);
+  transition: color 0.35s var(--curva);
+}
+
+.projeto:hover .projeto-legenda strong,
+.projeto:focus-visible .projeto-legenda strong {
+  color: var(--acento);
+}
+
+.projeto-legenda > span {
+  flex: 1;
+  color: var(--apoio);
+  font-size: var(--texto-s);
+}
+
+.projeto-legenda em {
+  font-style: normal;
+  color: var(--acento);
+  font-size: var(--texto-s);
+}
+
+/* --- modo simples: sem WebGL ou com movimento reduzido ------------- */
+
+.projetos--simples {
+  height: auto;
+}
+
+.projetos--simples .projetos-fixo {
+  position: static;
+  height: auto;
+  overflow: visible;
+  display: block;
+  padding-top: var(--esp-6);
+}
+
+.projetos--simples .projetos-cabeca {
+  position: static;
+}
+
+.projetos--simples .projetos-trilho {
+  flex-direction: column;
+  width: auto;
+  gap: var(--esp-5);
+  padding: var(--esp-5) var(--esp-4);
+}
+
+.projetos--simples .projeto {
+  width: 100%;
+  max-width: 860px;
+  margin-inline: auto;
+}
+
+.projetos--simples .projeto-visual {
+  background: var(--superficie); /* aqui não há plano — pode ter fundo */
+}
+
+.projetos--simples .projeto-visual img {
+  opacity: 1;
+}
+
+@media (max-width: 760px) {
+  .projeto {
+    width: 82vw;
+  }
+}

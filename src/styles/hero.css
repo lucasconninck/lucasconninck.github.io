@@ -1,0 +1,226 @@
+/* ============================================================
+   HERO — topo fixo, título gigante, números honestos
+   ============================================================ */
+
+.topo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--esp-3) var(--esp-4);
+}
+
+.marca {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.1;
+}
+
+.marca b {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: var(--texto-m);
+  letter-spacing: 0.01em;
+}
+
+.marca span {
+  color: var(--acento);
+  font-size: 0.7em;
+  vertical-align: super;
+}
+
+.marca em {
+  font-style: normal;
+  color: var(--apoio);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.topo-contato {
+  font-size: var(--texto-s);
+  color: var(--apoio);
+  border-bottom: 1px solid var(--linha);
+  padding-bottom: 2px;
+  transition: color 0.35s var(--curva), border-color 0.35s var(--curva);
+}
+
+.topo-contato:hover {
+  color: var(--acento);
+  border-color: var(--acento);
+}
+
+/* --- seção --- */
+
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--esp-6) var(--esp-4) var(--esp-5);
+  position: relative;
+}
+
+.hero-titulo {
+  font-family: var(--fonte-titulo);
+  font-size: var(--titulo-gg);
+  font-weight: 800;
+  font-stretch: 125%; /* Archivo expandida — o eixo wdth da variável */
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+}
+
+/* Revelação por máscara: cada linha vive numa "janela" com overflow
+   escondido; o texto sobe de baixo pra dentro dela. */
+.hero-titulo .linha {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap; /* cada linha do título é uma linha, sem quebra */
+}
+
+.hero-titulo .linha > span {
+  display: block;
+  transform: translateY(112%);
+  animation: hero-subir 1.1s var(--curva) 0.15s forwards;
+}
+
+.hero-titulo .linha:nth-child(2) > span {
+  animation-delay: 0.27s;
+}
+
+@keyframes hero-subir {
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* --- faixa de baixo: frase + números --- */
+
+.hero-baixo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--esp-4);
+  flex-wrap: wrap;
+  margin-top: var(--esp-4);
+  padding-top: var(--esp-3);
+  border-top: 1px solid var(--linha);
+  opacity: 0;
+  animation: hero-surgir 0.9s var(--curva) 0.75s forwards;
+}
+
+@keyframes hero-surgir {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-frase {
+  max-width: 38ch;
+  color: var(--apoio);
+  font-size: var(--texto-m);
+}
+
+.hero-numeros {
+  display: flex;
+  gap: var(--esp-5);
+}
+
+.hero-numeros strong {
+  display: block;
+  font-family: var(--fonte-titulo);
+  font-stretch: 125%;
+  font-weight: 700;
+  font-size: var(--titulo-m);
+  line-height: 1;
+}
+
+/* o zero à esquerda em champanhe — assinatura herdada do site anterior */
+.hero-numeros strong::first-letter {
+  color: var(--acento);
+}
+
+.hero-numeros li span {
+  color: var(--apoio);
+  font-size: var(--texto-s);
+}
+
+/* --- dica de rolagem --- */
+
+.hero-role {
+  position: absolute;
+  bottom: var(--esp-3);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--apoio);
+  font-size: var(--texto-s);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-role i {
+  width: 1px;
+  height: 34px;
+  background: var(--linha);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-role i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--acento);
+  transform: translateY(-100%);
+  animation: hero-fio 1.8s var(--curva) infinite;
+}
+
+@keyframes hero-fio {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* --- respeito a quem pediu menos movimento --- */
+@media (prefers-reduced-motion: reduce) {
+  .hero-titulo .linha > span {
+    animation: none;
+    transform: none;
+  }
+  .hero-baixo {
+    animation: none;
+    opacity: 1;
+  }
+  .hero-role i::after {
+    animation: none;
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-inline: var(--esp-3);
+  }
+  .hero-numeros {
+    gap: var(--esp-4);
+  }
+}

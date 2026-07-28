@@ -1,0 +1,40 @@
+/* ============================================================
+   TOKENS — direção "Vitrine noturna"
+   Escuro quente + champanhe. Tudo que é cor, tamanho e ritmo
+   do site sai daqui; mudar aqui muda o site inteiro.
+   ============================================================ */
+
+:root {
+  /* --- cor --- */
+  --fundo:      #0E0D0B;                     /* preto quente (não é #000) */
+  --superficie: #16140F;                     /* um degrau acima do fundo  */
+  --texto:      #EDE6DA;                     /* osso                      */
+  --apoio:      #8F887B;                     /* texto secundário          */
+  --acento:     #E8D5B0;                     /* champanhe                 */
+  --linha:      rgba(237, 230, 218, 0.14);   /* divisórias                */
+
+  /* --- tipografia --- */
+  --fonte-titulo: 'Archivo Variable', Arial, sans-serif;
+  --fonte-texto:  'Inter Variable', Arial, sans-serif;
+
+  /* Escala fluida: cresce com a tela entre ~390px e ~1600px.
+     clamp(mínimo, preferido, máximo) — o navegador escolhe. */
+  --texto-s:   clamp(0.8125rem, 0.77rem + 0.18vw, 0.9375rem);
+  --texto-m:   clamp(1rem, 0.95rem + 0.25vw, 1.1875rem);
+  --texto-l:   clamp(1.25rem, 1.08rem + 0.85vw, 1.875rem);
+  --titulo-m:  clamp(1.75rem, 1.2rem + 2.6vw, 3.25rem);
+  --titulo-g:  clamp(2.5rem, 1.5rem + 5vw, 5.5rem);
+  --titulo-gg: clamp(2.875rem, 0.9rem + 11vw, 10.5rem);
+
+  /* --- espaçamento (razão ~1.6, como a escala champanhe) --- */
+  --esp-1: 0.5rem;
+  --esp-2: 0.8125rem;
+  --esp-3: 1.3125rem;
+  --esp-4: 2.125rem;
+  --esp-5: 3.4375rem;
+  --esp-6: 5.5625rem;
+  --esp-7: 9rem;
+
+  /* --- movimento: a curva da casa (mesma do site champanhe) --- */
+  --curva: cubic-bezier(0.22, 1, 0.36, 1);
+}
