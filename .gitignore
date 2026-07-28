@@ -4,6 +4,11 @@ node_modules/
 # saída de build (é gerada por `npm run build`, não versionar)
 dist/
 
+# material que fica só no PC e NUNCA vai pro repositório público:
+# versão champanhe antiga, demo da Spettacolo (proposta de prospecção)
+# e o bundle com o histórico do repo privado antigo.
+_arquivo/
+
 # sistema
 .DS_Store
 Thumbs.db

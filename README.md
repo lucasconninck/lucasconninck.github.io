@@ -1,5 +1,7 @@
 # Portfólio — Lucas Lima · Web Designer
 
+### 🌐 No ar em **[lucasconninck.github.io](https://lucasconninck.github.io)**
+
 Site de portfólio pessoal. Experiência em WebGL comandada pelo scroll, no
 espírito de referências como a [lusion.co](https://lusion.co) — um único mundo
 3D contínuo por trás de conteúdo HTML real.
@@ -70,21 +72,45 @@ Leitor de tela e Google leem um site normal.
 | `prefers-reduced-motion` | sem Lenis, sem entradas, fita congelada num frame |
 | Qualquer um dos dois acima | vitrine vira lista vertical com `<img>` normais |
 
+## Publicar
+
+Não precisa rodar build na mão. **Todo push na `main` publica o site**:
+o workflow `.github/workflows/publicar.yml` instala, constrói e joga o
+`dist/` no GitHub Pages.
+
+```bash
+git add -A
+git commit -m "o que mudou"
+git push          # ~2 min depois está no ar
+```
+
+Acompanhar ou republicar sem mudar código: aba **Actions** → "Publicar site".
+
+## O que fica de fora do repositório
+
+`_arquivo/` está no `.gitignore` e **nunca sobe**. Guarda:
+
+| Item | Por quê |
+| --- | --- |
+| `champanhe/` | versão anterior do portfólio, só consulta |
+| `demo-spettacolo/` + `capa-spettacolo.jpg` | proposta de prospecção, não confirmada |
+| `portfolio-lucas-lima-github.bundle` | histórico completo do repo privado antigo |
+
+Demos de clínica de estética (fotos de antes/depois de pacientes) **não entram
+neste repositório**: dependem de autorização de imagem sob a LGPD. Estão só
+dentro do bundle acima.
+
+Pra recuperar qualquer coisa do bundle:
+
+```bash
+git clone _arquivo/portfolio-lucas-lima-github.bundle recuperado
+```
+
 ## Pendências
 
 - [ ] Imagem de compartilhamento (`og:image`)
 - [ ] Preloader com contador
-- [ ] Escolher hospedagem
-
-## Sobre a vitrine deste repositório
-
-Os três `modelo-*` são **esqueletos sem cliente** — conteúdo todo em
-placeholder, servem de vitrine de layout. Londripell e Ydeall são sites de
-negócio real.
-
-Demos de clínica de estética (fotos de antes/depois de pacientes) **não entram
-neste repositório**: dependem de autorização de imagem sob a LGPD e ficam
-guardadas em repositório privado.
+- [ ] Code-split do bundle JS (1,2 MB — passa do limite de aviso do Vite)
 
 ---
 

@@ -1,0 +1,60 @@
+# Publica o site no GitHub Pages.
+#
+# Você nunca precisa rodar `npm run build` pra publicar: a cada push na
+# branch main, o GitHub instala as dependências, constrói o site e coloca
+# no ar em https://lucasconninck.github.io
+#
+# Pra republicar sem mudar nada no código: aba Actions → "Publicar site"
+# → botão "Run workflow".
+
+name: Publicar site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # permite disparar na mão pela aba Actions
+
+# Permissões que o deploy do Pages exige.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Se dois pushes vierem juntos, vale o mais novo — sem fila nem corrida.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24' # mesma versão que roda na máquina do Lucas
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Construir (gera dist/)
+        run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - name: Enviar o dist/ como artefato do Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  publicar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

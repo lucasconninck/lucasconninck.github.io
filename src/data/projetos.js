@@ -5,6 +5,9 @@
 // A seção de projetos lê SÓ este arquivo — pra mudar a lista, basta
 // editar aqui; nenhum layout depende disso.
 //
+// A demo da Spettacolo saiu daqui: é proposta de prospecção e mora em
+// `_arquivo/demo-spettacolo/`, fora do que vai pro ar.
+//
 // Os três "modelo-*" são esqueletos sem cliente: conteúdo todo em
 // placeholder. Servem de vitrine de layout enquanto não recebem um
 // projeto. Trocar nome/segmento quando isso acontecer.
