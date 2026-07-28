@@ -1,6 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import FitaCromada from './FitaCromada'
 import PlanosProjetos from './PlanosProjetos'
+import useConsultaMidia, { TELA_ESTREITA } from '../hooks/useConsultaMidia'
 
 // Detecção honesta: se o aparelho não cria contexto WebGL, nem tentamos —
 // o fallback é um brilho champanhe em CSS puro (.cena-fallback).
@@ -16,6 +17,9 @@ export function suportaWebGL() {
 }
 
 export default function CenaPrincipal({ movimentoReduzido }) {
+  // Hook antes do return condicional: a ordem dos hooks não pode variar.
+  const estreita = useConsultaMidia(TELA_ESTREITA)
+
   if (!suportaWebGL()) {
     return <div className="cena-fallback" aria-hidden="true" />
   }
@@ -26,8 +30,10 @@ export default function CenaPrincipal({ movimentoReduzido }) {
     <div className="cena" aria-hidden="true">
       <Canvas
         // teto de pixel ratio 2: em telas 3x renderizar nativo é pagar
-        // 2,25x mais pixels por nitidez que ninguém percebe em movimento
-        dpr={[1, 2]}
+        // 2,25x mais pixels por nitidez que ninguém percebe em movimento.
+        // No celular o teto cai pra 1,5: metade dos pixels do teto 2, e é
+        // ali que a GPU é fraca e o shader da fita pesa.
+        dpr={[1, estreita ? 1.5 : 2]}
         // flat = sem tone mapping; as cores do shader saem como escolhemos
         flat
         camera={{ fov: 32, position: [0, 0, 6] }}

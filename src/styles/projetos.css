@@ -197,3 +197,53 @@
     width: 82vw;
   }
 }
+
+/* --- CELULAR (560px = TELA_ESTREITA do useConsultaMidia.js) ---------- */
+
+@media (max-width: 560px) {
+  /* 380vh de rolagem pra seis cards são ~3.200px de polegar numa tela de
+     844. Encurtar a pista deixa a viagem horizontal mais rápida sem tirar
+     o efeito — cada card ainda para na tela tempo suficiente pra tocar. */
+  .projetos {
+    height: 300vh;
+  }
+
+  .projeto {
+    width: 90vw; /* a capa é o conteúdo: quanto mais tela, melhor */
+  }
+
+  .projetos-cabeca {
+    top: var(--esp-5);
+    padding: var(--esp-2) var(--esp-3);
+  }
+
+  /* A legenda era nome | segmento | nº numa linha só: em 335px o nome
+     quebrava, o segmento virava coluna de uma palavra e o número
+     encostava no card seguinte. Empilhada, cada parte tem a linha dela. */
+  .projeto-legenda {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 2px var(--esp-2);
+    margin-top: var(--esp-2);
+  }
+
+  .projeto-legenda strong {
+    grid-column: 1;
+    font-size: var(--texto-m);
+  }
+
+  .projeto-legenda > span {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .projeto-legenda em {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .projetos-dica {
+    bottom: var(--esp-2);
+  }
+}

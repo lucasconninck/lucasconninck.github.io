@@ -94,3 +94,12 @@ main {
   color: var(--apoio);
   font-size: var(--texto-s);
 }
+
+/* no celular as duas pontas ficam espremidas; empilhar lê melhor */
+@media (max-width: 560px) {
+  .pe {
+    flex-direction: column;
+    gap: var(--esp-1);
+    padding: var(--esp-4) var(--esp-3);
+  }
+}

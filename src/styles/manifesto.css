@@ -3,10 +3,15 @@
    ============================================================ */
 
 .manifesto {
-  min-height: 90vh;
+  min-height: 90svh; /* svh: a barra do navegador do celular não conta */
   display: flex;
   align-items: center;
   padding: var(--esp-7) var(--esp-4);
+  container-type: inline-size;
+
+  /* "oportunidades", a palavra mais larga da frase, pede 7,9em. Palavra
+     não quebra: sem este teto ela vazava a tela no celular. */
+  --razao-manifesto: 7.9;
 }
 
 .manifesto p {
@@ -14,9 +19,16 @@
   font-stretch: 118%;
   font-weight: 600;
   font-size: var(--titulo-g);
+  font-size: min(var(--titulo-g), calc(98cqw / var(--razao-manifesto)));
   line-height: 1.12;
   max-width: 24ch;
   text-wrap: balance;
+}
+
+@media (max-width: 560px) {
+  .manifesto {
+    padding: var(--esp-6) var(--esp-3);
+  }
 }
 
 /* Cada palavra nasce apagada; o GSAP acende conforme o scroll passa. */

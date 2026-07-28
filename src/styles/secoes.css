@@ -184,11 +184,17 @@
   justify-content: center;
   padding: var(--esp-7) var(--esp-4);
   border-top: 1px solid var(--linha);
+  container-type: inline-size;
+
+  /* "CONVERSAR" pede 8,28em. A máscara .linha tem overflow:hidden, então
+     palavra maior que a caixa não vaza — some. No celular o "R" sumia. */
+  --razao-contato: 8.28;
 }
 
 .contato-titulo {
   font-family: var(--fonte-titulo);
   font-size: var(--titulo-g);
+  font-size: min(var(--titulo-g), calc(98cqw / var(--razao-contato)));
   font-weight: 800;
   font-stretch: 125%;
   text-transform: uppercase;
@@ -278,4 +284,53 @@
   color: var(--apoio);
   margin-top: var(--esp-4);
   font-size: var(--texto-s);
+}
+
+/* --- CELULAR (560px = TELA_ESTREITA do useConsultaMidia.js) ---------- */
+
+@media (max-width: 560px) {
+  .metodo,
+  .servicos,
+  .contato {
+    padding-inline: var(--esp-3);
+  }
+
+  .metodo,
+  .servicos {
+    padding-block: var(--esp-6);
+  }
+
+  /* o número do passo colava na margem e o texto começava longe demais */
+  .metodo-passo {
+    gap: var(--esp-2);
+  }
+
+  /* Botão que ocupa a linha inteira: alvo largo pro polegar e hierarquia
+     mais clara que dois pílulas espremidas lado a lado. */
+  .contato-acoes {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--esp-2);
+    margin-top: var(--esp-4);
+  }
+
+  .botao-whats,
+  .botao-vazado {
+    text-align: center;
+    padding: 1.05em 1.4em;
+  }
+
+  /* número e e-mail viram um embaixo do outro, cada um com altura tocável */
+  .contato-diretos {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--esp-2);
+  }
+
+  .contato-numero,
+  .contato-email {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
 }

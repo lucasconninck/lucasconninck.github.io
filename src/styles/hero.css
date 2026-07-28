@@ -64,11 +64,24 @@
   justify-content: flex-end;
   padding: var(--esp-6) var(--esp-4) var(--esp-5);
   position: relative;
+
+  /* vira container de consulta: `cqw` abaixo mede a largura ÚTIL daqui
+     (já sem o padding), e não a da janela — é o que impede o título de
+     estourar em qualquer largura de tela */
+  container-type: inline-size;
+
+  /* Largura da linha mais larga do título, em "ems". Medido na Archivo
+     125%: "Muito além" = 8,22em. Muda junto com TITULO_LARGO/ESTREITO
+     do Hero.jsx — é o que calibra o teto do font-size. */
+  --razao-titulo: 8.22;
 }
 
 .hero-titulo {
   font-family: var(--fonte-titulo);
   font-size: var(--titulo-gg);
+  /* teto real: o tamanho que ainda cabe na linha, com 2% de folga.
+     Navegador sem `cqw` ignora esta linha e fica com a de cima. */
+  font-size: min(var(--titulo-gg), calc(98cqw / var(--razao-titulo)));
   font-weight: 800;
   font-stretch: 125%; /* Archivo expandida — o eixo wdth da variável */
   text-transform: uppercase;
@@ -92,6 +105,11 @@
 
 .hero-titulo .linha:nth-child(2) > span {
   animation-delay: 0.27s;
+}
+
+/* a terceira linha só existe no celular (ver TITULO_ESTREITO no Hero.jsx) */
+.hero-titulo .linha:nth-child(3) > span {
+  animation-delay: 0.39s;
 }
 
 @keyframes hero-subir {
@@ -216,11 +234,69 @@
   }
 }
 
-@media (max-width: 640px) {
+/* ============================================================
+   CELULAR
+   O corte da tela estreita ficava no título; o resto dos ajustes
+   é sobre caber, ser tocável e não sumir atrás do topo fixo.
+   560px = TELA_ESTREITA do useConsultaMidia.js — aqui o título
+   já veio quebrado em três linhas, então o teto muda de razão.
+   ============================================================ */
+
+@media (max-width: 560px) {
   .hero {
-    padding-inline: var(--esp-3);
+    /* "além de" = 5,73em, a mais larga das três linhas curtas */
+    --razao-titulo: 5.73;
+    padding: var(--esp-5) var(--esp-3) var(--esp-4);
   }
+
+  /* O topo é fixo e o site é escuro com texto claro: rolando, título
+     grande passava POR BAIXO da marca e as duas coisas viravam ilegíveis.
+     Um véu com desfoque devolve o contraste sem tirar o CTA da tela. */
+  .topo {
+    padding: var(--esp-2) var(--esp-3);
+    background: rgba(14, 13, 11, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent;
+  }
+
+  .topo-contato {
+    /* alvo de toque de verdade: 14px de texto com 2px de padding dava
+       um alvo de ~20px, metade do mínimo confortável */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-bottom: 0;
+    border-bottom: none;
+    border: 1px solid var(--linha);
+    border-radius: 999px;
+    padding-inline: var(--esp-2);
+  }
+
+  /* A dica "role" ficava em cima dos números — e no celular ela não
+     ensina nada que o polegar já não saiba. */
+  .hero-role {
+    display: none;
+  }
+
+  .hero-baixo {
+    gap: var(--esp-3);
+  }
+
+  /* Os três números têm que caber na mesma linha: quebrar deixava o
+     "01 painel do cliente" sozinho num degrau, com um buraco no meio.
+     Espalhados pela largura, cabem até em 320px. */
   .hero-numeros {
-    gap: var(--esp-4);
+    width: 100%;
+    gap: var(--esp-2);
+    justify-content: space-between;
+  }
+
+  .hero-numeros strong {
+    font-size: clamp(1.5rem, 8vw, 2.25rem);
+  }
+
+  .hero-numeros li span {
+    font-size: 0.8125rem;
   }
 }

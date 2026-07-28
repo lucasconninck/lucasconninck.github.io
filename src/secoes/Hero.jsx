@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap, ScrollTrigger, progressoRolagem } from '../anim/scroll'
 import { WHATSAPP_LINK } from '../data/contato'
 import { projetos } from '../data/projetos'
+import useConsultaMidia, { TELA_ESTREITA } from '../hooks/useConsultaMidia'
 
 // Números honestos — nada de "+300 projetos".
 //
@@ -14,8 +15,19 @@ const NUMEROS = [
   { valor: 1, rotulo: 'painel do cliente' },
 ]
 
+// O título é uma linha por item — e a quebra muda com a tela.
+//
+// Cada linha é nowrap dentro da máscara de revelação, então uma linha larga
+// demais não quebra: ela é CORTADA. Em 390px "MUITO ALÉM" pede ~8,2em de
+// largura e sumia no "AL". Em três pedaços curtos a maior linha ("além de")
+// pede 5,7em — cabe folgado e o título continua grande.
+const TITULO_LARGO = ['Muito além', 'de um site']
+const TITULO_ESTREITO = ['Muito', 'além de', 'um site']
+
 export default function Hero({ movimentoReduzido }) {
   const secao = useRef(null)
+  const estreita = useConsultaMidia(TELA_ESTREITA)
+  const linhasTitulo = estreita ? TITULO_ESTREITO : TITULO_LARGO
 
   useEffect(() => {
     if (movimentoReduzido) return undefined
@@ -71,12 +83,11 @@ export default function Hero({ movimentoReduzido }) {
 
       <section className="hero" ref={secao} aria-label="Apresentação">
         <h1 className="hero-titulo">
-          <span className="linha">
-            <span>Muito além</span>
-          </span>
-          <span className="linha">
-            <span>de um site</span>
-          </span>
+          {linhasTitulo.map((texto) => (
+            <span className="linha" key={texto}>
+              <span>{texto}</span>
+            </span>
+          ))}
         </h1>
 
         <div className="hero-baixo">
