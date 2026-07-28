@@ -25,6 +25,13 @@
 
 export const projetos = [
   {
+    slug: 'alvorada-imoveis',
+    nome: 'Alvorada Imóveis',
+    segmento: 'Imobiliária — fundo desenhado em vaivém',
+    demo: '/demos/alvorada-imoveis/index.html',
+    capa: '/capas/alvorada-imoveis.jpg',
+  },
+  {
     slug: 'aconchego-pet',
     nome: 'Aconchego Pet',
     segmento: 'Pet shop — ilustração e entrada em escada',
