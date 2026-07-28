@@ -1,11 +1,15 @@
 import { useEffect, useRef } from 'react'
 import { gsap, ScrollTrigger, progressoRolagem } from '../anim/scroll'
 import { WHATSAPP_LINK } from '../data/contato'
+import { projetos } from '../data/projetos'
 
-// Números honestos — os mesmos do site anterior (06 sites, 05 segmentos,
-// 01 painel do cliente). Nada de "+300 projetos".
+// Números honestos — nada de "+300 projetos".
+//
+// O primeiro sai de `projetos.js` de propósito: mexeu na vitrine, o hero
+// acompanha sozinho. Antes era 6 fixo no código e ficou mentindo quando a
+// Spettacolo saiu da lista — o cabeçalho da vitrine dizia 05 e o hero, 06.
 const NUMEROS = [
-  { valor: 6, rotulo: 'sites no ar' },
+  { valor: projetos.length, rotulo: 'sites no ar' },
   { valor: 5, rotulo: 'segmentos' },
   { valor: 1, rotulo: 'painel do cliente' },
 ]
