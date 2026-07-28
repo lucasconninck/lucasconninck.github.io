@@ -1,29 +1,28 @@
 /* ============================================================
-   PROJETOS — vitrine horizontal pinada
-   A seção tem 380vh; o miolo fica sticky enquanto o trilho viaja.
-   As imagens dos cards são planos WebGL desenhados por cima dos
-   <img> (que ficam invisíveis, mas presentes pra acessibilidade).
+   PROJETOS — a vitrine, em três modos
+   ============================================================
+
+   1. DESKTOP (>= 1025px) — @media (min-width: 1025px)
+      Seção de 380vh, miolo sticky, trilho viajando na horizontal
+      puxado pelo scroll. As capas são planos WebGL desenhados por
+      cima das <img> (que ficam invisíveis, mas presentes).
+
+   2. CELULAR/TABLET (<= 1024px) — @media (max-width: 1024px)
+      Carrossel nativo: overflow-x + scroll-snap. A página rola
+      normal, sem pin. Não há plano WebGL — a <img> é que aparece.
+
+   3. SIMPLES — .projetos--simples
+      Lista vertical. Movimento reduzido ou sem WebGL, em qualquer
+      largura. Vem por ÚLTIMO no arquivo de propósito: empata em
+      especificidade com os outros dois e precisa ganhar no desempate
+      por ordem de origem.
    ============================================================ */
 
 .projetos {
   position: relative;
-  height: 380vh;
-}
-
-.projetos-fixo {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
 }
 
 .projetos-cabeca {
-  position: absolute;
-  top: var(--esp-6); /* abaixo do topo fixo (Lucas Lima® / contato) */
-  left: 0;
-  right: 0;
   display: flex;
   justify-content: space-between;
   padding: var(--esp-3) var(--esp-4);
@@ -34,82 +33,20 @@
   border-bottom: 1px solid var(--linha);
 }
 
-/* Barra de progresso: enche a linha de baixo do cabeçalho em champanhe
-   conforme a viagem horizontal avança. */
-.projetos-progresso {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px; /* em cima da própria border do cabeçalho */
-  height: 1px;
-  background: var(--acento);
-  transform: scaleX(0);
-  transform-origin: left center;
-}
-
-/* Dica de rolagem: aparece no pé da vitrine e some quando o visitante
-   já percorreu 75% dela (controlado pelo JS). */
-.projetos-dica {
-  position: absolute;
-  bottom: var(--esp-3);
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--apoio);
-  font-size: var(--texto-s);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  transition: opacity 0.45s var(--curva);
-}
-
-.projetos-dica b {
-  display: inline-block;
-  font-weight: 400;
-  color: var(--acento);
-  animation: dica-cutucar 1.6s var(--curva) infinite;
-}
-
-@keyframes dica-cutucar {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  55% {
-    transform: translateX(8px);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .projetos-dica b {
-    animation: none;
-  }
-}
-
-.projetos--simples .projetos-progresso,
-.projetos--simples .projetos-dica {
-  display: none; /* na lista vertical não há viagem pra indicar */
-}
-
 .projetos-trilho {
   display: flex;
   gap: clamp(2rem, 4vw, 4rem);
   padding-inline: max(var(--esp-4), 7vw);
-  width: max-content;
-  will-change: transform;
 }
 
 .projeto {
   display: block;
-  width: min(56vw, 720px);
   flex-shrink: 0;
 }
 
 .projeto-visual {
   aspect-ratio: 16 / 10; /* mesmo formato das capas: recorte nenhum */
   margin: 0;
-  /* SEM fundo aqui: o canvas fica ATRÁS do DOM — qualquer cor opaca
-     taparia o plano WebGL que desenha a imagem neste retângulo. */
-  background: transparent;
   overflow: hidden;
 }
 
@@ -118,7 +55,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0; /* o plano WebGL é quem mostra a imagem */
 }
 
 .projeto-legenda {
@@ -153,67 +89,242 @@
   font-size: var(--texto-s);
 }
 
-/* --- modo simples: sem WebGL ou com movimento reduzido ------------- */
-
-.projetos--simples {
-  height: auto;
+/* Barra de progresso: enche a linha de baixo do cabeçalho em champanhe
+   conforme a viagem horizontal avança. */
+.projetos-progresso {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px; /* em cima da própria border do cabeçalho */
+  height: 1px;
+  background: var(--acento);
+  transform: scaleX(0);
+  transform-origin: left center;
 }
 
-.projetos--simples .projetos-fixo {
-  position: static;
-  height: auto;
-  overflow: visible;
-  display: block;
-  padding-top: var(--esp-6);
+.projetos-dica {
+  color: var(--apoio);
+  font-size: var(--texto-s);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-.projetos--simples .projetos-cabeca {
-  position: static;
+.projetos-dica b {
+  display: inline-block;
+  font-weight: 400;
+  color: var(--acento);
+  animation: dica-cutucar 1.6s var(--curva) infinite;
 }
 
-.projetos--simples .projetos-trilho {
-  flex-direction: column;
-  width: auto;
-  gap: var(--esp-5);
-  padding: var(--esp-5) var(--esp-4);
-}
-
-.projetos--simples .projeto {
-  width: 100%;
-  max-width: 860px;
-  margin-inline: auto;
-}
-
-.projetos--simples .projeto-visual {
-  background: var(--superficie); /* aqui não há plano — pode ter fundo */
-}
-
-.projetos--simples .projeto-visual img {
-  opacity: 1;
-}
-
-@media (max-width: 760px) {
-  .projeto {
-    width: 82vw;
+@keyframes dica-cutucar {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  55% {
+    transform: translateX(8px);
   }
 }
 
-/* --- CELULAR (560px = TELA_ESTREITA do useConsultaMidia.js) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .projetos-dica b {
+    animation: none;
+  }
+}
 
-@media (max-width: 560px) {
-  /* 380vh de rolagem pra seis cards são ~3.200px de polegar numa tela de
-     844. Encurtar a pista deixa a viagem horizontal mais rápida sem tirar
-     o efeito — cada card ainda para na tela tempo suficiente pra tocar. */
+/* ============================================================
+   1. DESKTOP — pin + viagem horizontal
+   Tudo que depende do scroll-hijack mora aqui dentro. Abaixo de
+   1025px nenhuma destas regras existe, então não há o que matar.
+   ============================================================ */
+
+@media (min-width: 1025px) {
   .projetos {
-    height: 300vh;
+    height: 380vh;
   }
 
-  .projeto {
-    width: 90vw; /* a capa é o conteúdo: quanto mais tela, melhor */
+  .projetos-fixo {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
   }
 
   .projetos-cabeca {
-    top: var(--esp-5);
+    position: absolute;
+    top: var(--esp-6); /* abaixo do topo fixo (Lucas Lima® / contato) */
+    left: 0;
+    right: 0;
+  }
+
+  /* Dica de rolagem: aparece no pé da vitrine e some quando o visitante
+     já percorreu 75% dela (controlado pelo JS). */
+  .projetos-dica {
+    position: absolute;
+    bottom: var(--esp-3);
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.45s var(--curva);
+  }
+
+  .projetos-trilho {
+    width: max-content;
+    /* Único lugar do arquivo com will-change: aqui o trilho REALMENTE é
+       transformado a cada frame pelo tween. No carrossel não é — lá a
+       rolagem é nativa e prometer transform só gastaria memória. */
+    will-change: transform;
+  }
+
+  .projeto {
+    width: min(56vw, 720px);
+  }
+
+  .projeto-visual {
+    /* SEM fundo aqui: o canvas fica ATRÁS do DOM — qualquer cor opaca
+       taparia o plano WebGL que desenha a imagem neste retângulo. */
+    background: transparent;
+  }
+
+  .projeto-visual img {
+    opacity: 0; /* o plano WebGL é quem mostra a imagem */
+  }
+}
+
+/* ============================================================
+   2. CELULAR / TABLET — carrossel nativo
+   Zero pin, zero position:fixed, zero preventDefault. A página é
+   do usuário; o trilho desliza só se o dedo mandar.
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .projetos {
+    height: auto; /* nada de 100vh nem altura calculada pelo trilho */
+  }
+
+  .projetos-fixo {
+    position: static;
+    height: auto;
+    overflow: visible;
+    display: block;
+    padding-block: var(--esp-6) var(--esp-5);
+  }
+
+  .projetos-cabeca {
+    position: static;
+    margin-bottom: var(--esp-4);
+  }
+
+  /* A barra media a viagem do pin, que aqui não existe. */
+  .projetos-progresso {
+    display: none;
+  }
+
+  .projetos-trilho {
+    width: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain; /* chegou no fim, não puxa a página */
+    gap: var(--esp-4);
+    /* Metade da sobra de cada lado: é o que deixa o PRIMEIRO e o ÚLTIMO
+       card conseguirem parar no centro com scroll-snap-align: center. */
+    padding-inline: 11vw;
+    padding-bottom: var(--esp-2);
+    /* Rede de segurança: ao estreitar a janela vinda do desktop, o CSS
+       troca de modo antes do React reverter o tween. Sem isto o trilho
+       entraria no carrossel preso num translateX de milhares de pixels. */
+    transform: none !important;
+    /* scrollbar escondida — Firefox / IE / WebKit */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .projetos-trilho::-webkit-scrollbar {
+    display: none;
+  }
+
+  .projeto {
+    width: 78vw;
+    max-width: 460px;
+    scroll-snap-align: center;
+  }
+
+  /* Sem plano WebGL aqui: a <img> do DOM é a estrela, e o retângulo
+     pode ter fundo (não há nada atrás pra tapar). */
+  .projeto-visual {
+    background: var(--superficie);
+  }
+
+  .projeto-visual img {
+    opacity: 1;
+  }
+
+  .projetos-dica {
+    display: block;
+    text-align: center;
+    margin-top: var(--esp-3);
+  }
+
+  /* --- pontinhos de posição --- */
+
+  .projetos-pontos {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin-top: var(--esp-2);
+  }
+
+  .projetos-ponto {
+    /* 24px de alvo de toque com um pontinho de 7px desenhado dentro:
+       o dedo acerta, o olho vê discreto. */
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background: none;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .projetos-ponto::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--linha);
+    /* só transform e background: nenhuma das duas causa layout */
+    transition: background 0.3s var(--curva), transform 0.3s var(--curva);
+  }
+
+  .projetos-ponto.e-ativo::before {
+    background: var(--acento);
+    transform: scale(1.45);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .projetos-ponto::before {
+      transition: none;
+    }
+  }
+}
+
+/* Celular estreito: a legenda em uma linha só não cabe. */
+@media (max-width: 560px) {
+  .projeto {
+    width: 86vw; /* a capa é o conteúdo: quanto mais tela, melhor */
+  }
+
+  .projetos-trilho {
+    padding-inline: 7vw; /* acompanha o card mais largo */
+  }
+
+  .projetos-cabeca {
     padding: var(--esp-2) var(--esp-3);
   }
 
@@ -242,8 +353,57 @@
     grid-column: 2;
     grid-row: 1;
   }
+}
 
-  .projetos-dica {
-    bottom: var(--esp-2);
-  }
+/* ============================================================
+   3. SIMPLES — lista vertical (movimento reduzido ou sem WebGL)
+   ÚLTIMO no arquivo: empata em especificidade com `.projetos` e
+   precisa ganhar o desempate por ordem.
+   ============================================================ */
+
+.projetos--simples {
+  height: auto;
+}
+
+.projetos--simples .projetos-fixo {
+  position: static;
+  height: auto;
+  overflow: visible;
+  display: block;
+  padding-top: var(--esp-6);
+}
+
+.projetos--simples .projetos-cabeca {
+  position: static;
+}
+
+.projetos--simples .projetos-trilho {
+  flex-direction: column;
+  width: auto;
+  gap: var(--esp-5);
+  padding: var(--esp-5) var(--esp-4);
+  /* aqui não há viagem nenhuma: nem transform, nem rolagem própria */
+  overflow: visible;
+  scroll-snap-type: none;
+  will-change: auto;
+}
+
+.projetos--simples .projeto {
+  width: 100%;
+  max-width: 860px;
+  margin-inline: auto;
+  scroll-snap-align: none;
+}
+
+.projetos--simples .projeto-visual {
+  background: var(--superficie); /* aqui não há plano — pode ter fundo */
+}
+
+.projetos--simples .projeto-visual img {
+  opacity: 1;
+}
+
+.projetos--simples .projetos-progresso,
+.projetos--simples .projetos-dica {
+  display: none; /* na lista vertical não há viagem pra indicar */
 }

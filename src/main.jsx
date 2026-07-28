@@ -16,6 +16,12 @@ import './styles/secoes.css'
 import './styles/cursor.css'
 
 import App from './App'
+import { iniciarCarregamento } from './carregamento'
+
+// Antes de montar: avisa a tela de abertura que o bundle chegou e manda
+// buscar o resto (fontes, capas). O véu em si já está na tela desde o
+// primeiro quadro — quem o desenha é o index.html.
+iniciarCarregamento()
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

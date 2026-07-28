@@ -31,7 +31,18 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* `overflow-x` só no body NÃO bastava. O navegador propaga o overflow do
+     body pra viewport e, em troca, o próprio body para de recortar os
+     filhos — as faixas correndo (.topbar__track com 2282px e .depo-track
+     com 4174px) alargavam a viewport de LAYOUT pra 694px num aparelho de
+     390. No celular isso renderiza a página inteira e depois encolhe pra
+     caber: texto minúsculo do topo ao rodapé.
+     `clip` em vez de `hidden` porque não cria caixa de rolagem — `hidden`
+     aqui quebraria o `position: sticky` do cabeçalho. */
+  overflow-x: clip;
+}
 
 body {
   font-family: var(--sans);
@@ -40,7 +51,7 @@ body {
   background: var(--cream);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img { max-width: 100%; display: block; }

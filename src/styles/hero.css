@@ -218,6 +218,16 @@
   }
 }
 
+/* No celular o hero monta ATRÁS da tela de carregamento. Sem isto, a
+   revelação inteira do título tocaria escondida e o véu subiria com o
+   texto já parado no lugar. Congelado no quadro 0, ele espera: o motor
+   do index.html tira a classe `carregando` no instante em que a cortina
+   começa a subir, e o título sobe junto com ela. */
+html.carregando .hero-titulo .linha > span,
+html.carregando .hero-baixo {
+  animation-play-state: paused;
+}
+
 /* --- respeito a quem pediu menos movimento --- */
 @media (prefers-reduced-motion: reduce) {
   .hero-titulo .linha > span {

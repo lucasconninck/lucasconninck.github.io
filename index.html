@@ -19,9 +19,459 @@
       content="Sites sob medida para negócios locais de todo o Brasil — do primeiro rascunho ao painel do cliente."
     />
     <meta property="og:locale" content="pt_BR" />
+
+    <!-- ==========================================================
+         TELA DE CARREGAMENTO (celular)
+
+         Mora aqui, e não no React, de propósito: o que demora no
+         celular é baixar o bundle (React + three + GSAP). Um véu
+         montado pelo React só apareceria DEPOIS dele — ou seja,
+         depois da tela em branco que ele deveria cobrir. Este bloco
+         pinta no primeiro quadro, sem esperar nada.
+
+         As cores são literais porque `src/styles/tokens.css` ainda
+         não chegou. Espelham --fundo, --texto, --apoio, --acento e
+         --linha; mexeu num, mexa no outro.
+         ========================================================== -->
+    <style>
+      html {
+        /* antes do CSS do bundle chegar, o fundo da página era BRANCO —
+           era este o "flash" mais feio da abertura no celular */
+        background: #0e0d0b;
+        color-scheme: dark; /* barra do navegador e scrollbar já nascem escuras */
+      }
+
+      #carga {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #0e0d0b;
+        /* o mesmo brilho champanhe do fallback da cena: a tela nunca é
+           um retângulo preto morto */
+        background-image: radial-gradient(
+          54% 40% at 50% 42%,
+          rgba(232, 213, 176, 0.11),
+          transparent 70%
+        );
+        touch-action: none; /* o dedo não rola nada por baixo do véu */
+        transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform;
+      }
+
+      /* Desktop de verdade (tela larga E ponteiro preciso) não vê o véu.
+         O ESPELHO desta consulta está no script no fim do <body> —
+         mexeu aqui, mexa lá, senão o script trava o scroll de uma tela
+         que não tem véu nenhum. */
+      @media (min-width: 561px) and (pointer: fine) {
+        #carga {
+          display: none;
+        }
+      }
+
+      /* Enquanto o véu está no ar não há o que rolar por baixo dele */
+      html.carregando,
+      html.carregando body {
+        overflow: hidden;
+      }
+
+      /* --- a marca --------------------------------------------------
+         Mesmo desenho do favicon: o "L" champanhe dentro do quadrado
+         de canto arredondado. Aqui os dois são TRAÇO, não preenchimento,
+         porque traço se desenha sozinho (stroke-dashoffset).
+         `pathLength="1"` no SVG normaliza o comprimento pra 1 — sem ele
+         eu teria que medir o perímetro de cada caminho na mão. */
+
+      .carga-miolo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .carga-marca {
+        width: 84px;
+        height: 84px;
+        display: block;
+        overflow: visible; /* o brilho do traço pode vazar do viewBox */
+      }
+
+      /* A coreografia inteira fecha em ~1,5s — é o que dita o TEMPO_MIN do
+         motor lá embaixo. Numa carga rápida o véu espera a marca terminar
+         de se apresentar; mais que isso vira pedágio. */
+      .carga-caixa,
+      .carga-l {
+        fill: none;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        animation: carga-tracar 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      .carga-caixa {
+        stroke: rgba(232, 213, 176, 0.26);
+        stroke-width: 2;
+        /* traço tracejado sempre ABRE no ponto inicial do caminho, e num
+           caminho fechado isso deixava uma emenda visível no canto de cima.
+           Ponta arredondada sela as duas extremidades. */
+        stroke-linecap: round;
+      }
+
+      .carga-l {
+        stroke: #e8d5b0;
+        stroke-width: 7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        /* dois tempos no mesmo elemento: o traço se desenha (uma vez) e
+           o brilho respira (pra sempre) — propriedades diferentes, sem briga */
+        animation:
+          carga-tracar 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards,
+          carga-brilhar 2.6s ease-in-out 1s infinite;
+        filter: drop-shadow(0 0 10px rgba(232, 213, 176, 0.3));
+      }
+
+      @keyframes carga-tracar {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes carga-brilhar {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 10px rgba(232, 213, 176, 0.3));
+        }
+        50% {
+          filter: drop-shadow(0 0 22px rgba(232, 213, 176, 0.6));
+        }
+      }
+
+      /* --- assinatura: mesma revelação por máscara do hero --- */
+
+      .carga-nome,
+      .carga-papel {
+        overflow: hidden;
+      }
+
+      .carga-nome {
+        margin-top: 26px;
+      }
+
+      .carga-nome span,
+      .carga-papel span {
+        display: block;
+        transform: translateY(115%);
+        animation: carga-subir 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
+      }
+
+      .carga-nome span {
+        font-family: 'Archivo Variable', Arial, sans-serif;
+        font-weight: 700;
+        font-size: 1.0625rem;
+        letter-spacing: 0.01em;
+        color: #ede6da;
+      }
+
+      .carga-nome i {
+        font-style: normal;
+        color: #e8d5b0;
+        font-size: 0.7em;
+        vertical-align: super;
+      }
+
+      .carga-papel span {
+        margin-top: 5px;
+        font-family: 'Inter Variable', Arial, sans-serif;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: #8f887b;
+        animation-delay: 0.72s;
+      }
+
+      @keyframes carga-subir {
+        to {
+          transform: translateY(0);
+        }
+      }
+
+      /* --- o pé: rótulo, contador e trilho --- */
+
+      .carga-pe {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* 21px = --esp-3, o mesmo respiro lateral do celular */
+        padding: 0 21px calc(21px + env(safe-area-inset-bottom));
+        opacity: 0;
+        animation: carga-surgir 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.85s forwards;
+      }
+
+      @keyframes carga-surgir {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      .carga-legenda {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 10px;
+      }
+
+      .carga-rotulo {
+        font-family: 'Inter Variable', Arial, sans-serif;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: #8f887b;
+      }
+
+      .carga-numero {
+        display: block;
+        font-family: 'Archivo Variable', Arial, sans-serif;
+        font-weight: 700;
+        font-size: 1.5rem;
+        line-height: 1;
+        color: #ede6da;
+        /* três dígitos que não dançam de largura a cada quadro */
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: 'tnum' 1;
+      }
+
+      /* o dígito da frente em champanhe — mesma assinatura dos números do hero */
+      .carga-numero::first-letter {
+        color: #e8d5b0;
+      }
+
+      .carga-trilho {
+        position: relative;
+        height: 2px;
+        background: rgba(237, 230, 218, 0.14);
+        overflow: hidden;
+      }
+
+      .carga-fio {
+        position: absolute;
+        inset: 0;
+        background: #e8d5b0;
+        transform: scaleX(0); /* o script escreve aqui, uma vez por quadro */
+        transform-origin: 0 50%;
+      }
+
+      /* Faísca que percorre o trilho. É o que segura a tela numa conexão
+         ruim: mesmo com o número parado, a barra continua dando sinal de
+         vida em vez de parecer travada. */
+      .carga-faisca {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 34%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(237, 230, 218, 0.5),
+          transparent
+        );
+        animation: carga-varrer 1.9s linear infinite;
+      }
+
+      @keyframes carga-varrer {
+        from {
+          transform: translateX(-120%);
+        }
+        to {
+          transform: translateX(420%);
+        }
+      }
+
+      /* --- saída: o véu sobe e leva a marca junto --- */
+
+      #carga.saindo {
+        transform: translateY(-100%);
+      }
+
+      #carga.saindo .carga-miolo {
+        opacity: 0;
+        transform: scale(0.965);
+      }
+
+      /* --- quem pediu menos movimento vê a mesma tela, parada --- */
+      @media (prefers-reduced-motion: reduce) {
+        .carga-caixa,
+        .carga-l {
+          animation: none;
+          stroke-dashoffset: 0;
+        }
+        .carga-nome span,
+        .carga-papel span {
+          animation: none;
+          transform: none;
+        }
+        .carga-pe {
+          animation: none;
+          opacity: 1;
+        }
+        .carga-faisca {
+          display: none;
+        }
+        #carga {
+          transition: opacity 0.3s linear;
+        }
+        #carga.saindo {
+          transform: none;
+          opacity: 0;
+        }
+        #carga.saindo .carga-miolo {
+          transition: none;
+        }
+      }
+    </style>
+
+    <!-- Sem JS o site não existe (é React) — melhor não deixar o véu
+         cobrindo uma página que nunca vai carregar. -->
+    <noscript>
+      <style>
+        #carga {
+          display: none;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
+    <div id="carga" role="status" aria-label="Carregando o site">
+      <div class="carga-miolo" aria-hidden="true">
+        <svg class="carga-marca" viewBox="0 0 64 64">
+          <path
+            class="carga-caixa"
+            pathLength="1"
+            d="M17.5 3.5H46.5A14 14 0 0 1 60.5 17.5V46.5A14 14 0 0 1 46.5 60.5H17.5A14 14 0 0 1 3.5 46.5V17.5A14 14 0 0 1 17.5 3.5Z"
+          />
+          <path class="carga-l" pathLength="1" d="M22 16v28h22" />
+        </svg>
+
+        <p class="carga-nome"><span>Lucas Lima<i>®</i></span></p>
+        <p class="carga-papel"><span>Web Designer</span></p>
+      </div>
+
+      <div class="carga-pe" aria-hidden="true">
+        <div class="carga-legenda">
+          <span class="carga-rotulo">carregando</span>
+          <span class="carga-numero">000</span>
+        </div>
+        <div class="carga-trilho">
+          <span class="carga-fio"></span>
+          <span class="carga-faisca"></span>
+        </div>
+      </div>
+    </div>
+
     <div id="root"></div>
+
+    <!-- ==========================================================
+         O MOTOR DA BARRA
+
+         Inline por necessidade: ele precisa estar rodando durante o
+         download do bundle, que é a fase que ele mede. Todo o resto
+         (o que conta como carregado) vive em src/carregamento.js —
+         aqui só fica o que não pode depender de nada.
+         ========================================================== -->
+    <script>
+      (function () {
+        var raiz = document.documentElement
+        var no = document.getElementById('carga')
+
+        // Espelho do @media lá em cima. Desktop: nada disso acontece.
+        if (!no || window.matchMedia('(min-width: 561px) and (pointer: fine)').matches) return
+
+        var fio = no.querySelector('.carga-fio')
+        var numero = no.querySelector('.carga-numero')
+
+        // Se o markup mudar e uma destas peças sumir, o laço abaixo morreria
+        // no meio — e a classe `carregando` ficaria pra sempre, com o site
+        // travado sem scroll. Melhor não ter véu do que ter um véu preso.
+        if (!fio || !numero) {
+          no.remove()
+          return
+        }
+
+        var TEMPO_MIN = 1600 // a marca leva ~1,5s pra terminar de se apresentar
+        var TEMPO_MAX = 8000 // rede de segurança: nada prende ninguém atrás do véu
+        var nascimento = Date.now()
+
+        var real = 0 // fração REAL concluída — só o app escreve aqui
+        var visto = 0 // o que a barra mostra
+        var passo = 0.03
+        var pedidoFim = false
+        var acabou = false
+
+        raiz.classList.add('carregando')
+
+        function quadro() {
+          if (acabou) return
+
+          // O teto honesto: a barra avança no máximo 35% do que ainda
+          // falta. É isso que a deixa viva durante o download do bundle
+          // (fase que o navegador não deixa medir) sem nunca anunciar um
+          // progresso que não aconteceu — ela se aproxima e desacelera,
+          // e dá o salto de verdade quando o app confirma uma etapa.
+          var teto = real + (1 - real) * 0.35
+          visto += (teto - visto) * passo
+          if (visto > teto) visto = teto
+
+          fio.style.transform = 'scaleX(' + visto + ')'
+          numero.textContent = String(Math.round(visto * 100)).padStart(3, '0')
+
+          if (pedidoFim && visto > 0.995 && Date.now() - nascimento >= TEMPO_MIN) {
+            return sair()
+          }
+          requestAnimationFrame(quadro)
+        }
+
+        function sair() {
+          acabou = true
+          window.CARGA.acabou = true
+          fio.style.transform = 'scaleX(1)'
+          numero.textContent = '100'
+          no.classList.add('saindo')
+          // Solta o scroll e destrava as animações de entrada do hero JUNTO
+          // com a subida do véu: o título sobe enquanto a cortina abre.
+          raiz.classList.remove('carregando')
+          window.dispatchEvent(new Event('carga:fim'))
+          setTimeout(function () {
+            no.remove()
+          }, 1000)
+        }
+
+        window.CARGA = {
+          acabou: false,
+          // fração 0..1 do que realmente terminou de carregar
+          progresso: function (p) {
+            if (p > real) real = p
+          },
+          // "pode fechar": a barra corre até 100 e o véu sobe
+          fim: function () {
+            if (pedidoFim) return
+            pedidoFim = true
+            real = 1
+            passo = 0.16 // no fim ela acelera, senão o 100 demora demais
+          },
+        }
+
+        setTimeout(window.CARGA.fim, TEMPO_MAX)
+        requestAnimationFrame(quadro)
+      })()
+    </script>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

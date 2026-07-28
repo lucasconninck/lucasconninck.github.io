@@ -25,6 +25,13 @@
 
 export const projetos = [
   {
+    slug: 'aconchego-pet',
+    nome: 'Aconchego Pet',
+    segmento: 'Pet shop — ilustração e entrada em escada',
+    demo: '/demos/aconchego-pet/index.html',
+    capa: '/capas/aconchego-pet.jpg',
+  },
+  {
     slug: 'dental-health',
     nome: 'Dental Health',
     segmento: 'Odontologia — mosaico de uma foto só',

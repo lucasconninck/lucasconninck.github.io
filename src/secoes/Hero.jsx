@@ -3,6 +3,7 @@ import { gsap, ScrollTrigger, progressoRolagem } from '../anim/scroll'
 import { WHATSAPP_LINK } from '../data/contato'
 import { projetos } from '../data/projetos'
 import useConsultaMidia, { TELA_ESTREITA } from '../hooks/useConsultaMidia'
+import { cargaConcluida } from '../carregamento'
 
 // Números honestos — nada de "+300 projetos".
 //
@@ -32,6 +33,7 @@ export default function Hero({ movimentoReduzido }) {
   useEffect(() => {
     if (movimentoReduzido) return undefined
 
+    let vivo = true
     const contexto = gsap.context(() => {
       // A ponte DOM → WebGL: enquanto o primeiro 120% de tela rola,
       // progresso vai de 0 a 1 e a fita cromada se desenrola.
@@ -43,23 +45,43 @@ export default function Hero({ movimentoReduzido }) {
         },
       })
 
-      // Os números contam de 00 até o valor real na entrada da página
+      // Os números contam de 00 até o valor real na entrada da página.
+      //
+      // Nascem PAUSADOS: no celular o hero monta atrás da tela de
+      // carregamento, e sem isso a contagem inteira aconteceria escondida —
+      // o véu subiria com os números já parados no valor final. Quem dá o
+      // play é a saída do véu (no desktop, que não tem véu, é imediato).
+      const contadores = []
       secao.current.querySelectorAll('.hero-numeros strong').forEach((el) => {
         const alvo = Number(el.dataset.valor)
         const contador = { v: 0 }
-        gsap.to(contador, {
-          v: alvo,
-          duration: 1.6,
-          delay: 0.9,
-          ease: 'power2.out',
-          onUpdate: () => {
-            el.textContent = String(Math.round(contador.v)).padStart(2, '0')
-          },
-        })
+        contadores.push(
+          gsap.to(contador, {
+            v: alvo,
+            duration: 1.6,
+            // 0,75s = o instante em que .hero-baixo COMEÇA a aparecer.
+            // O texto nasce com o valor final (pra quem não tem JS), então
+            // a contagem tem que dar o salto pra "00" enquanto o bloco
+            // ainda está invisível — senão vê-se um 06 → 00 → 06.
+            delay: 0.75,
+            ease: 'power2.out',
+            paused: true,
+            onUpdate: () => {
+              el.textContent = String(Math.round(contador.v)).padStart(2, '0')
+            },
+          })
+        )
+      })
+
+      cargaConcluida.then(() => {
+        if (vivo) contadores.forEach((tween) => tween.play())
       })
     }, secao)
 
-    return () => contexto.revert()
+    return () => {
+      vivo = false
+      contexto.revert()
+    }
   }, [movimentoReduzido])
 
   return (
