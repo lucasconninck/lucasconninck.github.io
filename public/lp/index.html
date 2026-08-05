@@ -16,18 +16,18 @@
      O código já está todo aqui. Falta UMA coisa: o número do seu pixel.
 
      Onde achar: business.facebook.com → Gerenciador de Eventos →
-     sua origem de dados. O número aparece embaixo do nome, com 15 ou 16
-     dígitos (algo como 1234567890123456).
+     sua origem de dados. O número aparece embaixo do nome.
 
-     O QUE FAZER: troque COLE_AQUI_O_NUMERO_DO_PIXEL pelo seu número, mantendo
-     as aspas. Só isso. Enquanto estiver assim, o pixel fica desligado e a
-     página funciona normalmente, sem erro no console.
+     ⚠️ O comprimento varia: pixels antigos têm 15-16 dígitos, os criados em
+     2026 já saem com 17. Por isso a checagem abaixo aceita de 15 a 20 — a
+     versão anterior travava em 16 e teria recusado este número em silêncio,
+     deixando o pixel desligado sem nenhum aviso.
      ========================================================================== -->
 <script>
-window.PIXEL_META = 'COLE_AQUI_O_NUMERO_DO_PIXEL';
+window.PIXEL_META = '28298532169752841';
 
 (function(f,b,e,v,n,t,s){
-  if(!/^\d{15,16}$/.test(window.PIXEL_META)) return;   // ainda sem número: não liga
+  if(!/^\d{15,20}$/.test(window.PIXEL_META)) return;   // sem número válido: não liga
   if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
   if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
