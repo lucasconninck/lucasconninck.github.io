@@ -39,6 +39,39 @@ window.PIXEL_META = '28298532169752841';
 })(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
 </script>
 
+<!-- ==========================================================================
+     TAG DO GOOGLE (Google Ads)
+     --------------------------------------------------------------------------
+     Mesma ideia do pixel acima: o código já está pronto, faltam os dois
+     números. Enquanto TAG_GOOGLE estiver vazia, nada é baixado e nada dispara.
+
+     Onde achar cada um, em ads.google.com → Ferramentas → Conversões:
+       TAG_GOOGLE       o ID da conta, no formato AW-123456789
+       CONVERSAO_GOOGLE o ID + a barra + o rótulo da ação de conversão,
+                        assim: AW-123456789/AbC-D_efGhIjKl
+
+     São coisas diferentes e é fácil confundir: o primeiro identifica a CONTA
+     e liga o rastreamento; o segundo identifica a AÇÃO ("Contato WhatsApp") e
+     é o que o Google conta como conversão. Sem o rótulo, o Google vê a visita
+     mas nunca o lead — que é exatamente o erro que a campanha do Meta cometeu
+     ao contar visita no lugar de contato.
+     ========================================================================== -->
+<script>
+window.TAG_GOOGLE       = 'AW-18377071824';
+window.CONVERSAO_GOOGLE = 'AW-18377071824/7XbFCPjH_d0cENC577pE';
+
+(function(d){
+  if(!/^AW-\d{8,14}$/.test(window.TAG_GOOGLE)) return;   // sem ID válido: não liga
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ window.dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', window.TAG_GOOGLE);
+  var t = d.createElement('script'); t.async = true;
+  t.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.TAG_GOOGLE;
+  d.head.appendChild(t);
+})(document);
+</script>
+
 <noscript>
   <!-- para quem navega sem JavaScript: revela o conteúdo que só apareceria
        com a animação de entrada, senão a página fica em branco -->
@@ -938,6 +971,12 @@ document.addEventListener('click', function(e){
   var a = e.target.closest && e.target.closest('a[href*="wa.me/"]');
   if(!a) return;
   if(typeof fbq === 'function') fbq('track', 'Contact');
+
+  // mesma conversão, contada também no Google Ads. Inerte enquanto o rótulo
+  // não estiver preenchido lá no <head>.
+  if(typeof gtag === 'function' && window.CONVERSAO_GOOGLE){
+    gtag('event', 'conversion', { send_to: window.CONVERSAO_GOOGLE });
+  }
 });
 
 /* ==========================================================================
