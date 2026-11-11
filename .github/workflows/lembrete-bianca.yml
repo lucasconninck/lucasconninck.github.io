@@ -1,0 +1,27 @@
+# De hora em hora, pede pra Bianca (atendente do WhatsApp) chamar de novo
+# quem parou de responder, ANTES de fechar a janela de 24h da Meta.
+#
+# Mora aqui porque o plano gratuito da Vercel só agenda 1 vez por dia.
+# A senha fica em Settings → Secrets and variables → Actions → BIANCA_SEGREDO
+# (mesmo valor do WHATSAPP_VERIFY_TOKEN do atendente).
+
+name: Lembrete da Bianca
+
+on:
+  schedule:
+    - cron: '23 * * * *' # todo minuto 23 de cada hora
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  lembrar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Chamar a Bianca
+        env:
+          SEGREDO: ${{ secrets.BIANCA_SEGREDO }}
+        run: |
+          curl -fsS -X POST -H "x-segredo: $SEGREDO" \
+            https://atendente-whatsapp.vercel.app/api/lembrete
