@@ -231,9 +231,12 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
   transition:border-color .25s,box-shadow .25s;
 }
 .campo input:focus{border-color:var(--champanhe);box-shadow:0 0 0 4px rgba(232,213,176,.10)}
-.prefixo{position:relative}
-.prefixo span{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--apoio)}
-.prefixo input{padding-left:30px}
+/* o @ fica numa caixa só com o campo: alinha certo em qualquer celular */
+.prefixo{display:flex;align-items:center;background:var(--preto-2);border:1px solid var(--linha);border-radius:12px;
+  transition:border-color .25s,box-shadow .25s;cursor:text}
+.prefixo:focus-within{border-color:var(--champanhe);box-shadow:0 0 0 4px rgba(232,213,176,.10)}
+.prefixo span{flex:none;padding-left:14px;color:var(--champanhe);font-size:16px;line-height:1;user-select:none}
+.campo .prefixo input{border:0;background:transparent;box-shadow:none;padding-left:4px;min-width:0;flex:1}
 .erro{color:#F2A08B;font-size:.85rem;min-height:1.2em;margin-top:8px}
 .tremer{animation:tremer .4s}
 @keyframes tremer{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
@@ -728,6 +731,18 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
   $$('[data-evento]').forEach(function(a){
     a.addEventListener('click', function(){ evento(a.dataset.evento, {}, true); });
   });
+
+  // O @ já está desenhado: se a pessoa digitar ou colar outro, some (sem "@@").
+  // Colou o link do perfil? Fica só o nome.
+  var ig = $('#f-ig');
+  ig.addEventListener('input', function(){
+    var v = ig.value
+      .replace(/[@\s]/g, '')
+      .replace(/^(https?:\/\/)?(www\.)?instagram\.com\//i, '')
+      .replace(/[/?].*$/, '');
+    if(v !== ig.value) ig.value = v;
+  });
+  $('.prefixo').addEventListener('click', function(){ ig.focus(); });
 
   // Enter no campo conclui, sem precisar caçar o botão no celular
   ['#f-nome', '#f-ig'].forEach(function(s){
