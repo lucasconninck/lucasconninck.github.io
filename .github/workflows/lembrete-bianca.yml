@@ -3,7 +3,7 @@
 #
 # Mora aqui porque o plano gratuito da Vercel só agenda 1 vez por dia.
 # A senha fica em Settings → Secrets and variables → Actions → BIANCA_SEGREDO
-# (mesmo valor do WHATSAPP_VERIFY_TOKEN do atendente).
+# (mesmo valor do LEMBRETE_SEGREDO na Vercel).
 
 name: Lembrete da Bianca
 
