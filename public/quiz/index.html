@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Seu site pronto antes de pagar — 6 perguntas</title>
+<meta name="description" content="Responda 6 perguntas rápidas e veja se a página do seu negócio cabe no que eu faço. Você vê o site pronto antes de pagar.">
+<meta property="og:title" content="Eu faço o site do seu negócio antes de você pagar">
+<meta property="og:description" content="6 perguntas, menos de 1 minuto. Se fizer sentido, você já cai no WhatsApp com tudo encaminhado.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0E0D0B">
+
+<!-- ==========================================================================
+     POR QUE ESTE QUIZ EXISTE
+     --------------------------------------------------------------------------
+     O anúncio que mandava direto pro WhatsApp enchia a conversa de curioso,
+     e cada curioso custa anúncio + crédito do atendente. O quiz filtra ANTES:
+     só vê o botão do WhatsApp quem disse que o preço cabe (ou quase cabe e
+     tem pressa). Quem passa já chega com o briefing escrito na mensagem.
+
+     GANCHOS (por que a pessoa termina):
+       · "Sua página" no topo acende uma peça a cada resposta — largar no
+         meio é deixar uma coisa dela pela metade;
+       · cada resposta ganha uma reação curta e específica, sem número
+         inventado nem promessa de resultado;
+       · a barra já começa andando e diz quanto falta.
+
+     EVENTOS DO PIXEL — é por eles que a campanha deve otimizar:
+       ViewContent        abriu e começou o quiz
+       QuizConcluido      respondeu tudo (qualificado ou não)
+       Lead               QUALIFICADO — otimize a campanha por ESTE
+       Contact            clicou no botão do WhatsApp
+     ========================================================================== -->
+<script>
+window.PIXEL_META = '28298532169752841';
+
+/* Número do ATENDENTE automático (no ar desde 10/11/2026). */
+window.WHATSAPP_DESTINO = '5543988614254';
+
+/* Preço de entrada. É "a partir de": projeto maior sai mais caro, e quem
+   fecha o valor final é o Lucas, não o atendente. */
+window.PRECO = 'R$ 490';
+window.PRECO_NUM = 490;
+
+(function(f,b,e,v,n,t,s){
+  if(!/^\d{15,20}$/.test(window.PIXEL_META)) return;
+  if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s);
+  fbq('init', window.PIXEL_META);
+  fbq('track', 'PageView');
+})(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62.5..125,400..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --preto:#0E0D0B;
+  --preto-2:#171612;
+  --preto-3:#201E19;
+  --creme:#EDE6DA;
+  --apoio:#8F887B;
+  --champanhe:#E8D5B0;
+  --champanhe-2:#C9B07E;
+  --linha:rgba(237,230,218,.12);
+  --verde:#25D366;
+  --curva:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+/* .pagina usa display:flex, que venceria o [hidden] do navegador e deixaria
+   um buraco invisível no topo da capa */
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--preto);color:var(--creme);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:17px;line-height:1.55;
+  min-height:100svh;display:flex;flex-direction:column;
+  overflow-x:hidden;
+}
+/* brilho quente atrás de tudo: dá profundidade sem imagem */
+body::before{
+  content:'';position:fixed;z-index:0;pointer-events:none;
+  width:120vmax;height:120vmax;left:50%;top:-60vmax;transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(232,213,176,.10),transparent 70%);
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.3;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+}
+button,input{font:inherit;color:inherit}
+a{color:inherit}
+
+.casca{
+  position:relative;z-index:1;
+  width:100%;max-width:560px;margin:0 auto;
+  padding:18px 16px calc(24px + env(safe-area-inset-bottom));
+  flex:1;display:flex;flex-direction:column;
+}
+
+/* ---------- topo ---------- */
+.topo{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:40px}
+.marca{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 110,'wght' 700;
+  font-size:.8rem;letter-spacing:.18em;text-transform:uppercase}
+.marca b{color:var(--champanhe);font-weight:inherit}
+.voltar{display:inline-flex;align-items:center;gap:6px;background:none;border:0;color:var(--apoio);
+  font-size:.85rem;cursor:pointer;padding:8px 0;opacity:0;pointer-events:none;transition:opacity .3s}
+.voltar.on{opacity:1;pointer-events:auto}
+.voltar:hover{color:var(--creme)}
+
+.progresso{margin-top:12px;opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s var(--curva)}
+.progresso.on{opacity:1;transform:none}
+.barra{height:4px;background:var(--linha);border-radius:4px;overflow:hidden}
+.barra i{display:block;height:100%;width:0;border-radius:4px;
+  background:linear-gradient(90deg,var(--champanhe-2),var(--champanhe));
+  box-shadow:0 0 12px rgba(232,213,176,.5);
+  transition:width .7s var(--curva)}
+.falta{display:flex;justify-content:space-between;margin-top:8px;font-size:.75rem;color:var(--apoio);letter-spacing:.04em}
+.falta b{color:var(--champanhe);font-weight:500}
+
+/* ---------- "sua página" montando ---------- */
+.pagina{
+  display:flex;gap:14px;align-items:center;margin-top:16px;
+  padding:12px 14px;border:1px solid var(--linha);border-radius:16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+  opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s var(--curva);
+}
+.pagina.on{opacity:1;transform:none}
+.cel{
+  flex:none;width:46px;height:78px;border-radius:9px;border:1.5px solid rgba(237,230,218,.28);
+  padding:7px 5px;display:flex;flex-direction:column;gap:4px;background:var(--preto);
+}
+.cel span{display:block;border-radius:2px;background:rgba(237,230,218,.10);
+  transition:background .5s var(--curva),box-shadow .5s,transform .5s var(--curva)}
+.cel span.on{background:var(--champanhe);box-shadow:0 0 8px rgba(232,213,176,.55);animation:acende .6s var(--curva)}
+@keyframes acende{0%{transform:scaleX(.3)}60%{transform:scaleX(1.08)}100%{transform:none}}
+.cel .p1{height:7px;width:45%}
+.cel .p2{height:5px;width:90%}
+.cel .p3{height:13px}
+.cel .p4{height:5px;width:70%}
+.cel .p5{height:9px}
+.cel .p6{height:8px;width:60%;margin-top:auto;border-radius:6px}
+.pagina-tx{font-size:.82rem;line-height:1.4;color:var(--apoio)}
+.pagina-tx b{display:block;color:var(--creme);font-weight:600;font-size:.9rem;margin-bottom:2px}
+.pagina-tx em{font-style:normal;color:var(--champanhe)}
+
+/* ---------- telas ---------- */
+.palco{position:relative;flex:1;display:flex;flex-direction:column}
+.tela{display:none;flex-direction:column;flex:1;padding-top:26px}
+.tela.ativa{display:flex}
+.tela.entra{animation:entra .55s var(--curva) both}
+.tela.entra-volta{animation:entraVolta .55s var(--curva) both}
+.tela.sai{animation:sai .28s ease-in both}
+.tela.sai-volta{animation:saiVolta .28s ease-in both}
+@keyframes entra{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:none}}
+@keyframes entraVolta{from{opacity:0;transform:translateX(-36px)}to{opacity:1;transform:none}}
+@keyframes sai{to{opacity:0;transform:translateX(-36px)}}
+@keyframes saiVolta{to{opacity:0;transform:translateX(36px)}}
+
+.olho{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--apoio);font-weight:500}
+.olho b{color:var(--champanhe);font-weight:500}
+h1,h2{
+  font-family:'Archivo',Impact,sans-serif;
+  font-variation-settings:'wdth' 118,'wght' 700;
+  text-transform:uppercase;line-height:.98;letter-spacing:-.01em;
+  margin:12px 0 14px;text-wrap:balance;
+}
+h1{font-size:clamp(2rem,9vw,3rem)}
+h2{font-size:clamp(1.45rem,6.4vw,2rem)}
+h1 em,h2 em{font-style:normal;color:var(--champanhe)}
+.sub{color:var(--apoio);font-size:1rem}
+.sub b{color:var(--creme);font-weight:600}
+
+/* ---------- opções ---------- */
+.opcoes{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.op{
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;gap:14px;text-align:left;width:100%;
+  background:var(--preto-2);border:1px solid var(--linha);border-radius:14px;
+  padding:14px 16px;min-height:60px;cursor:pointer;
+  transition:border-color .25s,background .25s,transform .2s var(--curva);
+}
+.tela.ativa .op{animation:sobe .5s var(--curva) both;animation-delay:calc(var(--i,0) * 60ms + 120ms)}
+@keyframes sobe{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.op:hover{border-color:rgba(232,213,176,.45);transform:translateX(3px)}
+.op:active{transform:scale(.985)}
+.op .letra{
+  flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+  font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 110,'wght' 700;font-size:.8rem;
+  border:1px solid rgba(237,230,218,.22);color:var(--apoio);
+  transition:background .25s,color .25s,border-color .25s;
+}
+.op .tx{display:flex;flex-direction:column}
+.op .tx small{color:var(--apoio);font-size:.82rem;line-height:1.35;margin-top:2px}
+.op .seta{margin-left:auto;flex:none;opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .25s;color:var(--champanhe)}
+.op:hover .seta{opacity:1;transform:none}
+.op.marcada{border-color:var(--champanhe);background:rgba(232,213,176,.09)}
+.op.marcada .letra{background:var(--champanhe);border-color:var(--champanhe);color:var(--preto)}
+.op.marcada .seta{opacity:1;transform:none}
+/* brilho que atravessa a opção escolhida */
+.op.marcada::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(100deg,transparent 30%,rgba(232,213,176,.22) 50%,transparent 70%);
+  transform:translateX(-100%);animation:brilho .7s ease-out;
+}
+@keyframes brilho{to{transform:translateX(100%)}}
+.opcoes.decidido .op:not(.marcada){opacity:.4;transition:opacity .3s}
+
+/* reação a cada resposta */
+.reacao{
+  display:flex;gap:10px;align-items:flex-start;margin-top:16px;
+  padding:12px 14px;border-radius:12px;border:1px solid rgba(232,213,176,.25);
+  background:rgba(232,213,176,.06);font-size:.92rem;line-height:1.45;
+  opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s var(--curva);
+}
+.reacao.on{opacity:1;transform:none}
+.reacao svg{flex:none;margin-top:2px;color:var(--champanhe)}
+
+/* ---------- campos ---------- */
+.campo{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+.campo label{font-size:.85rem;color:var(--apoio)}
+.campo input{
+  background:var(--preto-2);border:1px solid var(--linha);border-radius:12px;
+  padding:15px 14px;font-size:16px;outline:none;width:100%;
+  transition:border-color .25s,box-shadow .25s;
+}
+.campo input:focus{border-color:var(--champanhe);box-shadow:0 0 0 4px rgba(232,213,176,.10)}
+.prefixo{position:relative}
+.prefixo span{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--apoio)}
+.prefixo input{padding-left:30px}
+.erro{color:#F2A08B;font-size:.85rem;min-height:1.2em;margin-top:8px}
+.tremer{animation:tremer .4s}
+@keyframes tremer{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+/* ---------- botões ---------- */
+.empurra{flex:1;min-height:24px}
+.cta{
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  border:0;border-radius:999px;padding:17px 22px;min-height:58px;
+  font-weight:600;font-size:1.02rem;cursor:pointer;text-decoration:none;
+  background:var(--champanhe);color:var(--preto);
+  box-shadow:0 10px 30px -10px rgba(232,213,176,.55);
+  transition:transform .2s var(--curva),box-shadow .2s;
+}
+.cta:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(232,213,176,.7)}
+.cta:active{transform:scale(.98)}
+.cta.wpp{background:var(--verde);color:#062b14;box-shadow:0 10px 30px -10px rgba(37,211,102,.6);
+  -webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+.cta.wpp svg{flex:none;display:block}
+.cta.wpp:hover,.cta.wpp:active{transform:none}
+.cta.wpp:active{filter:brightness(.92)}
+/* botão do WhatsApp sempre visível em tela baixa, mesmo se o resumo empurrar */
+@media (max-height:760px){
+  .fixo-baixo{position:sticky;bottom:0;padding:14px 0 calc(10px + env(safe-area-inset-bottom));
+    background:linear-gradient(to bottom,rgba(14,13,11,0),rgba(14,13,11,.96) 40%);z-index:5}
+}
+.fixo-baixo .nota{margin-top:10px}
+.fixo-baixo .selo{margin-top:0}
+.cta.fantasma{background:transparent;color:var(--creme);border:1px solid var(--linha);box-shadow:none}
+.cta.fantasma::after{display:none}
+.nota{color:var(--apoio);font-size:.8rem;text-align:center;margin-top:12px}
+
+/* ---------- capa ---------- */
+.provas{list-style:none;display:flex;flex-direction:column;gap:12px;margin:24px 0 8px}
+.provas li{display:flex;gap:12px;align-items:center;font-size:.98rem;
+  animation:sobe .6s var(--curva) both;animation-delay:calc(var(--i) * 90ms + 250ms)}
+.provas li svg{flex:none;color:var(--champanhe)}
+.selo{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:.8rem;color:var(--apoio)}
+.pulso{width:8px;height:8px;border-radius:50%;background:var(--verde);flex:none}
+@keyframes pulso{70%{box-shadow:0 0 0 9px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+
+/* ---------- resultado ---------- */
+.ok{width:64px;height:64px;margin:6px 0 4px}
+.ok circle{stroke:var(--champanhe);stroke-width:2.5;fill:none;stroke-dasharray:190;stroke-dashoffset:190;animation:traca .7s var(--curva) forwards}
+.ok path{stroke:var(--champanhe);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:traca .45s var(--curva) .55s forwards}
+@keyframes traca{to{stroke-dashoffset:0}}
+.resumo{margin-top:18px;border:1px solid var(--linha);border-radius:14px;padding:6px 16px;
+  background:var(--preto-2);display:flex;flex-direction:column;font-size:.92rem}
+.resumo div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--linha);
+  animation:sobe .5s var(--curva) both;animation-delay:calc(var(--i) * 80ms + 500ms)}
+.resumo div:last-child{border-bottom:0}
+.resumo dt{color:var(--apoio)}
+.resumo dd{text-align:right;font-weight:500}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<main class="casca">
+
+  <header>
+    <div class="topo">
+      <button class="voltar" id="voltar" type="button" aria-label="Voltar uma pergunta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        voltar
+      </button>
+      <span class="marca">Lucas <b>Lima</b></span>
+    </div>
+    <div class="progresso" id="progresso" hidden>
+      <div class="barra" aria-hidden="true"><i id="barra"></i></div>
+      <div class="falta"><span id="falta-a">Pergunta 1 de 6</span><b id="falta-b">menos de 1 minuto</b></div>
+    </div>
+    <div class="pagina" id="pagina" aria-live="polite" hidden>
+      <div class="cel" aria-hidden="true">
+        <span class="p1"></span><span class="p2"></span><span class="p3"></span>
+        <span class="p4"></span><span class="p5"></span><span class="p6"></span>
+      </div>
+      <div class="pagina-tx"><b>Sua página</b><span id="pagina-tx">Cada resposta monta uma parte dela.</span></div>
+    </div>
+  </header>
+
+  <div class="palco">
+
+  <!-- 0 · capa -->
+  <section class="tela ativa entra" data-tela="capa">
+    <span class="olho">Site para negócio local · <b>6 perguntas</b></span>
+    <h1>Eu faço o site do seu negócio <em>antes</em> de você pagar</h1>
+    <p class="sub">Responda 6 perguntas rápidas. No final você descobre se a sua página cabe no que eu faço e já sai com ela encaminhada.</p>
+    <ul class="provas">
+      <li style="--i:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Página com WhatsApp, telefone, endereço e mapa</li>
+      <li style="--i:1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Você vê pronta no celular e só então decide</li>
+      <li style="--i:2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Pagamento único, sem mensalidade</li>
+    </ul>
+    <div class="empurra"></div>
+    <button class="cta" type="button" data-acao="comecar">Começar agora</button>
+    <p class="nota"><span class="selo"><span class="pulso"></span>Sem cadastro. Nada é enviado até você escolher.</span></p>
+  </section>
+
+  <!-- 1 · tipo de negócio -->
+  <section class="tela" data-tela="tipo" data-passo="1">
+    <span class="olho">Sobre o seu negócio</span>
+    <h2>Que tipo de negócio é o seu?</h2>
+    <div class="opcoes" data-campo="tipo">
+      <button class="op" type="button" style="--i:0" data-valor="Loja física" data-reacao="Loja física é o que eu mais faço. A sua página vai levar o cliente direto pro seu WhatsApp e pro mapa."><span class="letra">A</span><span class="tx">Loja física<small>roupa, papelaria, mercado, presentes</small></span></button>
+      <button class="op" type="button" style="--i:1" data-valor="Serviço com horário marcado" data-agenda="1" data-reacao="Boa. Dá pra mostrar seus serviços com um botão de agendar pelo WhatsApp."><span class="letra">B</span><span class="tx">Serviço com horário marcado<small>salão, barbearia, estética, clínica</small></span></button>
+      <button class="op" type="button" style="--i:2" data-valor="Prestador de serviço" data-reacao="Perfeito. A página vira o seu cartão de visita quando procurarem o seu serviço."><span class="letra">C</span><span class="tx">Prestador de serviço<small>eletricista, fotógrafo, contador, oficina</small></span></button>
+      <button class="op" type="button" style="--i:3" data-valor="Comida / delivery" data-reacao="Ótimo. Cardápio na página e pedido caindo direto no seu WhatsApp."><span class="letra">D</span><span class="tx">Comida ou delivery<small>restaurante, lanchonete, confeitaria</small></span></button>
+      <button class="op" type="button" style="--i:4" data-valor="Outro" data-reacao="Sem problema. A página se adapta ao seu negócio."><span class="letra">E</span><span class="tx">Outro</span></button>
+    </div>
+  </section>
+
+  <!-- 2 · site hoje -->
+  <section class="tela" data-tela="site" data-passo="2">
+    <span class="olho">Onde você está hoje</span>
+    <h2>Hoje você tem site?</h2>
+    <div class="opcoes" data-campo="site">
+      <button class="op" type="button" style="--i:0" data-valor="Não tenho" data-reacao="Então começamos do zero, do jeito certo."><span class="letra">A</span><span class="tx">Não tenho<small>só Instagram ou WhatsApp</small></span></button>
+      <button class="op" type="button" style="--i:1" data-valor="Tenho, mas não gosto" data-reacao="Acontece muito. Você vai poder comparar lado a lado antes de decidir."><span class="letra">B</span><span class="tx">Tenho, mas não gosto<small>desatualizado ou não traz cliente</small></span></button>
+      <button class="op" type="button" style="--i:2" data-valor="Tenho e gosto" data-reacao="Ótimo. Mesmo assim vale ver uma versão nova pronta, sem compromisso."><span class="letra">C</span><span class="tx">Tenho e gosto dele</span></button>
+    </div>
+  </section>
+
+  <!-- 3 · objetivo -->
+  <section class="tela" data-tela="objetivo" data-passo="3">
+    <span class="olho">O que importa pra você</span>
+    <h2>O que você mais quer que o site faça?</h2>
+    <div class="opcoes" data-campo="objetivo">
+      <button class="op" type="button" style="--i:0" data-valor="Aparecer no Google" data-reacao="Anotado. Isso vai guiar o texto e a estrutura da sua página."><span class="letra">A</span><span class="tx">Aparecer no Google<small>quando procurarem o que eu vendo na cidade</small></span></button>
+      <button class="op" type="button" style="--i:1" data-valor="Receber pedidos no WhatsApp" data-reacao="Anotado. O botão do WhatsApp vai ser o destaque da página."><span class="letra">B</span><span class="tx">Receber mais pedidos no WhatsApp</span></button>
+      <button class="op" type="button" style="--i:2" data-valor="Mostrar produtos e serviços" data-reacao="Anotado. Seus produtos e serviços viram o centro da página."><span class="letra">C</span><span class="tx">Mostrar meus produtos e serviços</span></button>
+      <button class="op" type="button" style="--i:3" data-valor="Passar mais confiança" data-reacao="Anotado. Visual profissional e informação clara, do jeito que passa confiança."><span class="letra">D</span><span class="tx">Passar mais confiança<small>parecer mais profissional</small></span></button>
+      <button class="op" type="button" style="--i:4" data-valor="Loja virtual (Nuvemshop)" data-loja="1" data-reacao="Loja virtual também é com a gente, montada na Nuvemshop."><span class="letra">E</span><span class="tx">Vender pelo site, com carrinho e pagamento<small>loja virtual completa</small></span></button>
+    </div>
+  </section>
+
+  <!-- 4 · prazo -->
+  <section class="tela" data-tela="prazo" data-passo="4">
+    <span class="olho">Tempo</span>
+    <h2>Pra quando você quer o site no ar?</h2>
+    <div class="opcoes" data-campo="prazo">
+      <button class="op" type="button" style="--i:0" data-valor="Essa semana" data-reacao="Dá tempo: depois de fechado, o site fica no ar em até 2 dias."><span class="letra">A</span><span class="tx">Essa semana</span></button>
+      <button class="op" type="button" style="--i:1" data-valor="Esse mês" data-reacao="Cabe com folga."><span class="letra">B</span><span class="tx">Ainda esse mês</span></button>
+      <button class="op" type="button" style="--i:2" data-valor="Só pesquisando" data-reacao="Sem pressão. Ver pronto ajuda a decidir."><span class="letra">C</span><span class="tx">Sem pressa, só pesquisando</span></button>
+    </div>
+  </section>
+
+  <!-- 5 · investimento: o filtro de verdade -->
+  <section class="tela" data-tela="preco" data-passo="5">
+    <span class="olho">Investimento</span>
+    <h2 id="preco-titulo">O site sai a partir de <em class="js-preco">R$ 490</em>, uma vez só</h2>
+    <p class="sub" id="preco-sub">Domínio incluso no primeiro ano, sem mensalidade. Projeto maior pode sair um pouco mais, e você sabe o valor antes de qualquer compromisso. E <b>só paga depois de ver pronto</b>. Isso cabe pra você agora?</p>
+    <div class="opcoes" data-campo="preco">
+      <button class="op" type="button" style="--i:0" data-valor="Cabe" data-reacao="Combinado. Só falta uma coisa."><span class="letra">A</span><span class="tx">Cabe, se eu gostar do resultado</span></button>
+      <button class="op" type="button" style="--i:1" data-valor="Preciso pensar" data-reacao="Justo. Ver pronto costuma ajudar nessa hora."><span class="letra">B</span><span class="tx">Preciso pensar</span></button>
+      <button class="op" type="button" style="--i:2" data-valor="Não cabe agora" data-reacao="Entendido, obrigado pela sinceridade."><span class="letra">C</span><span class="tx">Agora não cabe no orçamento</span></button>
+    </div>
+  </section>
+
+  <!-- 6 · identificação -->
+  <section class="tela" data-tela="nome" data-passo="6">
+    <span class="olho">Último passo</span>
+    <h2>Qual o nome do seu <em>negócio</em>?</h2>
+    <p class="sub">É com ele que a sua página começa.</p>
+    <div class="campo">
+      <label for="f-nome">Nome do negócio</label>
+      <input id="f-nome" type="text" autocomplete="organization" maxlength="60" placeholder="Ex.: Papelaria Aurora">
+    </div>
+    <div class="campo">
+      <label for="f-ig">Instagram do negócio (se tiver)</label>
+      <div class="prefixo"><span>@</span><input id="f-ig" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="40" placeholder="seunegocio"></div>
+    </div>
+    <p class="erro" id="erro" role="alert"></p>
+    <div class="empurra"></div>
+    <button class="cta" type="button" data-acao="concluir">Ver meu resultado</button>
+  </section>
+
+  <!-- qualificado -->
+  <section class="tela" data-tela="sim">
+    <svg class="ok" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29"/><path d="M20 33l8 8 16-17"/></svg>
+    <span class="olho"><b>Resultado</b></span>
+    <h2 id="sim-titulo">Sua página está pronta pra <em>ser montada</em></h2>
+    <p class="sub">Toque no botão e envie a mensagem que já vai escrita. O meu assistente responde na hora, junta o que falta e <b>a montagem começa ali mesmo</b>.</p>
+    <dl class="resumo" id="resumo"></dl>
+    <div class="empurra"></div>
+    <div class="fixo-baixo">
+    <a class="cta wpp" id="ir-wpp" href="#" rel="noopener">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.1 1.3 15.1 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.7c1.8 1 3.7 1.5 5.7 1.5 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.3z"/></svg>
+      Continuar no WhatsApp
+    </a>
+    <p class="nota"><span class="selo"><span class="pulso"></span>Atendimento online agora. Você não paga nada pra ver pronta.</span></p>
+    </div>
+  </section>
+
+  <!-- não é agora -->
+  <section class="tela" data-tela="nao">
+    <span class="olho">Resultado</span>
+    <h2>Sem problema, <em>fica pra quando fizer sentido</em></h2>
+    <p class="sub">Pelo que você respondeu, agora não é o momento, e está tudo bem. Enquanto isso, veja algumas páginas que eu já fiz.</p>
+    <div class="empurra"></div>
+    <a class="cta fantasma" href="/" data-evento="VerPortfolio">Ver páginas que eu já fiz</a>
+    <p class="nota"><a href="#" data-acao="refazer-preco">Mudei de ideia, quero ver o meu site</a></p>
+  </section>
+
+  </div>
+</main>
+
+<script>
+(function(){
+  var respostas = {};
+  var historico = ['capa'];
+  var TOTAL = 6;
+  var PRECO_LOJA = 790;
+  var ORDEM = ['tipo','site','objetivo','prazo','preco','nome'];
+  var PAUSA_REACAO = 1100;   // tempo pra ler a reação antes de trocar de tela
+  var trocando = false;
+
+  var $ = function(s, c){ return (c || document).querySelector(s); };
+  var $$ = function(s, c){ return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var reduzido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // o pixel pode não ter carregado (bloqueador, rede ruim): o quiz não pode depender dele
+  function evento(nome, dados, custom){
+    try{ if(window.fbq) fbq(custom ? 'trackCustom' : 'track', nome, dados || {}); }catch(e){}
+  }
+
+  $$('.js-preco').forEach(function(el){ el.textContent = window.PRECO; });
+
+  /* ---- "sua página": uma peça acende por resposta ---- */
+  var FRASES = [
+    'Cada resposta monta uma parte dela.',
+    '<em>1 de 6</em> peças prontas. Bom começo.',
+    '<em>2 de 6</em> peças prontas.',
+    '<em>3 de 6</em> peças. Metade do caminho.',
+    '<em>4 de 6</em> peças. Falta pouco.',
+    '<em>5 de 6</em> peças. Só mais uma.',
+    '<em>6 de 6</em> peças prontas.'
+  ];
+  function pecas(n){
+    $$('.cel span').forEach(function(s, i){ s.classList.toggle('on', i < n); });
+    $('#pagina-tx').innerHTML = FRASES[n];
+  }
+  function respondidas(){
+    return ORDEM.filter(function(c){ return c === 'nome' ? !!respostas.nome : !!respostas[c]; }).length;
+  }
+
+  function progresso(nome){
+    var tela = $('.tela[data-tela="'+nome+'"]');
+    var passo = Number(tela.dataset.passo || 0);
+    var fim = nome === 'sim' || nome === 'nao';
+    var mostra = nome !== 'capa';
+    // na capa os dois nem ocupam espaço; depois entram com fade
+    $('#progresso').hidden = !mostra || fim;
+    $('#pagina').hidden = !mostra || nome === 'nao';
+    requestAnimationFrame(function(){
+      $('#progresso').classList.toggle('on', mostra && !fim);
+      $('#pagina').classList.toggle('on', mostra && nome !== 'nao');
+    });
+    // começa já andando: quem vê a barra parada no zero desiste mais
+    var pct = fim ? 100 : Math.max(8, ((passo - 1) / TOTAL) * 100 + 6);
+    $('#barra').style.width = pct + '%';
+    var faltam = TOTAL - passo;
+    $('#falta-a').textContent = passo ? 'Pergunta ' + passo + ' de ' + TOTAL : '';
+    $('#falta-b').textContent = faltam === 0 ? 'última pergunta' : faltam === 1 ? 'falta só 1' : 'faltam ' + faltam;
+    $('#voltar').classList.toggle('on', historico.length > 1 && !fim);
+  }
+
+  function mostrar(nome, opts){
+    opts = opts || {};
+    var volta = !!opts.volta;
+    var atual = $('.tela.ativa');
+    var prox = $('.tela[data-tela="'+nome+'"]');
+    if(opts.empilhar !== false) historico.push(nome);
+
+    function entrar(){
+      if(atual){ atual.classList.remove('ativa','entra','entra-volta','sai','sai-volta'); }
+      // limpa a escolha anterior desta tela (quem volta pode trocar a resposta)
+      $$('.reacao', prox).forEach(function(r){ r.remove(); });
+      $$('.opcoes', prox).forEach(function(o){ o.classList.remove('decidido'); });
+      prox.classList.add('ativa', volta ? 'entra-volta' : 'entra');
+      progresso(nome);
+      window.scrollTo(0, 0);
+      if(nome === 'nome') setTimeout(function(){ $('#f-nome').focus({ preventScroll:true }); }, 450);
+      trocando = false;
+    }
+
+    if(atual && atual !== prox && !reduzido){
+      atual.classList.remove('entra','entra-volta');
+      atual.classList.add(volta ? 'sai-volta' : 'sai');
+      setTimeout(entrar, 260);
+    } else {
+      entrar();
+    }
+  }
+
+  $('#voltar').addEventListener('click', function(){
+    if(historico.length < 2 || trocando) return;
+    historico.pop();
+    mostrar(historico[historico.length - 1], { empilhar:false, volta:true });
+  });
+
+  /* Quem quer carrinho vai pra loja virtual na Nuvemshop (a partir de R$ 790,
+     decidido em 10/11/2026). A pergunta de preço tem que mostrar o preço DO
+     QUE a pessoa quer, senão o filtro deixa passar quem não aguenta o valor. */
+  function ajustarPreco(loja){
+    respostas.loja = loja;
+    if(loja){
+      $('#preco-titulo').innerHTML = 'A loja virtual sai a partir de <em>R$ ' + PRECO_LOJA + '</em>';
+      $('#preco-sub').innerHTML = 'Montada na Nuvemshop, com carrinho e pagamento online. O valor exato depende do tamanho da loja, e você sabe antes de qualquer compromisso. Isso cabe pra você agora?';
+    } else {
+      $('#preco-titulo').innerHTML = 'O site sai a partir de <em>' + window.PRECO + '</em>, uma vez só';
+      $('#preco-sub').innerHTML = 'Domínio incluso no primeiro ano, sem mensalidade. Projeto maior pode sair um pouco mais, e você sabe o valor antes de qualquer compromisso. E <b>só paga depois de ver pronto</b>. Isso cabe pra você agora?';
+    }
+  }
+
+  function mostrarReacao(grupo, texto){
+    if(!texto) return;
+    var r = document.createElement('div');
+    r.className = 'reacao';
+    r.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span></span>';
+    r.querySelector('span').textContent = texto;
+    grupo.insertAdjacentElement('afterend', r);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ r.classList.add('on'); }); });
+  }
+
+  $$('.opcoes').forEach(function(grupo){
+    grupo.addEventListener('click', function(ev){
+      var op = ev.target.closest('.op');
+      if(!op || trocando) return;
+      trocando = true;
+      $$('.op', grupo).forEach(function(o){ o.classList.remove('marcada'); });
+      op.classList.add('marcada');
+      grupo.classList.add('decidido');
+
+      var campo = grupo.dataset.campo;
+      respostas[campo] = op.dataset.valor;
+      if(campo === 'tipo') respostas.agendamento = !!op.dataset.agenda;
+      if(campo === 'objetivo') ajustarPreco(!!op.dataset.loja);
+
+      pecas(respondidas());
+      mostrarReacao(grupo, op.dataset.reacao);
+
+      var prox = ORDEM[ORDEM.indexOf(campo) + 1];
+      setTimeout(function(){ mostrar(prox); }, reduzido ? 600 : PAUSA_REACAO);
+    });
+  });
+
+  function limparIg(v){
+    return (v || '').trim().replace(/^@+/, '').replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/[\/?].*$/, '').replace(/\s+/g, '');
+  }
+
+  /* Quem passa: disse que o preço cabe, OU vai pensar mas tem prazo real.
+     "Não cabe agora" e "pensar + só pesquisando" ficam de fora — são o
+     curioso que gastava conversa e crédito do atendente. */
+  function qualificado(){
+    if(respostas.preco === 'Cabe') return true;
+    if(respostas.preco === 'Preciso pensar' && respostas.prazo !== 'Só pesquisando') return true;
+    return false;
+  }
+
+  /* A primeira linha é a assinatura que o atendente reconhece (roteiro.js,
+     seção "Quem chega pelo quiz"). Mudou aqui? Muda lá também. */
+  function mensagem(){
+    var l = ['Oi! Fiz o quiz do site', ''];
+    l.push('Negócio: ' + respostas.nome);
+    if(respostas.instagram) l.push('Instagram: @' + respostas.instagram);
+    l.push('Tipo: ' + respostas.tipo);
+    l.push('Site hoje: ' + respostas.site);
+    l.push('Quero: ' + respostas.objetivo);
+    l.push('Prazo: ' + respostas.prazo);
+    return l.join('\n');
+  }
+
+  function montarResumo(){
+    var linhas = [
+      ['Negócio', respostas.nome],
+      ['Instagram', respostas.instagram ? '@' + respostas.instagram : '—'],
+      ['Tipo', respostas.tipo],
+      ['Objetivo', respostas.objetivo],
+      ['Prazo', respostas.prazo]
+    ];
+    var dl = $('#resumo');
+    dl.innerHTML = '';
+    linhas.forEach(function(p, i){
+      var d = document.createElement('div');
+      d.style.setProperty('--i', i);
+      var dt = document.createElement('dt'); dt.textContent = p[0];
+      var dd = document.createElement('dd'); dd.textContent = p[1];
+      d.appendChild(dt); d.appendChild(dd); dl.appendChild(d);
+    });
+  }
+
+  function erro(msg){
+    var e = $('#erro');
+    e.textContent = msg;
+    var campo = $('#f-nome');
+    campo.classList.remove('tremer'); void campo.offsetWidth; campo.classList.add('tremer');
+    campo.focus();
+  }
+
+  document.addEventListener('click', function(ev){
+    var alvo = ev.target.closest('[data-acao]');
+    if(!alvo) return;
+    var acao = alvo.dataset.acao;
+
+    if(acao === 'comecar'){
+      evento('ViewContent', { content_name: 'quiz-site' });
+      pecas(0);
+      mostrar('tipo');
+    }
+
+    if(acao === 'concluir'){
+      var nome = $('#f-nome').value.trim();
+      if(nome.length < 2){ erro('Coloca o nome do negócio pra eu saber de quem é a página.'); return; }
+      $('#erro').textContent = '';
+      respostas.nome = nome;
+      respostas.instagram = limparIg($('#f-ig').value);
+      pecas(6);
+
+      var ok = qualificado();
+      evento('QuizConcluido', { qualificado: ok, prazo: respostas.prazo, preco: respostas.preco }, true);
+
+      if(ok){
+        evento('Lead', { content_name: respostas.loja ? 'quiz-loja' : 'quiz-site', content_category: respostas.tipo, value: respostas.loja ? PRECO_LOJA : window.PRECO_NUM, currency: 'BRL' });
+        $('#sim-titulo').innerHTML = respostas.loja
+          ? 'Sua loja está pronta pra <em>ser montada</em>'
+          : 'Sua página está pronta pra <em>ser montada</em>';
+        $('#pagina-tx').innerHTML = '<em>6 de 6</em> peças. Falta só montar.';
+        montarResumo();
+        $('#ir-wpp').href = 'https://wa.me/' + window.WHATSAPP_DESTINO + '?text=' + encodeURIComponent(mensagem());
+        mostrar('sim');
+      } else {
+        mostrar('nao');
+      }
+    }
+
+    if(acao === 'refazer-preco'){
+      ev.preventDefault();
+      historico = historico.slice(0, historico.indexOf('preco') + 1);
+      mostrar('preco', { empilhar:false, volta:true });
+    }
+  });
+
+  // Abre na mesma aba: o navegador do Instagram/Facebook (de onde vem o anúncio)
+  // costuma abrir aba nova em branco. E segura 1 clique só, pra não abrir duas vezes.
+  var indo = false;
+  $('#ir-wpp').addEventListener('click', function(ev){
+    var destino = this.href;
+    ev.preventDefault();
+    if(indo || !destino || destino.slice(-1) === '#') return;
+    indo = true;
+    evento('Contact', { content_name: respostas.loja ? 'quiz-loja' : 'quiz-site' });
+    setTimeout(function(){ window.location.href = destino; indo = false; }, 250);
+  });
+
+  $$('[data-evento]').forEach(function(a){
+    a.addEventListener('click', function(){ evento(a.dataset.evento, {}, true); });
+  });
+
+  // Enter no campo conclui, sem precisar caçar o botão no celular
+  ['#f-nome', '#f-ig'].forEach(function(s){
+    $(s).addEventListener('keydown', function(ev){
+      if(ev.key === 'Enter'){ ev.preventDefault(); $('[data-acao="concluir"]').click(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
