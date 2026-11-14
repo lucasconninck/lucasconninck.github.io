@@ -3,20 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Seu site pronto antes de pagar — 6 perguntas</title>
-<meta name="description" content="Responda 6 perguntas rápidas e veja se a página do seu negócio cabe no que eu faço. Você vê o site pronto antes de pagar.">
+<title>Seu site pronto antes de pagar — 5 perguntas</title>
+<meta name="description" content="Responda 5 perguntas rápidas e eu monto a página do seu negócio. Você vê o site pronto antes de pagar.">
 <meta property="og:title" content="Eu faço o site do seu negócio antes de você pagar">
-<meta property="og:description" content="6 perguntas, menos de 1 minuto. Se fizer sentido, você já cai no WhatsApp com tudo encaminhado.">
+<meta property="og:description" content="5 perguntas, menos de 1 minuto. No final você cai no WhatsApp com tudo encaminhado.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0E0D0B">
 
 <!-- ==========================================================================
      POR QUE ESTE QUIZ EXISTE
      --------------------------------------------------------------------------
-     O anúncio que mandava direto pro WhatsApp enchia a conversa de curioso,
-     e cada curioso custa anúncio + crédito do atendente. O quiz filtra ANTES:
-     só vê o botão do WhatsApp quem disse que o preço cabe (ou quase cabe e
-     tem pressa). Quem passa já chega com o briefing escrito na mensagem.
+     Quem termina chega no WhatsApp com o briefing escrito na mensagem, e a
+     Bianca já começa a montar a página.
+
+     14/11/2026: saíram a capa (3 de cada 4 iam embora nela) e a pergunta do
+     valor (decisão do Lucas). Agora todo mundo que termina vai pro WhatsApp.
+     O preço quem fala é a Bianca, do jeito do roteiro.
 
      GANCHOS (por que a pessoa termina):
        · "Sua página" no topo acende uma peça a cada resposta — largar no
@@ -26,9 +28,11 @@
        · a barra já começa andando e diz quanto falta.
 
      EVENTOS DO PIXEL — é por eles que a campanha deve otimizar:
-       ViewContent        abriu e começou o quiz
-       QuizConcluido      respondeu tudo (qualificado ou não)
-       Lead               QUALIFICADO — otimize a campanha por ESTE
+       ViewContent        respondeu a 1ª pergunta (começou o quiz)
+       QuizPasso          cada resposta: { passo, pergunta, resposta } — mostra
+                          em que pergunta a pessoa desiste
+       QuizConcluido      respondeu tudo
+       Lead               terminou — otimize a campanha por ESTE
        Contact            clicou no botão do WhatsApp
      ========================================================================== -->
 <script>
@@ -74,7 +78,7 @@ window.PRECO_NUM = 490;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 /* .pagina usa display:flex, que venceria o [hidden] do navegador e deixaria
-   um buraco invisível no topo da capa */
+   um buraco invisível no topo */
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%}
 body{
@@ -270,11 +274,7 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
 .cta.fantasma::after{display:none}
 .nota{color:var(--apoio);font-size:.8rem;text-align:center;margin-top:12px}
 
-/* ---------- capa ---------- */
-.provas{list-style:none;display:flex;flex-direction:column;gap:12px;margin:24px 0 8px}
-.provas li{display:flex;gap:12px;align-items:center;font-size:.98rem;
-  animation:sobe .6s var(--curva) both;animation-delay:calc(var(--i) * 90ms + 250ms)}
-.provas li svg{flex:none;color:var(--champanhe)}
+/* ---------- selo do resultado ---------- */
 .selo{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:.8rem;color:var(--apoio)}
 .pulso{width:8px;height:8px;border-radius:50%;background:var(--verde);flex:none}
 @keyframes pulso{70%{box-shadow:0 0 0 9px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
@@ -342,14 +342,14 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
       </button>
       <span class="marca">Lucas <b>Lima</b></span>
     </div>
-    <div class="progresso" id="progresso" hidden>
+    <div class="progresso on" id="progresso">
       <div class="barra" aria-hidden="true"><i id="barra"></i></div>
-      <div class="falta"><span id="falta-a">Pergunta 1 de 6</span><b id="falta-b">menos de 1 minuto</b></div>
+      <div class="falta"><span id="falta-a">Pergunta 1 de 5</span><b id="falta-b">menos de 1 minuto</b></div>
     </div>
-    <div class="pagina" id="pagina" aria-live="polite" hidden>
+    <div class="pagina on" id="pagina" aria-live="polite">
       <div class="cel" aria-hidden="true">
         <span class="p1"></span><span class="p2"></span><span class="p3"></span>
-        <span class="p4"></span><span class="p5"></span><span class="p6"></span>
+        <span class="p4"></span><span class="p6"></span>
       </div>
       <div class="pagina-tx"><b>Sua página</b><span id="pagina-tx">Cada resposta monta uma parte dela.</span></div>
     </div>
@@ -357,24 +357,10 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
 
   <div class="palco">
 
-  <!-- 0 · capa -->
-  <section class="tela ativa entra" data-tela="capa">
-    <span class="olho">Site para negócio local · <b>6 perguntas</b></span>
-    <h1>Eu faço o site do seu negócio <em>antes</em> de você pagar</h1>
-    <p class="sub">Responda 6 perguntas rápidas. No final você descobre se a sua página cabe no que eu faço e já sai com ela encaminhada.</p>
-    <ul class="provas">
-      <li style="--i:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Página com WhatsApp, telefone, endereço e mapa</li>
-      <li style="--i:1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Você vê pronta no celular e só então decide</li>
-      <li style="--i:2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Pagamento único, sem mensalidade</li>
-    </ul>
-    <div class="empurra"></div>
-    <button class="cta" type="button" data-acao="comecar">Começar agora</button>
-    <p class="nota"><span class="selo"><span class="pulso"></span>Sem cadastro. Nada é enviado até você escolher.</span></p>
-  </section>
-
-  <!-- 1 · tipo de negócio -->
-  <section class="tela" data-tela="tipo" data-passo="1">
-    <span class="olho">Sobre o seu negócio</span>
+  <!-- 1 · tipo de negócio. Sem capa desde 14/11/2026: 3 de cada 4 iam embora
+       nela. O anúncio já explica a oferta, então o quiz abre direto aqui. -->
+  <section class="tela ativa entra" data-tela="tipo" data-passo="1">
+    <span class="olho">Seu site pronto antes de pagar · <b>5 perguntas</b></span>
     <h2>Que tipo de negócio é o seu?</h2>
     <div class="opcoes" data-campo="tipo">
       <button class="op" type="button" style="--i:0" data-valor="Loja física" data-reacao="Loja física é o que eu mais faço. A sua página vai levar o cliente direto pro seu WhatsApp e pro mapa."><span class="letra">A</span><span class="tx">Loja física<small>roupa, papelaria, mercado, presentes</small></span></button>
@@ -420,20 +406,8 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
     </div>
   </section>
 
-  <!-- 5 · investimento: o filtro de verdade -->
-  <section class="tela" data-tela="preco" data-passo="5">
-    <span class="olho">Investimento</span>
-    <h2 id="preco-titulo">O site sai a partir de <em class="js-preco">R$ 490</em>, uma vez só</h2>
-    <p class="sub" id="preco-sub">Domínio incluso no primeiro ano, sem mensalidade. Projeto maior pode sair um pouco mais, e você sabe o valor antes de qualquer compromisso. E <b>só paga depois de ver pronto</b>. Isso cabe pra você agora?</p>
-    <div class="opcoes" data-campo="preco">
-      <button class="op" type="button" style="--i:0" data-valor="Cabe" data-reacao="Combinado. Só falta uma coisa."><span class="letra">A</span><span class="tx">Cabe, se eu gostar do resultado</span></button>
-      <button class="op" type="button" style="--i:1" data-valor="Preciso pensar" data-reacao="Justo. Decidir com calma é o certo."><span class="letra">B</span><span class="tx">Preciso pensar</span></button>
-      <button class="op" type="button" style="--i:2" data-valor="Não cabe agora" data-reacao="Entendido, obrigado pela sinceridade."><span class="letra">C</span><span class="tx">Agora não cabe no orçamento</span></button>
-    </div>
-  </section>
-
-  <!-- 6 · identificação -->
-  <section class="tela" data-tela="nome" data-passo="6">
+  <!-- 5 · identificação (a pergunta do valor saiu em 14/11/2026) -->
+  <section class="tela" data-tela="nome" data-passo="5">
     <span class="olho">Último passo</span>
     <h2>Qual o nome do seu <em>negócio</em>?</h2>
     <p class="sub">É com ele que a sua página começa.</p>
@@ -450,7 +424,7 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
     <button class="cta" type="button" data-acao="concluir">Ver meu resultado</button>
   </section>
 
-  <!-- qualificado -->
+  <!-- resultado -->
   <section class="tela" data-tela="sim">
     <svg class="ok" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29"/><path d="M20 33l8 8 16-17"/></svg>
     <span class="olho"><b>Resultado</b></span>
@@ -467,45 +441,16 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
     </div>
   </section>
 
-  <!-- indeciso: "preciso pensar" + "só pesquisando". Conversa sim, prévia não. -->
-  <section class="tela" data-tela="duvida">
-    <span class="olho"><b>Resultado</b></span>
-    <h2>Ficou alguma <em>dúvida</em> antes de decidir?</h2>
-    <p class="sub">Sem pressa nenhuma. Escolha o que você quer saber e eu te respondo direto no WhatsApp, sem compromisso.</p>
-    <div class="opcoes" id="duvida-ops">
-      <button class="op marcada" type="button" style="--i:0" data-duvida="preco"><span class="letra">A</span><span class="tx">Quanto fica no meu caso<small>valor, formas de pagamento e parcelamento</small></span></button>
-      <button class="op" type="button" style="--i:1" data-duvida="incluso"><span class="letra">B</span><span class="tx">O que está incluso no site<small>o que vem, prazo de entrega e ajustes</small></span></button>
-    </div>
-    <div class="empurra"></div>
-    <div class="fixo-baixo">
-    <a class="cta wpp js-wpp" id="ir-duvida" href="#" rel="noopener" data-origem="quiz-duvida">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm8.4-18.2C18.1 1.3 15.1 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.7c1.8 1 3.7 1.5 5.7 1.5 6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.3z"/></svg>
-      Tirar dúvidas pelo WhatsApp
-    </a>
-    <p class="nota"><a href="/" data-evento="VerPortfolio">Antes, quero ver páginas que você já fez</a></p>
-    </div>
-  </section>
-
-  <!-- não é agora -->
-  <section class="tela" data-tela="nao">
-    <span class="olho">Resultado</span>
-    <h2>Sem problema, <em>fica pra quando fizer sentido</em></h2>
-    <p class="sub">Pelo que você respondeu, agora não é o momento, e está tudo bem. Enquanto isso, veja algumas páginas que eu já fiz.</p>
-    <div class="empurra"></div>
-    <a class="cta fantasma" href="/" data-evento="VerPortfolio">Ver páginas que eu já fiz</a>
-    <p class="nota"><a href="#" data-acao="refazer-preco">Mudei de ideia, quero ver o meu site</a></p>
-  </section>
-
   </div>
 </main>
 
 <script>
 (function(){
   var respostas = {};
-  var historico = ['capa'];
-  var TOTAL = 6;
+  var historico = ['tipo'];
+  var TOTAL = 5;
   var PRECO_LOJA = 790;
-  var ORDEM = ['tipo','site','objetivo','prazo','preco','nome'];
+  var ORDEM = ['tipo','site','objetivo','prazo','nome'];
   var PAUSA_REACAO = 1100;   // tempo pra ler a reação antes de trocar de tela
   var trocando = false;
 
@@ -518,17 +463,14 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
     try{ if(window.fbq) fbq(custom ? 'trackCustom' : 'track', nome, dados || {}); }catch(e){}
   }
 
-  $$('.js-preco').forEach(function(el){ el.textContent = window.PRECO; });
-
   /* ---- "sua página": uma peça acende por resposta ---- */
   var FRASES = [
     'Cada resposta monta uma parte dela.',
-    '<em>1 de 6</em> peças prontas. Bom começo.',
-    '<em>2 de 6</em> peças prontas.',
-    '<em>3 de 6</em> peças. Metade do caminho.',
-    '<em>4 de 6</em> peças. Falta pouco.',
-    '<em>5 de 6</em> peças. Só mais uma.',
-    '<em>6 de 6</em> peças prontas.'
+    '<em>1 de 5</em> peças prontas. Bom começo.',
+    '<em>2 de 5</em> peças prontas.',
+    '<em>3 de 5</em> peças. Mais da metade.',
+    '<em>4 de 5</em> peças. Só mais uma.',
+    '<em>5 de 5</em> peças prontas.'
   ];
   function pecas(n){
     $$('.cel span').forEach(function(s, i){ s.classList.toggle('on', i < n); });
@@ -541,14 +483,12 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
   function progresso(nome){
     var tela = $('.tela[data-tela="'+nome+'"]');
     var passo = Number(tela.dataset.passo || 0);
-    var fim = nome === 'sim' || nome === 'nao';
-    var mostra = nome !== 'capa';
-    // na capa os dois nem ocupam espaço; depois entram com fade
-    $('#progresso').hidden = !mostra || fim;
-    $('#pagina').hidden = !mostra || nome === 'nao';
+    var fim = nome === 'sim';
+    $('#progresso').hidden = fim;
+    $('#pagina').hidden = false;
     requestAnimationFrame(function(){
-      $('#progresso').classList.toggle('on', mostra && !fim);
-      $('#pagina').classList.toggle('on', mostra && nome !== 'nao');
+      $('#progresso').classList.toggle('on', !fim);
+      $('#pagina').classList.toggle('on', true);
     });
     // começa já andando: quem vê a barra parada no zero desiste mais
     var pct = fim ? 100 : Math.max(8, ((passo - 1) / TOTAL) * 100 + 6);
@@ -593,20 +533,6 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
     mostrar(historico[historico.length - 1], { empilhar:false, volta:true });
   });
 
-  /* Quem quer carrinho vai pra loja virtual na Nuvemshop (a partir de R$ 790,
-     decidido em 10/11/2026). A pergunta de preço tem que mostrar o preço DO
-     QUE a pessoa quer, senão o filtro deixa passar quem não aguenta o valor. */
-  function ajustarPreco(loja){
-    respostas.loja = loja;
-    if(loja){
-      $('#preco-titulo').innerHTML = 'A loja virtual sai a partir de <em>R$ ' + PRECO_LOJA + '</em>';
-      $('#preco-sub').innerHTML = 'Montada na Nuvemshop, com carrinho e pagamento online. O valor exato depende do tamanho da loja, e você sabe antes de qualquer compromisso. Isso cabe pra você agora?';
-    } else {
-      $('#preco-titulo').innerHTML = 'O site sai a partir de <em>' + window.PRECO + '</em>, uma vez só';
-      $('#preco-sub').innerHTML = 'Domínio incluso no primeiro ano, sem mensalidade. Projeto maior pode sair um pouco mais, e você sabe o valor antes de qualquer compromisso. E <b>só paga depois de ver pronto</b>. Isso cabe pra você agora?';
-    }
-  }
-
   function mostrarReacao(grupo, texto){
     if(!texto) return;
     var r = document.createElement('div');
@@ -629,7 +555,13 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
       var campo = grupo.dataset.campo;
       respostas[campo] = op.dataset.valor;
       if(campo === 'tipo') respostas.agendamento = !!op.dataset.agenda;
-      if(campo === 'objetivo') ajustarPreco(!!op.dataset.loja);
+      if(campo === 'objetivo') respostas.loja = !!op.dataset.loja;
+
+      // Cada resposta vira um evento: mostra em que pergunta a pessoa desiste.
+      // A primeira resposta também conta como "começou o quiz" (ViewContent).
+      var passo = ORDEM.indexOf(campo) + 1;
+      if(passo === 1 && !respostas._comecou){ respostas._comecou = true; evento('ViewContent', { content_name: 'quiz-site' }); }
+      evento('QuizPasso', { passo: passo, pergunta: campo, resposta: op.dataset.valor }, true);
 
       pecas(respondidas());
       mostrarReacao(grupo, op.dataset.reacao);
@@ -643,15 +575,6 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
     return (v || '').trim().replace(/^@+/, '').replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/[\/?].*$/, '').replace(/\s+/g, '');
   }
 
-  /* Quem passa: disse que o preço cabe, OU vai pensar mas tem prazo real.
-     "Não cabe agora" e "pensar + só pesquisando" ficam de fora — são o
-     curioso que gastava conversa e crédito do atendente. */
-  function qualificado(){
-    if(respostas.preco === 'Cabe') return true;
-    if(respostas.preco === 'Preciso pensar' && respostas.prazo !== 'Só pesquisando') return true;
-    return false;
-  }
-
   /* A primeira linha é a assinatura que o atendente reconhece (roteiro.js,
      seção "Quem chega pelo quiz"). Mudou aqui? Muda lá também. */
   function mensagem(){
@@ -663,31 +586,6 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
     l.push('Quero: ' + respostas.objetivo);
     l.push('Prazo: ' + respostas.prazo);
     return l.join('\n');
-  }
-
-  /* Indeciso: "preciso pensar" + "só pesquisando". Ganha conversa, não prévia.
-     A primeira linha é outra assinatura de propósito: o atendente responde a
-     dúvida e NÃO oferece montar a página por conta própria (roteiro.js,
-     seção "Quem chega pelo quiz com dúvida"). Mudou aqui? Muda lá também. */
-  function indeciso(){
-    return respostas.preco === 'Preciso pensar' && respostas.prazo === 'Só pesquisando';
-  }
-  var DUVIDAS = {
-    preco: 'Quanto fica o site no meu caso e como funciona o pagamento?',
-    incluso: 'O que está incluso no site?'
-  };
-  function mensagemDuvida(tema){
-    var l = ['Oi! Fiz o quiz e fiquei com uma dúvida', ''];
-    l.push(DUVIDAS[tema] || DUVIDAS.preco);
-    l.push('');
-    l.push('Negócio: ' + respostas.nome);
-    if(respostas.instagram) l.push('Instagram: @' + respostas.instagram);
-    l.push('Tipo: ' + respostas.tipo);
-    return l.join('\n');
-  }
-  function linkDuvida(tema){
-    $('#ir-duvida').href = 'https://wa.me/' + window.WHATSAPP_DESTINO + '?text=' + encodeURIComponent(mensagemDuvida(tema));
-    $('#ir-duvida').dataset.tema = tema;
   }
 
   function montarResumo(){
@@ -722,46 +620,24 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
     if(!alvo) return;
     var acao = alvo.dataset.acao;
 
-    if(acao === 'comecar'){
-      evento('ViewContent', { content_name: 'quiz-site' });
-      pecas(0);
-      mostrar('tipo');
-    }
-
     if(acao === 'concluir'){
       var nome = $('#f-nome').value.trim();
       if(nome.length < 2){ erro('Coloca o nome do negócio pra eu saber de quem é a página.'); return; }
       $('#erro').textContent = '';
       respostas.nome = nome;
       respostas.instagram = limparIg($('#f-ig').value);
-      pecas(6);
+      pecas(5);
 
-      var ok = qualificado();
-      evento('QuizConcluido', { qualificado: ok, prazo: respostas.prazo, preco: respostas.preco }, true);
-
-      if(ok){
-        evento('Lead', { content_name: respostas.loja ? 'quiz-loja' : 'quiz-site', content_category: respostas.tipo, value: respostas.loja ? PRECO_LOJA : window.PRECO_NUM, currency: 'BRL' });
-        $('#sim-titulo').innerHTML = respostas.loja
-          ? 'Sua loja está pronta pra <em>ser montada</em>'
-          : 'Sua página está pronta pra <em>ser montada</em>';
-        $('#pagina-tx').innerHTML = '<em>6 de 6</em> peças. Falta só montar.';
-        montarResumo();
-        $('#ir-wpp').href = 'https://wa.me/' + window.WHATSAPP_DESTINO + '?text=' + encodeURIComponent(mensagem());
-        mostrar('sim');
-      } else if(indeciso()){
-        $('#pagina-tx').innerHTML = '<em>6 de 6</em> peças. Fica guardada pra quando você decidir.';
-        $$('#duvida-ops .op').forEach(function(b){ b.classList.toggle('marcada', b.dataset.duvida === 'preco'); });
-        linkDuvida('preco');
-        mostrar('duvida');
-      } else {
-        mostrar('nao');
-      }
-    }
-
-    if(acao === 'refazer-preco'){
-      ev.preventDefault();
-      historico = historico.slice(0, historico.indexOf('preco') + 1);
-      mostrar('preco', { empilhar:false, volta:true });
+      evento('QuizPasso', { passo: 5, pergunta: 'nome', temInstagram: !!respostas.instagram }, true);
+      evento('QuizConcluido', { prazo: respostas.prazo }, true);
+      evento('Lead', { content_name: respostas.loja ? 'quiz-loja' : 'quiz-site', content_category: respostas.tipo, value: respostas.loja ? PRECO_LOJA : window.PRECO_NUM, currency: 'BRL' });
+      $('#sim-titulo').innerHTML = respostas.loja
+        ? 'Sua loja está pronta pra <em>ser montada</em>'
+        : 'Sua página está pronta pra <em>ser montada</em>';
+      $('#pagina-tx').innerHTML = '<em>5 de 5</em> peças. Falta só montar.';
+      montarResumo();
+      $('#ir-wpp').href = 'https://wa.me/' + window.WHATSAPP_DESTINO + '?text=' + encodeURIComponent(mensagem());
+      mostrar('sim');
     }
   });
 
@@ -774,26 +650,13 @@ h1 em,h2 em{font-style:normal;color:var(--champanhe)}
       ev.preventDefault();
       if(indo || !destino || destino.slice(-1) === '#') return;
       indo = true;
-      var nome = this.dataset.origem || (respostas.loja ? 'quiz-loja' : 'quiz-site');
-      // Indeciso conta como Contact, nunca como Lead: a campanha otimiza por
-      // Lead e não pode aprender a trazer quem ainda está só pesquisando.
-      evento('Contact', { content_name: nome, content_category: this.dataset.tema || '' });
+      var nome = respostas.loja ? 'quiz-loja' : 'quiz-site';
+      evento('Contact', { content_name: nome });
       setTimeout(function(){ window.location.href = destino; indo = false; }, 250);
     });
   });
 
-  // Escolha do assunto da dúvida: troca a mensagem pronta do botão verde
-  $$('#duvida-ops .op').forEach(function(b){
-    b.addEventListener('click', function(ev){
-      ev.stopPropagation();
-      $$('#duvida-ops .op').forEach(function(o){ o.classList.toggle('marcada', o === b); });
-      linkDuvida(b.dataset.duvida);
-    });
-  });
-
-  $$('[data-evento]').forEach(function(a){
-    a.addEventListener('click', function(){ evento(a.dataset.evento, {}, true); });
-  });
+  progresso('tipo');
 
   // O @ já está desenhado: se a pessoa digitar ou colar outro, some (sem "@@").
   // Colou o link do perfil? Fica só o nome.
