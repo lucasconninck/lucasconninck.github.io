@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="pt-BR" data-negocio="O Studio Aurora">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Studio Aurora · Estética facial e corporal</title>
+<meta name="description" content="Limpeza de pele profunda, peeling, drenagem e protocolos sob medida, com atendimento individual. Agende sua avaliação.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F3EDE3">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%2317241E'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-style='italic' font-size='26' fill='%23F3EDE3' text-anchor='middle'%3ESA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero.webp">
+<!-- Site de exemplo (negócio fictício) feito pela thrustspike — 19/11/2026.
+     Mesma identidade do vídeo de exemplo da estética: verde profundo, creme e bronze. -->
+<style>
+:root{
+  --papel:#FBF8F3; --creme:#F3EDE3; --creme2:#E9E1D3;
+  --verde:#17241E; --verde2:#1F3029; --verde3:#2B3E35;
+  --bronze:#A8834F; --bronze2:#C6A26B;
+  --tinta:#18231D; --texto:#3D4943; --muted:#6A746E;
+  --linha:rgba(24,35,29,.14); --linha-c:rgba(243,237,227,.16);
+  --serifa:"Cormorant Garamond",Georgia,serif; --sans:Manrope,system-ui,sans-serif;
+  --larg:1200px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:var(--creme);color:var(--texto);font:400 16px/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden;font-variant-numeric:lining-nums}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--bronze);outline-offset:3px}
+.envelope{width:100%;max-width:var(--larg);margin:0 auto;padding:0 22px}
+.rotulo{font:600 11.5px/1.2 var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--bronze)}
+.num{font:italic 500 15px/1 var(--serifa);color:var(--bronze);letter-spacing:.02em}
+h1,h2,h3{font-family:var(--serifa);font-weight:500;color:var(--tinta);letter-spacing:-.01em}
+h2{font-size:clamp(38px,9vw,66px);line-height:1.1;margin:14px 0 16px}
+h1 em,h2 em{font-style:italic;color:var(--bronze)}
+.lead{font-size:17px;color:var(--texto);max-width:50ch}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 28px;border-radius:99px;font:600 15px/1 var(--sans);letter-spacing:.02em;text-decoration:none;white-space:nowrap;transition:background .2s ease,color .2s ease,border-color .2s ease}
+.btn svg{width:19px;height:19px}
+.btn.escuro{background:var(--verde);color:var(--creme)}
+.btn.escuro:hover{background:var(--verde3)}
+.btn.claro{background:var(--creme);color:var(--verde)}
+.btn.claro:hover{background:#fff}
+.btn.linha{border:1px solid var(--linha);color:var(--tinta)}
+.btn.linha:hover{border-color:var(--tinta)}
+.seta{display:inline-flex;align-items:center;gap:10px;font:600 15px/1 var(--sans);text-decoration:none;color:var(--tinta);padding:12px 0;border-bottom:1px solid var(--linha)}
+.seta:hover{border-color:var(--tinta)}
+
+/* topo */
+.topo{position:fixed;left:0;right:0;top:var(--vt-top,0px);z-index:50;transition:background .3s ease,box-shadow .3s ease}
+.topo.solido{background:rgba(243,237,227,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--linha)}
+.topo .envelope{display:flex;align-items:center;justify-content:space-between;gap:16px;height:76px}
+.marca{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tinta)}
+.mono{width:42px;height:42px;border-radius:50%;background:var(--verde);color:var(--creme);display:grid;place-items:center;font:italic 500 19px/1 var(--serifa);padding-bottom:2px}
+.marca b{font:600 13px/1 var(--sans);letter-spacing:.38em;white-space:nowrap}
+.menu{display:none;list-style:none;padding:0;gap:34px}
+.menu a{font-size:14.5px;font-weight:500;text-decoration:none;color:var(--texto)}
+.menu a:hover{color:var(--tinta)}
+.topo .btn{min-height:44px;padding:0 18px;font-size:14px}
+.topo .btn .longo{display:none}
+@media (min-width:980px){.menu{display:flex}.topo .btn .longo{display:inline}}
+
+/* hero */
+.hero{padding:112px 0 64px;position:relative}
+.hero .grade{display:grid;gap:42px;align-items:center}
+.hero h1{font-size:clamp(50px,13.5vw,98px);line-height:1;margin:18px 0 22px}
+.hero .acoes{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:30px}
+.hero .provas{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:30px;padding-top:22px;border-top:1px solid var(--linha);font-size:14px;color:var(--muted)}
+.hero .provas b{color:var(--tinta);font-weight:600}
+.arco{position:relative;max-width:520px;width:100%;margin:0 auto 26px}
+.arco .foto{border-radius:999px 999px 18px 18px;overflow:hidden;aspect-ratio:4/5;background:var(--creme2)}
+.arco .foto img{width:100%;height:100%;object-fit:cover;object-position:40% 50%}
+.arco::before{content:"";position:absolute;inset:-14px -14px auto auto;width:100%;height:100%;border:1px solid var(--bronze2);border-radius:999px 999px 18px 18px;z-index:-1;opacity:.6}
+.flutuante{position:absolute;left:14px;bottom:-26px;background:rgba(251,248,243,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--linha);border-radius:18px;padding:14px 18px;box-shadow:0 20px 50px rgba(24,35,29,.14);max-width:250px}
+.flutuante small{display:block;font:600 10.5px/1.3 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--bronze)}
+.flutuante b{display:block;font:500 21px/1.15 var(--serifa);color:var(--tinta);margin-top:4px}
+.flutuante span{font-size:13.5px;color:var(--muted)}
+@media (min-width:960px){.hero{padding:150px 0 100px}.hero .grade{grid-template-columns:1.1fr .9fr;gap:70px}.flutuante{left:-40px;bottom:28px}.arco{margin-bottom:0}}
+
+/* oferta */
+.oferta{background:var(--verde);color:var(--creme);padding:80px 0;position:relative;overflow:hidden}
+.oferta::after{content:"";position:absolute;right:-180px;top:-180px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(198,162,107,.16),transparent 70%);pointer-events:none}
+.oferta .rotulo{color:var(--bronze2)}
+.oferta h2{color:var(--creme)}
+.oferta h2 em{color:var(--bronze2)}
+.oferta .lead{color:rgba(243,237,227,.78)}
+.oferta .grade{display:grid;gap:44px;align-items:center}
+.etapas{list-style:none;padding:0;margin:26px 0 0;border-top:1px solid var(--linha-c)}
+.etapas li{display:flex;gap:18px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--linha-c)}
+.etapas .num{color:var(--bronze2);font-size:20px;min-width:28px}
+.etapas b{font:500 25px/1.2 var(--serifa);color:var(--creme)}
+.etapas span{display:block;font-size:14.5px;color:rgba(243,237,227,.66);margin-top:2px}
+.selo-preco{position:relative;width:min(100%,340px);aspect-ratio:1;margin:0 auto;border-radius:50%;border:1px solid rgba(198,162,107,.55);display:grid;place-items:center;align-content:center;text-align:center;gap:12px}
+.selo-preco::before{content:"";position:absolute;inset:12px;border-radius:50%;border:1px solid var(--linha-c)}
+.selo-preco small{font:600 11px/1.4 var(--sans);letter-spacing:.3em;text-transform:uppercase;color:rgba(243,237,227,.72)}
+.selo-preco strong{font:500 clamp(68px,18vw,104px)/.9 var(--serifa);color:var(--creme)}
+.selo-preco strong sup{font-size:.34em;vertical-align:1.1em;margin-right:4px;color:var(--bronze2)}
+.oferta .aviso{font:italic 500 22px/1.3 var(--serifa);color:var(--bronze2);margin-top:26px}
+.oferta .btn{margin-top:22px}
+@media (min-width:960px){.oferta{padding:120px 0}.oferta .grade{grid-template-columns:1.1fr .9fr;gap:90px}}
+
+/* tratamentos */
+.tratamentos{padding:84px 0}
+.topo-secao{display:grid;gap:10px;margin-bottom:34px}
+.cartoes{display:grid;gap:14px}
+.cartao{background:var(--papel);border:1px solid var(--linha);border-radius:22px;padding:26px 24px;display:flex;flex-direction:column;gap:10px;transition:border-color .25s ease,transform .25s ease}
+.cartao:hover{border-color:rgba(168,131,79,.5)}
+.cartao h3{font-size:30px;line-height:1.05}
+.cartao p{font-size:15px;color:var(--texto)}
+.cartao .meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid var(--linha);font-size:14px;color:var(--muted)}
+.cartao .meta b{font:600 22px/1 var(--serifa);color:var(--tinta)}
+.cartao .meta b small{font:600 11px/1 var(--sans);letter-spacing:.14em;color:var(--muted);margin-right:6px}
+.cartao.foto{padding:0;overflow:hidden;min-height:260px;position:relative}
+.cartao.foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cartao.foto span{position:absolute;left:16px;bottom:16px;right:16px;font:italic 500 21px/1.2 var(--serifa);color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.35)}
+.cartao .tag{align-self:flex-start;font:600 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;background:var(--verde);color:var(--creme);border-radius:99px;padding:7px 10px}
+@media (min-width:700px){.cartoes{grid-template-columns:1fr 1fr}}
+@media (min-width:1050px){.tratamentos{padding:120px 0}.topo-secao{grid-template-columns:1fr 1fr;align-items:end;gap:60px}.cartoes{grid-template-columns:repeat(3,1fr);gap:18px}.cartao.alto{grid-row:span 2}}
+
+/* primeira visita */
+.visita{background:var(--papel);padding:84px 0;border-block:1px solid var(--linha)}
+.visita .grade{display:grid;gap:40px;align-items:center}
+.visita .imagem{border-radius:18px 18px 999px 999px;overflow:hidden;aspect-ratio:4/5;max-width:440px;width:100%;margin:0 auto}
+.visita .imagem img{width:100%;height:100%;object-fit:cover}
+.linha-tempo{list-style:none;padding:0;margin:28px 0 0;position:relative}
+.linha-tempo::before{content:"";position:absolute;left:21px;top:8px;bottom:8px;width:1px;background:var(--linha)}
+.linha-tempo li{position:relative;display:flex;gap:20px;padding:0 0 26px}
+.linha-tempo .bola{flex:none;width:43px;height:43px;border-radius:50%;background:var(--creme);border:1px solid var(--bronze2);display:grid;place-items:center;font:italic 600 17px/1 var(--serifa);color:var(--bronze);position:relative;z-index:1}
+.linha-tempo b{display:block;font:500 25px/1.2 var(--serifa);color:var(--tinta)}
+.linha-tempo p{font-size:15px;margin-top:4px}
+@media (min-width:960px){.visita{padding:120px 0}.visita .grade{grid-template-columns:.85fr 1.15fr;gap:90px}}
+
+/* studio */
+.studio{background:var(--verde2);color:var(--creme);padding:84px 0}
+.studio .rotulo{color:var(--bronze2)}
+.studio h2{color:var(--creme)}
+.studio h2 em{color:var(--bronze2)}
+.studio .lead{color:rgba(243,237,227,.78)}
+.studio .grade{display:grid;gap:40px;align-items:center}
+.studio .duas{display:grid;grid-template-columns:1.2fr 1fr;gap:12px}
+.studio .duas img{width:100%;height:100%;object-fit:cover;border-radius:16px}
+.studio .duas .a{aspect-ratio:3/4}
+.studio .duas .b{display:grid;gap:12px}
+.studio .duas .b img{aspect-ratio:1}
+.numeros{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px;padding-top:26px;border-top:1px solid var(--linha-c)}
+.numeros strong{display:block;font:500 clamp(34px,8vw,48px)/1 var(--serifa);color:var(--creme)}
+.numeros span{display:block;font-size:13px;color:rgba(243,237,227,.66);margin-top:6px;line-height:1.35}
+.assina{margin-top:26px;font-size:14.5px;color:rgba(243,237,227,.7)}
+.assina b{font:italic 500 21px/1.2 var(--serifa);color:var(--creme);display:block}
+@media (min-width:960px){.studio{padding:120px 0}.studio .grade{grid-template-columns:1fr 1fr;gap:90px}}
+
+/* depoimentos */
+.vozes{padding:84px 0}
+.vozes .lista{display:grid;gap:14px;margin-top:34px}
+.voz{background:var(--papel);border:1px solid var(--linha);border-radius:22px;padding:28px 24px}
+.voz blockquote{font:italic 500 24px/1.32 var(--serifa);color:var(--tinta)}
+.voz cite{display:block;margin-top:16px;font:600 11.5px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--bronze);font-style:normal}
+.voz .estrelas{color:var(--bronze);letter-spacing:.18em;font-size:13px;margin-bottom:10px}
+@media (min-width:960px){.vozes{padding:120px 0}.vozes .lista{grid-template-columns:repeat(3,1fr);gap:18px}}
+
+/* dúvidas */
+.duvidas{padding:0 0 84px}
+.duvidas .grade{display:grid;gap:30px}
+details{border-bottom:1px solid var(--linha)}
+details:first-of-type{border-top:1px solid var(--linha)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font:500 23px/1.25 var(--serifa);color:var(--tinta)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--linha);background:linear-gradient(var(--tinta),var(--tinta)) center/11px 1.5px no-repeat,linear-gradient(var(--tinta),var(--tinta)) center/1.5px 11px no-repeat;transition:transform .25s ease}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 0 22px;font-size:15.5px;max-width:62ch}
+@media (min-width:960px){.duvidas{padding:0 0 120px}.duvidas .grade{grid-template-columns:.8fr 1.2fr;gap:90px}}
+
+/* final */
+.final{background:var(--verde);color:var(--creme);padding:90px 0 80px;text-align:center;position:relative;overflow:hidden}
+.final .mono{width:76px;height:76px;font-size:32px;background:var(--creme);color:var(--verde);margin:0 auto 26px}
+.final h2{color:var(--creme);font-size:clamp(44px,11vw,84px);max-width:12ch;margin-inline:auto}
+.final h2 em{color:var(--bronze2)}
+.final .btn{margin-top:16px}
+.final .dados{display:grid;gap:18px;margin:56px auto 0;max-width:900px;padding-top:34px;border-top:1px solid var(--linha-c);text-align:left}
+.final .dados div{font-size:15px;color:rgba(243,237,227,.75)}
+.final .dados b{display:block;font:600 11px/1.4 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--bronze2);margin-bottom:6px}
+@media (min-width:800px){.final{padding:130px 0 100px}.final .dados{grid-template-columns:repeat(3,1fr);gap:30px}}
+.rodape{background:var(--verde);color:rgba(243,237,227,.55);font-size:13.5px;padding:24px 0 100px;border-top:1px solid var(--linha-c)}
+.rodape .envelope{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px}
+
+.flutua{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;align-items:center;gap:10px;height:56px;padding:0 20px 0 16px;border-radius:99px;background:var(--verde);color:var(--creme);text-decoration:none;font:600 14.5px/1 var(--sans);box-shadow:0 14px 34px rgba(24,35,29,.32)}
+.flutua svg{width:24px;height:24px}
+.flutua:hover{background:var(--verde3)}
+
+.js [data-r]{opacity:0;transform:translateY(20px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.js [data-r].vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js [data-r]{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-whats" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
+</svg>
+
+<header class="topo" id="topo">
+  <div class="envelope">
+    <a class="marca" href="#inicio" aria-label="Studio Aurora, início"><span class="mono" aria-hidden="true">SA</span><b>STUDIO AURORA</b></a>
+    <ul class="menu">
+      <li><a href="#tratamentos">Tratamentos</a></li>
+      <li><a href="#visita">Primeira visita</a></li>
+      <li><a href="#studio">O studio</a></li>
+      <li><a href="#duvidas">Dúvidas</a></li>
+    </ul>
+    <a class="btn escuro" href="#" data-whats="Olá! Gostaria de agendar uma avaliação no Studio Aurora.">Agendar<span class="longo">&nbsp;avaliação</span></a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero" aria-labelledby="t-hero">
+    <div class="envelope grade">
+      <div>
+        <p class="rotulo" data-r>Nº 01 · Estética facial &amp; corporal</p>
+        <h1 id="t-hero" data-r>Sua pele merece um cuidado <em>profundo.</em></h1>
+        <p class="lead" data-r>Protocolos personalizados de limpeza, revitalização e bem-estar, num ambiente reservado e com atendimento individual.</p>
+        <div class="acoes" data-r>
+          <a class="btn escuro" href="#" data-whats="Olá! Gostaria de agendar uma avaliação no Studio Aurora."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg>Agendar pelo WhatsApp</a>
+          <a class="seta" href="#tratamentos">Ver tratamentos <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="provas" data-r>
+          <span><b>5,0 ★</b> · 186 avaliações</span>
+          <span>Atendimento individual</span>
+          <span>Seg a sáb, com hora marcada</span>
+        </div>
+      </div>
+      <div class="arco" data-r>
+        <div class="foto"><img src="img/hero.webp" alt="Cliente recebendo máscara facial durante tratamento" width="1400" height="934" fetchpriority="high"></div>
+        <div class="flutuante"><small>Primeira sessão</small><b>Limpeza de pele profunda</b><span>de R$ 159 por <strong style="color:var(--tinta)">R$ 129</strong></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="oferta" id="oferta" aria-labelledby="t-of">
+    <div class="envelope grade">
+      <div data-r>
+        <p class="rotulo">Conheça a limpeza de pele</p>
+        <h2 id="t-of">Limpeza <em>profunda</em>, em três tempos</h2>
+        <p class="lead">Noventa minutos que deixam a pele limpa, calma e luminosa — já no dia seguinte.</p>
+        <ol class="etapas">
+          <li><span class="num">I.</span><div><b>Extração</b><span>Remoção cuidadosa de cravos e impurezas</span></div></li>
+          <li><span class="num">II.</span><div><b>Máscara calmante</b><span>Acalma a vermelhidão e fecha os poros</span></div></li>
+          <li><span class="num">III.</span><div><b>Hidratação</b><span>Ativos que devolvem o viço e o conforto</span></div></li>
+        </ol>
+      </div>
+      <div style="text-align:center" data-r>
+        <div class="selo-preco"><small>Você paga apenas</small><strong><sup>R$</sup>129</strong><small>na primeira sessão</small></div>
+        <p class="aviso">As vagas de novembro são limitadas.</p>
+        <a class="btn claro" href="#" data-whats="Olá! Quero garantir minha vaga na limpeza de pele profunda (primeira sessão R$ 129).">Garantir minha vaga</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="tratamentos" id="tratamentos" aria-labelledby="t-trat">
+    <div class="envelope">
+      <div class="topo-secao">
+        <div data-r><p class="rotulo">Nº 02 · Tratamentos</p><h2 id="t-trat">Cada pele pede um <em>cuidado</em></h2></div>
+        <p class="lead" data-r>Todos os protocolos começam com uma avaliação. Assim a gente indica só o que a sua pele precisa — nada a mais.</p>
+      </div>
+      <div class="cartoes">
+        <article class="cartao" data-r><span class="num">Nº 01</span><h3>Limpeza de pele profunda</h3><p>Higienização, extração, máscara calmante e hidratação com ativos.</p><span class="tag">Primeira sessão: R$ 129</span><div class="meta"><span>90 min</span><b>R$ 159</b></div></article>
+        <figure class="cartao foto alto" data-r><img src="img/texturas.webp" alt="Texturas de sérum e creme com folhas verdes" loading="lazy" width="1400" height="800"><span>Dermocosméticos de alta performance</span></figure>
+        <article class="cartao" data-r><span class="num">Nº 02</span><h3>Peeling de diamante</h3><p>Esfoliação mecânica que suaviza manchas leves e uniformiza a textura.</p><div class="meta"><span>60 min</span><b>R$ 180</b></div></article>
+        <article class="cartao" data-r><span class="num">Nº 03</span><h3>Hidratação com LED</h3><p>Máscara nutritiva e luz de LED pra pele cansada ou desidratada.</p><div class="meta"><span>60 min</span><b>R$ 150</b></div></article>
+        <article class="cartao" data-r><span class="num">Nº 04</span><h3>Microagulhamento</h3><p>Estimula colágeno e melhora a aparência de marcas de acne.</p><div class="meta"><span>75 min</span><b>R$ 290</b></div></article>
+        <figure class="cartao foto" data-r><img src="img/aparelho.webp" alt="Tratamento facial com aparelho de massagem" loading="lazy" width="1000" height="666"><span>Tecnologia a favor da sua pele</span></figure>
+        <article class="cartao" data-r><span class="num">Nº 05</span><h3>Drenagem linfática</h3><p>Reduz o inchaço e a retenção de líquido. Pacote de 10 sessões: R$ 990.</p><div class="meta"><span>60 min</span><b>R$ 120</b></div></article>
+        <article class="cartao" data-r><span class="num">Nº 06</span><h3>Massagem relaxante</h3><p>Óleos aquecidos, música baixa e uma hora inteira só pra você.</p><div class="meta"><span>60 min</span><b>R$ 130</b></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="visita" id="visita" aria-labelledby="t-vis">
+    <div class="envelope grade">
+      <div class="imagem" data-r><img src="img/mascara.webp" alt="Esteticista aplicando máscara facial em cliente" loading="lazy" width="1000" height="1500"></div>
+      <div data-r>
+        <p class="rotulo">Nº 03 · Primeira visita</p>
+        <h2 id="t-vis">Como funciona o seu <em>primeiro</em> atendimento</h2>
+        <ol class="linha-tempo">
+          <li><span class="bola">I</span><div><b>Avaliação da pele</b><p>Análise com lupa e uma conversa sobre a sua rotina, o que te incomoda e o que você já usa.</p></div></li>
+          <li><span class="bola">II</span><div><b>Protocolo sob medida</b><p>Você sai sabendo o que fazer, quantas sessões e quanto vai investir. Sem surpresa.</p></div></li>
+          <li><span class="bola">III</span><div><b>Acompanhamento</b><p>Retorno em 15 dias e orientação de cuidados em casa pelo WhatsApp.</p></div></li>
+        </ol>
+        <a class="btn escuro" href="#" data-whats="Olá! Gostaria de agendar minha primeira avaliação no Studio Aurora.">Agendar avaliação</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="studio" id="studio" aria-labelledby="t-stu">
+    <div class="envelope grade">
+      <div class="duas" data-r>
+        <img class="a" src="img/ambiente.webp" alt="Toalhas brancas enroladas, velas e difusor de aromas" loading="lazy" width="1000" height="1500">
+        <div class="b"><img src="img/creme.webp" alt="Textura de creme sobre fundo bege" loading="lazy" width="1000" height="1064"><img src="img/texturas-2.webp" alt="Três texturas de cosméticos lado a lado" loading="lazy" width="1000" height="572"></div>
+      </div>
+      <div data-r>
+        <p class="rotulo">Nº 04 · O studio</p>
+        <h2 id="t-stu">Um espaço pra você <em>desacelerar</em></h2>
+        <p class="lead">Atendimento individual, sem sala de espera cheia e sem pressa. Materiais descartáveis, produtos de alta performance e uma hora que é só sua.</p>
+        <div class="numeros">
+          <div><strong>8</strong><span>anos cuidando de pele</span></div>
+          <div><strong>3.200</strong><span>atendimentos feitos</span></div>
+          <div><strong>100%</strong><span>materiais descartáveis</span></div>
+        </div>
+        <p class="assina"><b>Aurora Lins</b>esteticista e cosmetóloga, responsável pelo studio</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="vozes" aria-labelledby="t-voz">
+    <div class="envelope">
+      <p class="rotulo" data-r>Nº 05 · Quem já veio</p>
+      <h2 id="t-voz" data-r>O que elas <em>dizem</em></h2>
+      <div class="lista">
+        <figure class="voz" data-r><p class="estrelas" aria-label="5 estrelas">★★★★★</p><blockquote>“Saí com a pele leve, sem nenhuma vermelhidão. Atendimento muito cuidadoso.”</blockquote><cite>Fernanda C.</cite></figure>
+        <figure class="voz" data-r><p class="estrelas" aria-label="5 estrelas">★★★★★</p><blockquote>“Faço drenagem toda semana. É o meu momento, e o resultado aparece.”</blockquote><cite>Luciana P.</cite></figure>
+        <figure class="voz" data-r><p class="estrelas" aria-label="5 estrelas">★★★★★</p><blockquote>“Ela explicou tudo antes, sem empurrar pacote. Voltei pela confiança.”</blockquote><cite>Beatriz M.</cite></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="duvidas" id="duvidas" aria-labelledby="t-duv">
+    <div class="envelope grade">
+      <div data-r><p class="rotulo">Nº 06 · Dúvidas</p><h2 id="t-duv">Antes de <em>agendar</em></h2><p class="lead">Ficou alguma pergunta? Manda no WhatsApp que a gente responde rapidinho.</p></div>
+      <div data-r>
+        <details><summary>A limpeza de pele dói?</summary><p>Pode incomodar um pouco na extração, mas é rápido e feito com cuidado. A máscara calmante entra logo depois.</p></details>
+        <details><summary>De quanto em quanto tempo devo fazer?</summary><p>Na maioria das peles, uma vez por mês. Na avaliação a gente indica o intervalo certo pra você.</p></details>
+        <details><summary>Posso voltar ao trabalho no mesmo dia?</summary><p>Sim. A pele pode ficar levemente rosada por algumas horas, nada que impeça a rotina.</p></details>
+        <details><summary>Quais as formas de pagamento?</summary><p>Pix, débito ou cartão de crédito em até 3x sem juros. Pacotes podem ser parcelados.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" aria-labelledby="t-fim">
+    <div class="envelope">
+      <div data-r>
+        <span class="mono" aria-hidden="true">SA</span>
+        <h2 id="t-fim">O Studio Aurora te <em>espera</em></h2>
+        <a class="btn claro" href="#" data-whats="Olá! Gostaria de agendar um horário no Studio Aurora."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg>Chamar no WhatsApp</a>
+      </div>
+      <div class="dados" data-r>
+        <div><b>Endereço</b>Rua das Acácias, 77 — sala 4<br>Bairro Jardim</div>
+        <div><b>Horário</b>Segunda a sexta, 9h às 19h<br>Sábado, 8h às 13h</div>
+        <div><b>Instagram</b>@studioaurora<br>Atendimento só com hora marcada</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape"><div class="envelope"><span>© <span id="ano">2026</span> Studio Aurora · Estética facial e corporal</span><span>Rua das Acácias, 77 — Jardim</span></div></footer>
+
+<a class="flutua" href="#" data-whats="Olá! Gostaria de agendar um horário no Studio Aurora." aria-label="Agendar pelo WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg>Agendar</a>
+
+<script>
+document.documentElement.classList.add('js')
+var topo=document.getElementById('topo')
+function t(){topo.classList.toggle('solido',scrollY>30)}t();addEventListener('scroll',t,{passive:true})
+document.getElementById('ano').textContent=new Date().getFullYear()
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});document.querySelectorAll('[data-r]').forEach(function(n){io.observe(n)})}else{document.querySelectorAll('[data-r]').forEach(function(n){n.classList.add('vis')})}
+</script>
+<script src="../kit/vitrine.js" defer></script>
+</body>
+</html>

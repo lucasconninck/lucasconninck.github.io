@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="pt-BR" data-negocio="A Brasa Burger">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Brasa Burger · Smash na brasa</title>
+<meta name="description" content="Smash burger prensado na chapa e finalizado na brasa. Monte seu pedido e mande no WhatsApp.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0E0E0E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFC21A'/%3E%3Ctext x='32' y='42' font-family='Arial Black,Arial' font-weight='900' font-size='26' fill='%230E0E0E' text-anchor='middle'%3EBB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero.webp">
+<!-- Site de exemplo (negócio fictício) feito pela thrustspike — 19/11/2026.
+     Mesma identidade do vídeo de exemplo da hamburgueria: amarelo, preto e raios. -->
+<style>
+:root{
+  --preto:#0E0E0E; --carvao:#171717; --carvao2:#202020; --carvao3:#2A2A2A;
+  --amarelo:#FFC21A; --amarelo2:#FFD457; --brasa:#FF5A1F;
+  --branco:#fff; --texto:rgba(255,255,255,.86); --muted:rgba(255,255,255,.62);
+  --linha:rgba(255,255,255,.1); --larg:1200px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:var(--preto);color:var(--texto);font:400 16.5px/1.55 Archivo,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--amarelo);outline-offset:3px;border-radius:6px}
+.envelope{width:100%;max-width:var(--larg);margin:0 auto;padding:0 20px}
+.larga{font-stretch:125%;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:.92}
+.etq{display:inline-flex;align-items:center;gap:8px;font:800 12.5px/1 Archivo,sans-serif;font-stretch:115%;letter-spacing:.14em;text-transform:uppercase;color:var(--amarelo)}
+.etq::before{content:"";width:18px;height:3px;background:currentColor}
+h2{font-size:clamp(34px,8.6vw,64px);color:var(--branco);margin:14px 0 14px}
+h2 em{font-style:normal;color:var(--amarelo)}
+.lead{font-size:17.5px;color:var(--muted);max-width:52ch}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;white-space:nowrap;min-height:56px;padding:0 26px;border-radius:16px;font:800 16px/1 Archivo,sans-serif;font-stretch:112%;text-transform:uppercase;letter-spacing:.02em;text-decoration:none;transition:transform .15s ease,background .15s ease,box-shadow .15s ease}
+.btn svg{width:20px;height:20px}
+.btn.am{background:var(--amarelo);color:var(--preto);box-shadow:0 6px 0 #B98500}
+.btn.am:hover{background:var(--amarelo2)}
+.btn.am:active{transform:translateY(4px);box-shadow:0 2px 0 #B98500}
+.btn.co{color:var(--branco);border:2px solid rgba(255,255,255,.28)}
+.btn.co:hover{border-color:var(--branco)}
+.btn.pr{background:var(--preto);color:var(--amarelo);box-shadow:0 6px 0 rgba(0,0,0,.35)}
+.btn.pr:hover{background:#000}
+
+/* raios (como no vídeo) */
+.raios{position:absolute;inset:0;pointer-events:none;background:repeating-conic-gradient(from 0deg at 50% 50%,var(--cor-raio,rgba(255,194,26,.07)) 0deg 2deg,transparent 2deg 9deg)}
+
+/* topo */
+.topo{position:fixed;left:0;right:0;top:var(--vt-top,0px);z-index:50;background:rgba(14,14,14,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--linha)}
+.topo .envelope{display:flex;align-items:center;justify-content:space-between;gap:14px;height:68px}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none}
+.bb{width:42px;height:42px;border-radius:11px;background:var(--amarelo);color:var(--preto);display:grid;place-items:center;font:900 17px/1 Archivo,sans-serif;font-stretch:125%;letter-spacing:-.02em}
+.marca b{font:900 17px/.92 Archivo,sans-serif;font-stretch:125%;color:var(--branco);letter-spacing:-.01em;text-transform:uppercase}
+.menu{display:none;list-style:none;padding:0;gap:28px}
+.menu a{font-weight:700;font-size:15px;text-decoration:none;color:var(--texto)}
+.menu a:hover{color:var(--amarelo)}
+.topo .btn{min-height:44px;padding:0 16px;font-size:14px;border-radius:12px;box-shadow:0 4px 0 #B98500}
+@media (min-width:900px){.menu{display:flex}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:76px 0 0;isolation:isolate}
+.hero .raios{--cor-raio:rgba(255,194,26,.06);inset:-30% -60% 0;background-position:50% 30%}
+.hero .grade{display:flex;flex-direction:column;gap:0}
+.hero .grade>div:first-child{position:relative;z-index:2}
+.hero h1{font-size:clamp(52px,15.5vw,124px);color:var(--amarelo);margin:16px 0 0}
+.hero h1 span{display:block;color:var(--branco)}
+.hero .lead{color:var(--texto);margin-top:18px;font-size:18px}
+.acoes{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}
+.acoes .btn{flex:1 1 200px}
+.infos{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.infos span{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;color:var(--texto);background:var(--carvao2);border:1px solid var(--linha);border-radius:99px;padding:8px 12px}
+.infos b{color:var(--amarelo)}
+.palco{position:relative;order:-1;margin:-6px -20px -26px;aspect-ratio:1/0.74}
+.palco img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;-webkit-mask:radial-gradient(ellipse 62% 64% at 50% 52%,#000 58%,transparent 100%);mask:radial-gradient(ellipse 62% 64% at 50% 52%,#000 58%,transparent 100%)}
+.carimbo{position:absolute;right:22px;top:16%;width:104px;height:104px;border-radius:50%;background:var(--amarelo);color:var(--preto);display:grid;place-items:center;align-content:center;text-align:center;transform:rotate(12deg);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.carimbo::before{content:"";position:absolute;inset:6px;border-radius:50%;border:2px dashed rgba(14,14,14,.35)}
+.carimbo small{font:800 10.5px/1.1 Archivo,sans-serif;font-stretch:115%;letter-spacing:.08em;text-transform:uppercase}
+.carimbo strong{font:900 26px/1 Archivo,sans-serif;font-stretch:110%;letter-spacing:-.03em}
+.carimbo strong sup{font-size:.45em;vertical-align:.8em}
+@media (min-width:900px){
+  .hero{padding:120px 0 40px}
+  .hero .grade{display:grid;grid-template-columns:1.05fr 1fr;gap:30px;align-items:center}
+  .acoes .btn{flex:0 0 auto}
+  .palco{order:0;margin:0 -40px 0 0;aspect-ratio:1/0.9}
+  .carimbo{width:150px;height:150px;right:6%;top:6%}
+  .carimbo strong{font-size:38px}
+}
+
+/* faixa de palavras (parada, sem loop) */
+.faixa{background:var(--amarelo);color:var(--preto);overflow:hidden;border-block:3px solid var(--preto);transform:rotate(-1.6deg);margin:34px -10px 0;position:relative;z-index:2}
+.faixa p{display:flex;gap:22px;white-space:nowrap;padding:14px 0;font:900 20px/1 Archivo,sans-serif;font-stretch:125%;text-transform:uppercase;justify-content:center}
+.faixa i{font-style:normal;color:rgba(14,14,14,.45)}
+
+/* combo */
+.combo{position:relative;background:var(--amarelo);color:var(--preto);padding:84px 0 70px;margin-top:-18px;overflow:hidden;isolation:isolate}
+.combo .raios{--cor-raio:rgba(14,14,14,.06);z-index:-1}
+.combo .etq{color:var(--preto)}
+.combo h2{color:var(--preto)}
+.combo h2 em{color:var(--preto);-webkit-text-stroke:2px var(--preto);color:transparent}
+.combo .grade{display:grid;gap:28px;align-items:center}
+.combo-card{background:var(--preto);border-radius:28px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.28)}
+.combo-card img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.combo-card .corpo{padding:22px 22px 26px;color:var(--texto)}
+.checks{list-style:none;padding:0;display:grid;gap:10px;margin:4px 0 20px}
+.checks li{display:flex;align-items:center;gap:12px;font:800 17px/1.2 Archivo,sans-serif;font-stretch:112%;text-transform:uppercase;color:var(--branco)}
+.checks svg{flex:none;width:26px;height:26px;padding:5px;border-radius:8px;background:var(--amarelo);color:var(--preto)}
+.preco-grande{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;border-top:1px dashed rgba(255,255,255,.2);padding-top:18px}
+.preco-grande small{display:block;font:800 12px/1.2 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.preco-grande strong{font:900 clamp(34px,9.5vw,46px)/1 Archivo,sans-serif;white-space:nowrap;font-stretch:118%;color:var(--amarelo);letter-spacing:-.03em}
+.combo .lead{color:rgba(14,14,14,.72)}
+.combo .btn{margin-top:22px}
+@media (min-width:900px){.combo{padding:120px 0 100px}.combo .grade{grid-template-columns:1fr 1fr;gap:70px}}
+
+/* cardápio */
+.cardapio{padding:80px 0 60px}
+.abas{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:26px -20px 22px;padding:0 20px;position:sticky;top:calc(var(--vt-top,0px) + 68px);z-index:20;background:linear-gradient(var(--preto) 75%,transparent);padding-block:10px 14px}
+.abas::-webkit-scrollbar{display:none}
+.aba{flex:none;padding:12px 18px;border-radius:99px;font-weight:800;font-size:15px;background:var(--carvao2);color:var(--texto);border:1px solid var(--linha)}
+.aba[aria-selected="true"]{background:var(--amarelo);color:var(--preto);border-color:var(--amarelo)}
+.itens{display:grid;gap:12px}
+.item{display:grid;grid-template-columns:108px 1fr;gap:14px;align-items:center;background:var(--carvao);border:1px solid var(--linha);border-radius:20px;padding:10px;min-height:128px}
+.item .foto{width:108px;height:108px;border-radius:14px;overflow:hidden;background:var(--carvao3);display:grid;place-items:center}
+.item .foto img{width:100%;height:100%;object-fit:cover}
+.item .foto svg{width:46px;height:46px;color:var(--amarelo);opacity:.9}
+.item h3{font:900 17px/1.15 Archivo,sans-serif;font-stretch:112%;color:var(--branco);text-transform:uppercase}
+.item p{font-size:14px;color:var(--muted);margin-top:4px;line-height:1.4}
+.item .base{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+.item .valor{font:900 18px/1 Archivo,sans-serif;color:var(--amarelo)}
+.passo-qtd{display:flex;align-items:center;gap:2px;background:var(--carvao3);border-radius:99px;padding:3px}
+.passo-qtd button{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:20px;font-weight:800;color:var(--branco)}
+.passo-qtd button:hover{background:rgba(255,255,255,.08)}
+.passo-qtd .mais{background:var(--amarelo);color:var(--preto)}
+.passo-qtd .mais:hover{background:var(--amarelo2)}
+.passo-qtd output{min-width:22px;text-align:center;font-weight:800;color:var(--branco)}
+.passo-qtd[data-q="0"] .menos,.passo-qtd[data-q="0"] output{display:none}
+.selo-novo{display:inline-block;font:800 10.5px/1 Archivo,sans-serif;letter-spacing:.1em;text-transform:uppercase;background:var(--brasa);color:#fff;border-radius:6px;padding:4px 6px;margin-left:6px;vertical-align:3px}
+@media (min-width:700px){.itens{grid-template-columns:1fr 1fr}}
+@media (min-width:1050px){
+  .cardapio{padding:110px 0 80px}
+  .itens{grid-template-columns:repeat(3,1fr);gap:18px}
+  .item{grid-template-columns:1fr;align-items:stretch;padding:12px;min-height:0}
+  .item .foto{width:100%;height:auto;aspect-ratio:4/3}
+  .item .txt{padding:6px 6px 4px}
+}
+
+/* sacola */
+.sacola{position:fixed;left:12px;right:12px;bottom:12px;z-index:45;display:flex;align-items:center;gap:12px;background:var(--amarelo);color:var(--preto);border-radius:18px;padding:10px 10px 10px 16px;box-shadow:0 16px 40px rgba(0,0,0,.5);transform:translateY(140%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.sacola.on{transform:none}
+.sacola .q{flex:none;width:34px;height:34px;border-radius:50%;background:var(--preto);color:var(--amarelo);display:grid;place-items:center;font-weight:900}
+.sacola .t{flex:1;min-width:0;line-height:1.2}
+.sacola .t small{display:block;font-size:12.5px;font-weight:700;opacity:.7}
+.sacola .t b{font:900 19px/1.1 Archivo,sans-serif;font-stretch:110%;white-space:nowrap}
+.sacola .btn{min-height:48px;padding:0 16px;font-size:14.5px;border-radius:12px;box-shadow:none}
+@media (min-width:700px){.sacola{left:auto;right:24px;bottom:24px;width:420px}}
+
+/* brasa */
+.fogo{position:relative;min-height:560px;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.fogo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.fogo::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,var(--preto) 0%,rgba(14,14,14,.2) 26%,rgba(14,14,14,.8) 56%,var(--preto) 96%)}
+.fogo .envelope{padding-top:120px;padding-bottom:70px}
+.fogo h2{font-size:clamp(40px,11vw,96px)}
+.fogo .lead{color:var(--texto)}
+.numeros{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:30px}
+.numeros div{background:rgba(14,14,14,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid var(--linha);border-radius:18px;padding:16px 12px}
+.numeros strong{display:block;font:900 clamp(26px,7vw,44px)/1 Archivo,sans-serif;font-stretch:120%;color:var(--amarelo)}
+.numeros span{display:block;font-size:13.5px;color:var(--texto);margin-top:6px;line-height:1.3}
+@media (min-width:900px){.fogo{min-height:720px}.numeros{max-width:720px;gap:16px}.numeros div{padding:22px 20px}}
+
+/* como pedir */
+.pedir{padding:80px 0}
+.jeitos{display:grid;gap:14px;margin-top:30px}
+.jeito{background:var(--carvao);border:1px solid var(--linha);border-radius:24px;padding:24px}
+.jeito .ic{width:52px;height:52px;border-radius:14px;background:var(--amarelo);color:var(--preto);display:grid;place-items:center;margin-bottom:16px}
+.jeito .ic svg{width:26px;height:26px}
+.jeito h3{font:900 21px/1.1 Archivo,sans-serif;font-stretch:115%;color:var(--branco);text-transform:uppercase}
+.jeito p{color:var(--muted);margin-top:8px;font-size:15.5px}
+.jeito .tag{display:inline-block;margin-top:14px;font-weight:800;font-size:13px;color:var(--amarelo);background:rgba(255,194,26,.12);border-radius:99px;padding:6px 10px}
+.aviso-entrega{margin-top:18px;display:flex;gap:12px;align-items:center;background:rgba(255,90,31,.12);border:1px solid rgba(255,90,31,.35);border-radius:16px;padding:14px 16px;color:var(--branco);font-weight:600;font-size:15px}
+.aviso-entrega svg{flex:none;width:24px;height:24px;color:var(--brasa)}
+@media (min-width:900px){.pedir{padding:110px 0}.jeitos{grid-template-columns:repeat(3,1fr);gap:18px}}
+
+/* avaliações */
+.notas{padding:20px 0 80px}
+.nota-geral{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:6px}
+.nota-geral strong{font:900 64px/1 Archivo,sans-serif;font-stretch:120%;color:var(--amarelo)}
+.estrelas{color:var(--amarelo);font-size:20px;letter-spacing:.1em}
+.nota-geral small{display:block;color:var(--muted);font-size:14px}
+.reviews{display:grid;gap:12px;margin-top:26px}
+.review{background:var(--carvao);border:1px solid var(--linha);border-radius:20px;padding:20px}
+.review .quem{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.review .av{width:38px;height:38px;border-radius:50%;background:var(--carvao3);display:grid;place-items:center;font-weight:900;color:var(--amarelo)}
+.review b{color:var(--branco);font-size:15px}
+.review small{display:block;color:var(--muted);font-size:12.5px}
+.review p{color:var(--texto);font-size:15.5px}
+@media (min-width:900px){.reviews{grid-template-columns:repeat(3,1fr);gap:18px}.notas{padding:40px 0 110px}}
+
+/* onde */
+.onde{padding:0 0 80px}
+.onde .caixa{background:var(--carvao);border:1px solid var(--linha);border-radius:28px;overflow:hidden;display:grid}
+.onde .mapa{min-height:260px;position:relative;background:#1b1b1b}
+.onde .mapa svg{position:absolute;inset:0;width:100%;height:100%}
+.onde .info{padding:28px 24px}
+.onde h3{font:900 26px/1.05 Archivo,sans-serif;font-stretch:120%;color:var(--branco);text-transform:uppercase}
+.onde ul{list-style:none;padding:0;margin:18px 0 22px;display:grid;gap:10px}
+.onde li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--linha);padding-bottom:10px}
+.onde li b{color:var(--branco)}
+@media (min-width:900px){.onde .caixa{grid-template-columns:1.1fr 1fr}.onde .info{padding:48px}}
+
+/* final */
+.final{position:relative;background:var(--amarelo);color:var(--preto);text-align:center;padding:90px 0 96px;overflow:hidden;isolation:isolate}
+.final .raios{--cor-raio:rgba(14,14,14,.08);z-index:-1}
+.final .bb{width:84px;height:84px;border-radius:22px;font-size:34px;margin:0 auto 22px;background:var(--preto);color:var(--amarelo)}
+.final h2{color:var(--preto);max-width:14ch;margin-inline:auto;font-size:clamp(40px,10vw,84px)}
+.final .btn{margin-top:22px}
+.final p.arroba{margin-top:18px;font:800 15px/1 Archivo,sans-serif;letter-spacing:.08em}
+.rodape{padding:28px 0 110px;color:var(--muted);font-size:14px;border-top:1px solid var(--linha)}
+.rodape .envelope{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px}
+
+.flutua{position:fixed;right:16px;bottom:16px;z-index:40;width:60px;height:60px;border-radius:18px;background:var(--amarelo);color:var(--preto);display:grid;place-items:center;box-shadow:0 6px 0 #B98500,0 14px 30px rgba(0,0,0,.45);transition:opacity .2s ease}
+.flutua svg{width:30px;height:30px}
+.flutua.some{opacity:0;pointer-events:none}
+
+.js [data-r]{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js [data-r].vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js [data-r]{opacity:1;transform:none;transition:none}.sacola{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-whats" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.5l5 5L19.5 7"/></symbol>
+  <symbol id="i-batata" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><path d="M12 20l3 22h18l3-22z"/><path d="M15 20l-1-12 4 1 1 11M21 20V6l4 1v13M27 20l1-12 4 2-1 10M33 20l3-9 3 2-3 7"/><path d="M12 20h24"/></g></symbol>
+  <symbol id="i-copo" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><path d="M13 14h22l-3 28H16z"/><path d="M11 14h26M24 14l4-10h6"/><path d="M15 24h18"/></g></symbol>
+  <symbol id="i-combo" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><path d="M6 22a14 10 0 0 1 28 0z"/><path d="M5 27h30M6 32h28a0 0 0 0 1 0 0 4 4 0 0 1-4 4H10a4 4 0 0 1-4-4z"/><path d="M38 16h6l-2 26h-6"/></g></symbol>
+</svg>
+
+<header class="topo">
+  <div class="envelope">
+    <a class="marca" href="#inicio" aria-label="Brasa Burger, início"><span class="bb" aria-hidden="true">BB</span><b>Brasa<br>Burger</b></a>
+    <ul class="menu">
+      <li><a href="#combo">Combo</a></li>
+      <li><a href="#cardapio">Cardápio</a></li>
+      <li><a href="#pedir">Como pedir</a></li>
+      <li><a href="#onde">Onde estamos</a></li>
+    </ul>
+    <a class="btn am" href="#cardapio">Pedir agora</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero" aria-labelledby="t-hero">
+    <div class="raios" aria-hidden="true"></div>
+    <div class="envelope grade">
+      <div>
+        <span class="etq">Smash na brasa · desde 2019</span>
+        <h1 id="t-hero" class="larga">Bateu aquela <span>fome?</span></h1>
+        <p class="lead">Smash burger prensado na chapa bem quente e finalizado na brasa de carvão. Casquinha crocante, queijo derretendo e entrega rapidinho.</p>
+        <div class="acoes">
+          <a class="btn am" href="#cardapio">Montar meu pedido</a>
+          <a class="btn co" href="#" data-whats="Oi! Quero fazer um pedido na Brasa Burger.">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg>Pedir no WhatsApp</a>
+        </div>
+        <div class="infos">
+          <span><b>★ 4,8</b> 1.240 avaliações</span>
+          <span>Entrega em ~35 min</span>
+          <span>Ter a dom · 18h às 23h30</span>
+        </div>
+      </div>
+      <div class="palco">
+        <img src="img/hero.webp" alt="Cheeseburger com queijo derretido sobre fundo preto" width="1400" height="934" fetchpriority="high">
+        <div class="carimbo" aria-hidden="true"><small>Combo</small><strong><sup>R$</sup>34,90</strong><small>com batata</small></div>
+      </div>
+    </div>
+    <div class="faixa" aria-hidden="true"><p>Smash duplo <i>✦</i> Batata quentinha <i>✦</i> Molho da casa <i>✦</i> Na brasa <i>✦</i> Smash duplo <i>✦</i> Batata quentinha</p></div>
+  </section>
+
+  <section class="combo" id="combo" aria-labelledby="t-combo">
+    <div class="raios" aria-hidden="true"></div>
+    <div class="envelope grade">
+      <div data-r>
+        <span class="etq">Chegou na brasa</span>
+        <h2 id="t-combo" class="larga">O combo de <em>smash</em></h2>
+        <p class="lead">O mais pedido da casa, no preço de um lanche só. Vale todo dia, no delivery ou na retirada.</p>
+        <a class="btn pr" href="#" data-whats="Oi! Quero o Combo Smash Duplo (R$ 34,90) no delivery.">Quero esse combo</a>
+      </div>
+      <article class="combo-card" data-r>
+        <img src="img/combo.webp" alt="Hambúrguer com batatas fritas sobre pedra escura" width="1200" height="794" loading="lazy">
+        <div class="corpo">
+          <ul class="checks">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Smash duplo</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Batata quentinha</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Refri lata gelado</li>
+          </ul>
+          <div class="preco-grande"><div><small>Tudo isso por apenas</small><strong>R$ 34,90</strong></div><small style="text-align:right">combo completo<br>no delivery</small></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="cardapio" id="cardapio" aria-labelledby="t-card">
+    <div class="envelope">
+      <span class="etq" data-r>Cardápio</span>
+      <h2 id="t-card" class="larga" data-r>Escolhe o <em>seu</em></h2>
+      <p class="lead" data-r>Toque no <b style="color:var(--amarelo)">+</b> pra montar o pedido. No fim, ele vai prontinho pro nosso WhatsApp.</p>
+      <div class="abas" role="tablist" aria-label="Categorias do cardápio">
+        <button class="aba" role="tab" aria-selected="true" data-cat="burgers">Burgers</button>
+        <button class="aba" role="tab" aria-selected="false" data-cat="combos">Combos</button>
+        <button class="aba" role="tab" aria-selected="false" data-cat="porcoes">Porções</button>
+        <button class="aba" role="tab" aria-selected="false" data-cat="bebidas">Bebidas</button>
+      </div>
+      <div class="itens" id="itens" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="fogo" aria-labelledby="t-fogo">
+    <img src="img/brasa.webp" alt="Hambúrgueres assando sobre a brasa com chamas" width="1400" height="972" loading="lazy">
+    <div class="envelope">
+      <span class="etq" data-r>O segredo</span>
+      <h2 id="t-fogo" class="larga" data-r>Tá no <em>fogo</em></h2>
+      <p class="lead" data-r>Carne bovina moída todo dia aqui, prensada na chapa e finalizada na brasa de carvão. É isso que dá a casquinha crocante e aquele gostinho defumado.</p>
+      <div class="numeros" data-r>
+        <div><strong>160g</strong><span>de blend da casa</span></div>
+        <div><strong>100%</strong><span>carne bovina, sem conservante</span></div>
+        <div><strong>35min</strong><span>de entrega, em média</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pedir" id="pedir" aria-labelledby="t-ped">
+    <div class="envelope">
+      <span class="etq" data-r>Como pedir</span>
+      <h2 id="t-ped" class="larga" data-r>Do jeito que <em>preferir</em></h2>
+      <div class="jeitos">
+        <article class="jeito" data-r><div class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg></div><h3>WhatsApp</h3><p>Monta o pedido aqui no site ou chama direto. A gente confirma e já manda pra chapa.</p><span class="tag">O jeito mais rápido</span></article>
+        <article class="jeito" data-r><div class="ic"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-combo"/></svg></div><h3>Retirada</h3><p>Pede antes e retira no balcão sem fila. Fica pronto em uns 20 minutos.</p><span class="tag">10% de desconto</span></article>
+        <article class="jeito" data-r><div class="ic"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-batata"/></svg></div><h3>Apps de delivery</h3><p>Também estamos nos aplicativos de entrega da cidade, com o mesmo cardápio.</p><span class="tag">Busque "Brasa Burger"</span></article>
+      </div>
+      <p class="aviso-entrega" data-r><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>Entrega grátis acima de R$ 60 num raio de 4 km.</p>
+    </div>
+  </section>
+
+  <section class="notas" aria-labelledby="t-not">
+    <div class="envelope">
+      <span class="etq" data-r>Quem pede, volta</span>
+      <div class="nota-geral" data-r><strong>4,8</strong><div><span class="estrelas" aria-label="4,8 de 5 estrelas">★★★★★</span><small>1.240 avaliações de clientes</small></div></div>
+      <h2 id="t-not" class="sr">Avaliações</h2>
+      <div class="reviews">
+        <article class="review" data-r><div class="quem"><span class="av" aria-hidden="true">J</span><div><b>Júlia R.</b><small>pediu o Bacon Brasa</small></div></div><p>Chegou quentinho e a batata crocante de verdade. Virou nosso lanche de sexta.</p></article>
+        <article class="review" data-r><div class="quem"><span class="av" aria-hidden="true">P</span><div><b>Pedro H.</b><small>pediu o Combo Smash</small></div></div><p>Melhor smash da cidade, sem exagero. O combo por R$ 34,90 é covardia.</p></article>
+        <article class="review" data-r><div class="quem"><span class="av" aria-hidden="true">C</span><div><b>Camila S.</b><small>retirou no balcão</small></div></div><p>Pedi pelo site, mandou pro WhatsApp com tudo certinho. Retirei em 15 minutos.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="onde" id="onde" aria-labelledby="t-onde">
+    <div class="envelope">
+      <div class="caixa" data-r>
+        <div class="mapa" aria-hidden="true">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="300" fill="#1B1B1B"/>
+            <g stroke="#2A2A2A" stroke-width="14" fill="none"><path d="M-20 80 L420 110"/><path d="M-20 220 L420 190"/><path d="M90 -20 L130 320"/><path d="M300 -20 L270 320"/></g>
+            <g stroke="#242424" stroke-width="6" fill="none"><path d="M-20 150 L420 150"/><path d="M200 -20 L200 320"/></g>
+            <circle cx="200" cy="150" r="70" fill="rgba(255,194,26,.06)" stroke="rgba(255,194,26,.25)" stroke-dasharray="3 7"/>
+            <rect x="178" y="122" width="44" height="44" rx="12" fill="#FFC21A"/>
+            <text x="200" y="151" text-anchor="middle" font-family="Archivo,Arial" font-weight="900" font-size="17" fill="#0E0E0E">BB</text>
+            <text x="200" y="236" text-anchor="middle" font-family="Archivo,Arial" font-weight="800" font-size="11" letter-spacing="2" fill="rgba(255,255,255,.55)">ENTREGA GRÁTIS ATÉ 4 KM</text>
+          </svg>
+        </div>
+        <div class="info">
+          <span class="etq">Onde estamos</span>
+          <h3 id="t-onde" style="margin-top:12px">Av. dos Ipês, 980 — Jardim América</h3>
+          <ul>
+            <li><span>Terça a quinta</span><b>18h às 23h</b></li>
+            <li><span>Sexta e sábado</span><b>18h às 0h</b></li>
+            <li><span>Domingo</span><b>18h às 23h30</b></li>
+            <li><span>Segunda</span><b style="color:var(--muted)">Fechado</b></li>
+          </ul>
+          <a class="btn am" href="#" data-whats="Oi! Quero fazer um pedido na Brasa Burger.">Chamar no WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" aria-labelledby="t-fim">
+    <div class="raios" aria-hidden="true"></div>
+    <div class="envelope" data-r>
+      <span class="bb" aria-hidden="true">BB</span>
+      <h2 id="t-fim" class="larga">Chama no WhatsApp e pede já!</h2>
+      <a class="btn pr" href="#" data-whats="Oi! Quero fazer um pedido na Brasa Burger.">Chamar no WhatsApp</a>
+      <p class="arroba">@BRASABURGER</p>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape"><div class="envelope"><span>© <span id="ano">2026</span> Brasa Burger · Smash na brasa</span><span>Av. dos Ipês, 980 — Jardim América</span></div></footer>
+
+<a class="flutua" id="flutua" href="#" aria-label="Pedir pelo WhatsApp" data-whats="Oi! Quero fazer um pedido na Brasa Burger."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg></a>
+
+<div class="sacola" id="sacola" aria-live="polite">
+  <span class="q" id="s-q">0</span>
+  <div class="t"><small>Seu pedido</small><b id="s-total">R$ 0,00</b></div>
+  <button class="btn pr" type="button" id="s-enviar"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg>Enviar pedido</button>
+</div>
+
+<script>
+document.documentElement.classList.add('js')
+document.getElementById('ano').textContent=new Date().getFullYear()
+var CARDAPIO={
+  burgers:[
+    {id:'classico',nome:'Smash Clássico',desc:'Pão brioche, smash 90g, cheddar, picles e molho da casa.',preco:24.9,img:'img/classico.webp'},
+    {id:'duplo',nome:'Smash Duplo',desc:'Dois smash 90g, cheddar duplo e cebola caramelizada.',preco:29.9,img:'img/smash-duplo.webp',novo:'Top 1'},
+    {id:'bacon',nome:'Bacon Brasa',desc:'Dois smash, bacon crocante, cheddar e maionese defumada.',preco:32.9,img:'img/bacon-brasa.webp'},
+    {id:'melt',nome:'Cheddar Melt',desc:'Blend 160g na brasa, cheddar cremoso e cebola crispy.',preco:31.9,img:'img/hero.webp'},
+    {id:'defumado',nome:'Defumado',desc:'Blend 160g, queijo prato, bacon e barbecue de rapadura.',preco:34.9,img:'img/defumado.webp'}
+  ],
+  combos:[
+    {id:'c-duplo',nome:'Combo Smash Duplo',desc:'Smash Duplo + batata + refri lata.',preco:34.9,img:'img/combo.webp',novo:'Oferta'},
+    {id:'c-bacon',nome:'Combo Bacon Brasa',desc:'Bacon Brasa + batata + refri lata.',preco:39.9,ic:'i-combo'},
+    {id:'c-casal',nome:'Combo Casal',desc:'2 Smash Clássicos + batata grande + 2 refris.',preco:64.9,ic:'i-combo'}
+  ],
+  porcoes:[
+    {id:'batata',nome:'Batata rústica',desc:'Com páprica e maionese da casa.',preco:14.9,ic:'i-batata'},
+    {id:'batata-cb',nome:'Batata cheddar e bacon',desc:'Cheddar cremoso e bacon em cubos.',preco:22.9,ic:'i-batata'},
+    {id:'onion',nome:'Onion rings',desc:'Anéis de cebola empanados, 12 unidades.',preco:18.9,ic:'i-batata'}
+  ],
+  bebidas:[
+    {id:'shake',nome:'Milkshake',desc:'Chocolate, morango ou maltado. 400 ml.',preco:18.9,img:'img/milkshake.webp'},
+    {id:'refri',nome:'Refri lata',desc:'350 ml, bem gelado.',preco:6.5,ic:'i-copo'},
+    {id:'suco',nome:'Suco natural',desc:'Laranja, limão ou maracujá. 500 ml.',preco:9.9,ic:'i-copo'}
+  ]
+}
+var todos={};Object.keys(CARDAPIO).forEach(function(c){CARDAPIO[c].forEach(function(i){todos[i.id]=i})})
+var qtd={}
+function brl(v){return 'R$ '+v.toFixed(2).replace('.',',')}
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var lista=document.getElementById('itens')
+function render(cat){
+  lista.innerHTML=CARDAPIO[cat].map(function(i){
+    var q=qtd[i.id]||0
+    var foto=i.img?'<img src="'+i.img+'" alt="" loading="lazy">':'<svg viewBox="0 0 48 48" aria-hidden="true"><use href="#'+i.ic+'"/></svg>'
+    return '<article class="item"><div class="foto">'+foto+'</div><div class="txt"><h3>'+esc(i.nome)+(i.novo?'<span class="selo-novo">'+i.novo+'</span>':'')+'</h3><p>'+esc(i.desc)+'</p>'+
+      '<div class="base"><span class="valor">'+brl(i.preco)+'</span><div class="passo-qtd" data-q="'+q+'"><button type="button" class="menos" data-menos="'+i.id+'" aria-label="Tirar um '+esc(i.nome)+'">−</button><output>'+q+'</output><button type="button" class="mais" data-mais="'+i.id+'" aria-label="Adicionar '+esc(i.nome)+'">+</button></div></div></div></article>'
+  }).join('')
+}
+document.querySelectorAll('.aba').forEach(function(b){b.addEventListener('click',function(){
+  document.querySelectorAll('.aba').forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false')})
+  render(b.dataset.cat)
+})})
+lista.addEventListener('click',function(e){
+  var m=e.target.closest('[data-mais]'),n=e.target.closest('[data-menos]');if(!m&&!n)return
+  var id=(m||n).getAttribute(m?'data-mais':'data-menos')
+  qtd[id]=Math.max(0,(qtd[id]||0)+(m?1:-1))
+  var caixa=(m||n).parentNode;caixa.dataset.q=qtd[id];caixa.querySelector('output').textContent=qtd[id]
+  atualiza()
+})
+var sac=document.getElementById('sacola'),flut=document.getElementById('flutua')
+function atualiza(){
+  var n=0,t=0;Object.keys(qtd).forEach(function(id){n+=qtd[id];t+=qtd[id]*todos[id].preco})
+  document.getElementById('s-q').textContent=n;document.getElementById('s-total').textContent=brl(t)
+  sac.classList.toggle('on',n>0);flut.classList.toggle('some',n>0)
+}
+document.getElementById('s-enviar').addEventListener('click',function(){
+  var linhas=[],t=0;Object.keys(qtd).forEach(function(id){if(qtd[id]>0){var i=todos[id];t+=qtd[id]*i.preco;linhas.push(qtd[id]+'x '+i.nome+' — '+brl(qtd[id]*i.preco))}})
+  var msg='Oi! Quero fazer um pedido:\n\n'+linhas.join('\n')+'\n\nTotal: '+brl(t)+'\nÉ pra entrega.'
+  if(window.vitrine)window.vitrine.whats(msg)
+})
+render('burgers')
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});document.querySelectorAll('[data-r]').forEach(function(n){io.observe(n)})}else{document.querySelectorAll('[data-r]').forEach(function(n){n.classList.add('vis')})}
+</script>
+<script src="../kit/vitrine.js" defer></script>
+</body>
+</html>

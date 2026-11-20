@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="pt-BR" data-negocio="A Lume Moda">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lume Moda · Coleção de linho</title>
+<meta name="description" content="Vestidos e conjuntos de linho da nova coleção de verão. 10% de desconto no Pix e envio para todo o Brasil.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F2ECE2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%231D1C1A'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-weight='700' font-size='28' fill='%23F2ECE2' text-anchor='middle'%3ELM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero.webp">
+<!-- Site de exemplo (negócio fictício) feito pela thrustspike — 19/11/2026.
+     Mesma identidade do vídeo de exemplo da loja de roupas: jornal de moda, preto, papel e vermelho. -->
+<style>
+:root{
+  --tinta:#1D1C1A; --tinta2:#2A2926; --papel:#F2ECE2; --papel2:#E9E1D4; --branco:#FBF8F3;
+  --vermelho:#B7432D; --vermelho2:#CF5A42; --cinza:#6E6961;
+  --linha:rgba(29,28,26,.18); --linha-c:rgba(242,236,226,.18);
+  --serifa:Fraunces,Georgia,serif; --sans:Archivo,system-ui,sans-serif;
+  --larg:1240px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:var(--papel);color:var(--tinta);font:400 16px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--vermelho);outline-offset:3px}
+.envelope{width:100%;max-width:var(--larg);margin:0 auto;padding:0 20px}
+.cap{font:600 11.5px/1.3 var(--sans);letter-spacing:.24em;text-transform:uppercase}
+.regua{border-top:1px solid var(--tinta)}
+.regua2{border-top:3px double var(--tinta)}
+h1,h2,h3{font-family:var(--serifa);font-weight:700;letter-spacing:-.02em;font-variation-settings:"opsz" 144}
+h2{font-size:clamp(38px,9.5vw,76px);line-height:1;margin:14px 0 16px}
+h1 em,h2 em{font-style:italic;font-weight:500;color:var(--vermelho)}
+.lead{font-family:var(--serifa);font-size:19px;line-height:1.5;color:var(--tinta2);max-width:46ch;font-variation-settings:"opsz" 24}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 24px;font:600 13px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .2s ease,color .2s ease}
+.btn svg{width:18px;height:18px}
+.btn.preto{background:var(--tinta);color:var(--papel)}
+.btn.preto:hover{background:var(--vermelho)}
+.btn.linha{border:1px solid var(--tinta)}
+.btn.linha:hover{background:var(--tinta);color:var(--papel)}
+.btn.claro{background:var(--papel);color:var(--tinta)}
+.btn.claro:hover{background:#fff}
+
+/* cabeçalho de jornal */
+.topo{position:sticky;top:var(--vt-top,0px);z-index:50;background:rgba(242,236,226,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--linha)}
+.topo .envelope{display:flex;align-items:center;justify-content:space-between;gap:14px;height:64px}
+.marca{font:800 24px/1 var(--serifa);letter-spacing:.04em;text-decoration:none;white-space:nowrap;font-variation-settings:"opsz" 144}
+.menu{display:none;list-style:none;padding:0;gap:30px}
+.menu a{text-decoration:none;font:600 12px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase}
+.menu a:hover{color:var(--vermelho)}
+.topo .btn{min-height:42px;padding:0 16px;font-size:11.5px}
+@media (min-width:980px){.menu{display:flex}}
+.cabeca{padding:18px 0 0}
+.cabeca .linha-sup{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:3px double var(--tinta);border-bottom:1px solid var(--tinta)}
+.cabeca .linha-sup span{font:600 10.5px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase}
+.cabeca .linha-sup span:nth-child(2){display:none}
+@media (min-width:700px){.cabeca .linha-sup span:nth-child(2){display:inline}}
+
+/* manchete */
+.manchete{padding:26px 0 60px}
+.manchete .grade{display:grid;gap:26px}
+.manchete figure{position:relative}
+.manchete .foto{aspect-ratio:4/5;overflow:hidden;background:var(--papel2)}
+.manchete .foto img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.manchete figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:10px;font-size:13px;color:var(--cinza)}
+.manchete figcaption b{color:var(--tinta);font-weight:600}
+.manchete h1{font-size:clamp(52px,14vw,112px);line-height:.94;margin:18px 0 18px;position:relative}
+.manchete h1 .aspas{color:var(--vermelho);font-style:normal;font-weight:800;font-size:.9em;line-height:0;vertical-align:-.28em;margin-left:.04em}
+.manchete .rotulo{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--tinta);border-bottom:1px solid var(--linha)}
+.manchete .acoes{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.manchete .acoes .btn{flex:1 1 200px}
+.folio{font:600 10.5px/1 var(--sans);letter-spacing:.2em;color:var(--cinza)}
+@media (min-width:960px){.manchete{padding:36px 0 90px}.manchete .grade{grid-template-columns:1fr 1fr;gap:56px;align-items:center}.manchete .acoes .btn{flex:0 0 auto}}
+
+/* nesta edição */
+.edicao{padding:0 0 60px}
+.indice{list-style:none;padding:0;margin-top:10px;border-top:1px solid var(--tinta)}
+.indice li a{display:grid;grid-template-columns:54px 1fr auto;align-items:baseline;gap:12px;padding:18px 0;border-bottom:1px solid var(--linha);text-decoration:none}
+.indice .n{font:italic 500 26px/1 var(--serifa);color:var(--vermelho)}
+.indice .t{font:600 clamp(24px,6vw,40px)/1.1 var(--serifa);letter-spacing:-.01em}
+.indice .p{font:600 11px/1 var(--sans);letter-spacing:.18em;color:var(--cinza)}
+.indice li a:hover .t{color:var(--vermelho)}
+@media (min-width:960px){.edicao{padding:0 0 90px}.edicao .grade{display:grid;grid-template-columns:.7fr 1.3fr;gap:60px}}
+
+/* pix */
+.pix{background:var(--tinta);color:var(--papel);padding:70px 0}
+.pix .grade{display:grid;gap:20px;align-items:center}
+.pix .cap{color:rgba(242,236,226,.7)}
+.pix .chamada{font:600 clamp(20px,5vw,30px)/1.25 var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.pix .dez{font:800 clamp(130px,38vw,300px)/.8 var(--serifa);color:var(--vermelho2);letter-spacing:-.05em;font-variation-settings:"opsz" 144}
+.pix .rodape-pix{border-top:1px solid var(--linha-c);padding-top:14px;font:600 clamp(16px,4vw,22px)/1.3 var(--sans);letter-spacing:.16em;text-transform:uppercase}
+@media (min-width:960px){.pix{padding:100px 0}.pix .grade{grid-template-columns:1fr auto;gap:60px}}
+
+/* vitrine */
+.vitrine{padding:70px 0}
+.filtros{display:flex;gap:6px;flex-wrap:wrap;margin:22px 0 26px}
+.filtro{padding:11px 16px;border:1px solid var(--linha);font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase}
+.filtro[aria-pressed="true"]{background:var(--tinta);color:var(--papel);border-color:var(--tinta)}
+.pecas{display:grid;grid-template-columns:1fr 1fr;gap:26px 14px}
+.peca .foto{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--papel2)}
+.peca .foto img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.peca:hover .foto img{transform:scale(1.03)}
+.peca .poucas{position:absolute;left:8px;top:8px;background:var(--vermelho);color:#fff;font:600 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;padding:6px 8px}
+.peca h3{font-size:21px;line-height:1.15;margin-top:12px;font-weight:600}
+.peca .mat{font-size:13.5px;color:var(--cinza);margin-top:2px}
+.peca .valores{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-top:8px}
+.peca .valores b{font:700 18px/1 var(--sans)}
+.peca .valores span{font-size:13px;color:var(--vermelho);font-weight:600}
+.tams{display:flex;gap:4px;margin:12px 0 10px}
+.tam{width:36px;height:34px;border:1px solid var(--linha);font:600 12.5px/1 var(--sans);display:grid;place-items:center}
+.tam[aria-pressed="true"]{background:var(--tinta);color:var(--papel);border-color:var(--tinta)}
+.peca .btn{width:100%;min-height:46px;font-size:11.5px;padding:0 10px}
+.peca[hidden]{display:none}
+@media (min-width:900px){.vitrine{padding:100px 0}.pecas{grid-template-columns:repeat(3,1fr);gap:44px 26px}.peca h3{font-size:25px}}
+
+/* editorial */
+.editorial{background:var(--branco);padding:70px 0;border-block:1px solid var(--linha)}
+.editorial .grade{display:grid;gap:30px}
+.editorial .foto{aspect-ratio:4/5;overflow:hidden}
+.editorial .foto img{width:100%;height:100%;object-fit:cover}
+.citacao{font:italic 500 clamp(30px,7vw,52px)/1.1 var(--serifa);color:var(--tinta);border-left:3px solid var(--vermelho);padding-left:18px;margin:20px 0 22px}
+.colunas p{font-family:var(--serifa);font-size:17.5px;line-height:1.6;color:var(--tinta2);margin-bottom:14px;font-variation-settings:"opsz" 18}
+.colunas p:first-child::first-letter{float:left;font:800 64px/.8 var(--serifa);color:var(--vermelho);margin:6px 10px 0 0}
+.cuidados{list-style:none;padding:0;margin-top:20px;border-top:1px solid var(--tinta)}
+.cuidados li{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--linha);font-size:15px}
+.cuidados li b{min-width:26px;font:italic 600 18px/1.3 var(--serifa);color:var(--vermelho)}
+@media (min-width:960px){.editorial{padding:110px 0}.editorial .grade{grid-template-columns:1fr 1fr;gap:70px;align-items:center}.colunas{columns:2;column-gap:34px}.colunas p{break-inside:avoid}}
+
+/* poucas unidades */
+.urgencia{background:var(--vermelho);color:#fff;padding:44px 0}
+.urgencia .envelope{display:grid;gap:18px;align-items:center}
+.urgencia p{font:700 clamp(30px,7.5vw,56px)/1.02 var(--serifa);letter-spacing:-.02em}
+.urgencia p em{font-weight:500}
+@media (min-width:900px){.urgencia .envelope{grid-template-columns:1fr auto;gap:40px}}
+
+/* como comprar */
+.comprar{padding:70px 0}
+.passos{display:grid;gap:0;margin-top:26px;border-top:1px solid var(--tinta)}
+.passo{display:grid;grid-template-columns:60px 1fr;gap:14px;padding:22px 0;border-bottom:1px solid var(--linha)}
+.passo .n{font:italic 600 34px/1 var(--serifa);color:var(--vermelho)}
+.passo b{display:block;font:600 22px/1.2 var(--serifa)}
+.passo p{font-size:15px;color:var(--cinza);margin-top:4px}
+@media (min-width:900px){.comprar{padding:100px 0}.passos{grid-template-columns:repeat(4,1fr);gap:28px;border-top:0}.passo{grid-template-columns:1fr;border-top:1px solid var(--tinta);border-bottom:0}}
+
+/* loja + final */
+.final{background:var(--tinta);color:var(--papel);padding:80px 0 60px}
+.final .grade{display:grid;gap:34px}
+.final .mono{width:76px;height:76px;background:var(--papel);color:var(--tinta);display:grid;place-items:center;font:800 28px/1 var(--serifa);margin-bottom:22px}
+.final h2{color:var(--papel);font-size:clamp(36px,8.5vw,64px)}
+.final h2 em{color:var(--vermelho2)}
+.final .info{border-top:1px solid var(--linha-c)}
+.final .info div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--linha-c);font-size:15px}
+.final .info span:first-child{font:600 11px/1.6 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:rgba(242,236,226,.6)}
+.final .info span:last-child{text-align:right}
+.final .btn{margin-top:22px}
+@media (min-width:960px){.final{padding:110px 0 80px}.final .grade{grid-template-columns:1.1fr .9fr;gap:80px;align-items:end}}
+.rodape{background:var(--tinta);color:rgba(242,236,226,.55);font-size:13px;padding:0 0 100px}
+.rodape .envelope{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;border-top:3px double rgba(242,236,226,.3);padding-top:18px}
+
+.flutua{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;align-items:center;gap:10px;height:54px;padding:0 18px 0 16px;background:var(--tinta);color:var(--papel);text-decoration:none;font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;box-shadow:0 14px 30px rgba(29,28,26,.35)}
+.flutua svg{width:22px;height:22px}
+.flutua:hover{background:var(--vermelho)}
+
+.js [data-r]{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.js [data-r].vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js [data-r]{opacity:1;transform:none;transition:none}.peca .foto img{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-whats" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" d="M4 12h15M13 6l6 6-6 6"/></symbol>
+</svg>
+
+<div class="cabeca"><div class="envelope"><div class="linha-sup"><span>Edição 07 · Verão 2026</span><span>Moda feminina · desde 2017</span><span>Envio p/ todo o Brasil</span></div></div></div>
+<header class="topo">
+  <div class="envelope">
+    <a class="marca" href="#inicio">LUME MODA</a>
+    <ul class="menu">
+      <li><a href="#colecao">Coleção</a></li>
+      <li><a href="#linho">O linho</a></li>
+      <li><a href="#comprar">Como comprar</a></li>
+      <li><a href="#loja">A loja</a></li>
+    </ul>
+    <a class="btn preto" href="#colecao">Comprar</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="manchete" aria-labelledby="t-man">
+    <div class="envelope grade">
+      <figure data-r>
+        <div class="foto"><img src="img/hero.webp" alt="Mulher usando vestido de linho vermelho com mangas amarradas" width="1400" height="1750" fetchpriority="high"></div>
+        <figcaption><span>Na capa: <b>vestido Mira</b>, linho lavado</span><span class="folio">P. 01</span></figcaption>
+      </figure>
+      <div data-r>
+        <div class="rotulo"><span class="cap">Manchete</span><span class="folio">Edição 07</span></div>
+        <h1 id="t-man">Chegou a nova coleção de <em>linho</em><span class="aspas" aria-hidden="true">”</span></h1>
+        <p class="lead">Vestidos e conjuntos que respiram no calor, caem bem o dia inteiro e ficam mais bonitos a cada lavagem. Poucas unidades de cada peça.</p>
+        <div class="acoes">
+          <a class="btn preto" href="#colecao">Ver a coleção <svg aria-hidden="true"><use href="#i-seta"/></svg></a>
+          <a class="btn linha" href="#" data-whats="Oi! Vi a nova coleção de linho da Lume Moda e quero ver as peças."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg>WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="edicao" aria-labelledby="t-ed">
+    <div class="envelope grade">
+      <div data-r><p class="cap" style="color:var(--vermelho)">Nesta edição</p><h2 id="t-ed">Tem na <em>coleção</em></h2></div>
+      <ol class="indice" data-r>
+        <li><a href="#colecao" data-filtro-link="vestidos"><span class="n">01</span><span class="t">Vestidos de linho</span><span class="p">P. 03</span></a></li>
+        <li><a href="#colecao" data-filtro-link="conjuntos"><span class="n">02</span><span class="t">Conjuntos de linho</span><span class="p">P. 03</span></a></li>
+        <li><a href="#linho"><span class="n">03</span><span class="t">Por que linho no verão</span><span class="p">P. 04</span></a></li>
+        <li><a href="#comprar"><span class="n">04</span><span class="t">Como comprar</span><span class="p">P. 06</span></a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="pix" aria-labelledby="t-pix">
+    <div class="envelope grade">
+      <div data-r>
+        <p class="cap">Em números</p>
+        <h2 id="t-pix" class="chamada" style="font-family:var(--sans);margin:16px 0 0">Pagando no Pix você ainda ganha</h2>
+      </div>
+      <div data-r>
+        <p class="dez">10%</p>
+        <p class="rodape-pix">de desconto na coleção</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="vitrine" id="colecao" aria-labelledby="t-vit">
+    <div class="envelope">
+      <div data-r><p class="cap" style="color:var(--vermelho)">P. 03 · Destaque</p><h2 id="t-vit">A coleção <em>inteira</em></h2></div>
+      <div class="filtros" role="group" aria-label="Filtrar peças" data-r>
+        <button class="filtro" aria-pressed="true" data-f="todos">Todas</button>
+        <button class="filtro" aria-pressed="false" data-f="vestidos">Vestidos</button>
+        <button class="filtro" aria-pressed="false" data-f="conjuntos">Conjuntos</button>
+        <button class="filtro" aria-pressed="false" data-f="praia">Praia</button>
+      </div>
+      <div class="pecas" id="pecas"></div>
+    </div>
+  </section>
+
+  <section class="editorial" id="linho" aria-labelledby="t-lin">
+    <div class="envelope grade">
+      <div class="foto" data-r><img src="img/editorial.webp" alt="Duas mulheres em ensaio de moda com vestidos de linho" loading="lazy" width="1200" height="1680"></div>
+      <div data-r>
+        <p class="cap" style="color:var(--vermelho)">P. 04 · Destaque</p>
+        <h2 id="t-lin">Elegância e modernidade pro seu <em>look de verão</em></h2>
+        <p class="citacao">“O linho amassa, sim. E é aí que mora o charme.”</p>
+        <div class="colunas">
+          <p>Linho é o tecido do verão brasileiro: feito de fibra natural, deixa o ar passar e seca rápido. Num dia de 35 graus, é a diferença entre aguentar e aproveitar.</p>
+          <p>A nossa coleção usa linho lavado, mais macio desde a primeira vez que você veste, em cores que combinam entre si — dá pra montar vários looks com poucas peças.</p>
+        </div>
+        <ul class="cuidados">
+          <li><b>i.</b>Lave à mão ou no ciclo delicado, em água fria</li>
+          <li><b>ii.</b>Seque à sombra, de preferência no cabide</li>
+          <li><b>iii.</b>Passe do avesso, com o tecido ainda úmido</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="urgencia" aria-label="Aviso de estoque">
+    <div class="envelope" data-r>
+      <p>São poucas unidades de cada peça. <em>Garanta a sua.</em></p>
+      <a class="btn claro" href="#" data-whats="Oi! Quero garantir uma peça da coleção de linho da Lume Moda.">Chamar no WhatsApp</a>
+    </div>
+  </section>
+
+  <section class="comprar" id="comprar" aria-labelledby="t-com">
+    <div class="envelope">
+      <div data-r><p class="cap" style="color:var(--vermelho)">P. 06 · Serviço</p><h2 id="t-com">Como <em>comprar</em></h2></div>
+      <div class="passos">
+        <div class="passo" data-r><span class="n">01</span><div><b>Escolha a peça</b><p>Aqui no site, com o tamanho que você usa.</p></div></div>
+        <div class="passo" data-r><span class="n">02</span><div><b>Chame no WhatsApp</b><p>A gente confirma o estoque e tira suas dúvidas de medida.</p></div></div>
+        <div class="passo" data-r><span class="n">03</span><div><b>Pague como preferir</b><p>Pix com 10% de desconto ou cartão em até 3x sem juros.</p></div></div>
+        <div class="passo" data-r><span class="n">04</span><div><b>Receba ou retire</b><p>Envio pra todo o Brasil ou retirada na loja. Troca em 7 dias.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" id="loja" aria-labelledby="t-fim">
+    <div class="envelope grade">
+      <div data-r>
+        <span class="mono" aria-hidden="true">LM</span>
+        <h2 id="t-fim">Vem visitar a loja e escolher a <em>sua peça!</em></h2>
+        <a class="btn claro" href="#" data-whats="Oi! Quero visitar a loja da Lume Moda. Qual o melhor horário?">Visite a loja <svg aria-hidden="true"><use href="#i-seta"/></svg></a>
+      </div>
+      <div class="info" data-r>
+        <div><span>Endereço</span><span>Rua das Flores, 120 — Centro</span></div>
+        <div><span>Horário</span><span>Seg a sex, 9h às 19h · Sáb, 9h às 14h</span></div>
+        <div><span>Envio</span><span>Todo o Brasil, com rastreio</span></div>
+        <div><span>Instagram</span><span>@lumemoda</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape"><div class="envelope"><span>© <span id="ano">2026</span> Lume Moda · Edição 07</span><span>P. 07</span></div></footer>
+<a class="flutua" href="#" data-whats="Oi! Vim pelo site da Lume Moda e queria ajuda pra escolher uma peça." aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg>Ajuda</a>
+
+<script>
+document.documentElement.classList.add('js')
+document.getElementById('ano').textContent=new Date().getFullYear()
+var PECAS=[
+  {n:'Vestido Mira',m:'Linho lavado · terracota',p:289,img:'img/hero.webp',c:'vestidos',poucas:true,alt:'Vestido de linho terracota'},
+  {n:'Conjunto Areia',m:'Camisa + calça de linho',p:349,img:'img/conjunto-branco.webp',c:'conjuntos',alt:'Conjunto de camisa branca e calça de linho'},
+  {n:'Vestido Lavanda',m:'Linho com mangas bufantes',p:319,img:'img/vestido-lavanda.webp',c:'vestidos',poucas:true,alt:'Vestido longo lavanda com mangas bufantes'},
+  {n:'Vestido Poá',m:'Algodão leve com babados',p:259,img:'img/vestido-poa.webp',c:'vestidos',alt:'Vestido branco de poá com mangas amplas'},
+  {n:'Vestido Azulejo',m:'Viscose com estampa floral',p:229,img:'img/vestido-floral.webp',c:'vestidos',alt:'Vestido curto com estampa floral azul'},
+  {n:'Kaftan Maré',m:'Viscose estampada, tamanho único',p:199,img:'img/kaftan.webp',c:'praia',unico:true,alt:'Kaftan estampado na praia'}
+]
+var TAMS=['P','M','G','GG'],escolha={}
+function brl(v){return 'R$ '+v.toFixed(2).replace('.',',')}
+var caixa=document.getElementById('pecas')
+function msg(i){var p=PECAS[i];if(p.unico)return 'Oi! Quero o '+p.n+' ('+brl(p.p)+'), tamanho único. Ainda tem?';return escolha[i]?'Oi! Quero o '+p.n+' ('+brl(p.p)+') no tamanho '+escolha[i]+'. Ainda tem?':'Oi! Quero o '+p.n+' ('+brl(p.p)+'). Tem no meu tamanho?'}
+function render(){
+  caixa.innerHTML=PECAS.map(function(p,i){
+    return '<article class="peca" data-c="'+p.c+'"><div class="foto"><img src="'+p.img+'" alt="'+p.alt+'" loading="lazy">'+(p.poucas?'<span class="poucas">Poucas unidades</span>':'')+'</div>'+
+      '<h3>'+p.n+'</h3><p class="mat">'+p.m+'</p><div class="valores"><b>'+brl(p.p)+'</b><span>'+brl(p.p*.9)+' no Pix</span></div>'+
+      (p.unico?'<div class="tams"><span class="tam" style="width:auto;padding:0 10px">Único</span></div>':'<div class="tams" role="group" aria-label="Tamanho do '+p.n+'">'+TAMS.map(function(t){return '<button type="button" class="tam" aria-pressed="'+(escolha[i]===t)+'" data-i="'+i+'" data-t="'+t+'">'+t+'</button>'}).join('')+'</div>')+
+      '<a class="btn preto" href="#" data-whats="'+msg(i).replace(/"/g,'&quot;')+'" data-peca="'+i+'">Quero esta peça</a></article>'
+  }).join('')
+  filtrar(filtroAtual)
+}
+caixa.addEventListener('click',function(e){
+  var b=e.target.closest('.tam[data-t]');if(!b)return
+  var i=Number(b.dataset.i);escolha[i]=b.dataset.t
+  b.parentNode.querySelectorAll('.tam').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')})
+  caixa.querySelector('[data-peca="'+i+'"]').setAttribute('data-whats',msg(i))
+})
+var filtroAtual='todos'
+function filtrar(f){filtroAtual=f;caixa.querySelectorAll('.peca').forEach(function(p){p.hidden=!(f==='todos'||p.dataset.c===f)});document.querySelectorAll('.filtro').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.f===f?'true':'false')})}
+document.querySelectorAll('.filtro').forEach(function(b){b.addEventListener('click',function(){filtrar(b.dataset.f)})})
+document.querySelectorAll('[data-filtro-link]').forEach(function(a){a.addEventListener('click',function(){filtrar(a.dataset.filtroLink)})})
+render()
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});document.querySelectorAll('[data-r]').forEach(function(n){io.observe(n)})}else{document.querySelectorAll('[data-r]').forEach(function(n){n.classList.add('vis')})}
+</script>
+<script src="../kit/vitrine.js" defer></script>
+</body>
+</html>

@@ -4,160 +4,548 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>thrustspike · vídeos e sites para o seu negócio</title>
-<meta name="description" content="Vídeo animado com narração ou site para o seu negócio. Você vê pronto antes de pagar.">
-<meta name="theme-color" content="#091411">
+<meta name="description" content="Vídeo animado com narração por R$ 29,90 ou site profissional a partir de R$ 490. Você vê pronto antes de pagar.">
+<meta name="theme-color" content="#06100D">
+<meta property="og:type" content="website">
+<meta property="og:title" content="thrustspike · vídeos e sites para o seu negócio">
+<meta property="og:description" content="Vídeo animado com narração ou site profissional. Você vê pronto antes de pagar.">
+<meta property="og:image" content="https://lucaslimaweb.com.br/links/compartilhar.jpg">
+<meta property="og:url" content="https://lucaslimaweb.com.br/links/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%233BE58F'/%3E%3Cpath d='M5.5 20.5h6l4.5-11 4.5 11h6' fill='none' stroke='%2304140C' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
-<!-- Link da bio do Instagram @thrustspike (13/11/2026; v2 mais cheia, com exemplos reais).
-     Mesma identidade da video.lucaslimaweb.com.br. Nada piscando ou em loop: pedido do Lucas. -->
+<link rel="preconnect" href="https://video.lucaslimaweb.com.br">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<!-- Link da bio do Instagram @thrustspike.
+     19/11/2026 — redesenho completo: paleta verde-tinta + menta + creme + dourado, exemplos novos
+     (cada vídeo de exemplo agora tem o site do mesmo negócio em /demos/) e player dos vídeos aqui mesmo.
+     Regra do Lucas mantida: nada piscando nem animado em loop. A versão anterior está no histórico do git. -->
 <style>
 :root{
   color-scheme:dark;
-  --fundo:#091411; --sup:#10201A; --sup2:#162A22; --sup3:#1C342A;
-  --linha:rgba(245,243,237,.12); --linha2:rgba(245,243,237,.24);
-  --texto:#F5F3ED; --texto2:rgba(245,243,237,.78); --texto3:rgba(245,243,237,.62);
-  --salvia:#9CC4A3; --salvia-fundo:rgba(115,158,122,.16);
-  --verde:#2FD47A; --verde2:#4BE38E; --ouro:#E8C770;
+  --tinta:#06100D; --tinta2:#0A1712; --tinta3:#0F2019; --tinta4:#16302A;
+  --linha:rgba(232,240,234,.09); --linha2:rgba(232,240,234,.17);
+  --texto:#EEF2EC; --texto2:rgba(238,242,236,.76); --texto3:rgba(238,242,236,.58);
+  --menta:#3BE58F; --menta2:#6CF0AB; --menta-tinta:#03140B; --menta-fundo:rgba(59,229,143,.1);
+  --creme:#F4EFE3; --creme2:#EAE2D2; --creme3:#DED4BF; --creme-tinta:#0E1F18; --creme-texto:#45524B;
+  --ouro:#E8C26A; --salvia:#9CC4A3;
+  --raio:22px; --larg:1140px;
+  --serifa:"Instrument Serif",Georgia,serif;
 }
 *{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip}
 html,body{overscroll-behavior-y:none}
-body{font-family:Archivo,system-ui,sans-serif;background:var(--fundo);color:var(--texto);-webkit-font-smoothing:antialiased;line-height:1.45;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0 0 auto;height:520px;z-index:-1;pointer-events:none;background:radial-gradient(80% 100% at 50% 0%,rgba(115,158,122,.2),transparent 70%)}
+body{font-family:Archivo,system-ui,sans-serif;background:var(--tinta);color:var(--texto);-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--verde);outline-offset:3px;border-radius:8px}
-main{max-width:480px;margin:0 auto;padding:28px 16px 40px}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--menta);outline-offset:3px;border-radius:10px}
+.envelope{width:100%;max-width:var(--larg);margin:0 auto;padding:0 18px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* tipografia */
+.rotulo{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--salvia)}
+.rotulo::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+h1,h2,h3{font-weight:800;letter-spacing:-.03em;color:#fff}
+h2{font-size:clamp(31px,7.8vw,50px);line-height:1.04;margin:12px 0 10px;font-stretch:96%}
+.it{font-family:var(--serifa);font-style:italic;font-weight:400;letter-spacing:-.01em;font-stretch:100%}
+.lead{font-size:17px;color:var(--texto2);max-width:46ch}
+
+/* botões */
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:0 24px;border-radius:16px;font-size:17px;font-weight:760;text-decoration:none;white-space:nowrap;transition:background .18s ease,border-color .18s ease,transform .12s ease}
+.btn svg{width:19px;height:19px;flex:none}
+.btn:active{transform:scale(.985)}
+.btn.menta{background:var(--menta);color:var(--menta-tinta)}
+.btn.menta:hover{background:var(--menta2)}
+.btn.escuro{background:var(--creme-tinta);color:var(--creme)}
+.btn.escuro:hover{background:#1a3329}
+.btn.linha{border:1px solid var(--linha2);color:var(--texto)}
+.btn.linha:hover{border-color:var(--texto2)}
 
 /* topo */
-.topo{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:26px}
-.marca{font-weight:800;font-size:21px;letter-spacing:-.02em;font-stretch:110%}
-.marca span{color:var(--salvia)}
-.insta{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--texto2);text-decoration:none;border:1px solid var(--linha);border-radius:99px;padding:6px 12px}
+.topo .envelope{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:18px;padding-bottom:6px}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none}
+.marca svg{width:34px;height:34px;flex:none}
+.marca b{font-size:21px;font-weight:800;letter-spacing:-.03em;font-stretch:108%;color:#fff}
+.marca b span{color:var(--menta)}
+.insta{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:650;color:var(--texto2);text-decoration:none;border:1px solid var(--linha2);border-radius:99px;padding:8px 13px}
+.insta:hover{color:#fff;border-color:var(--texto3)}
 .insta svg{width:15px;height:15px}
-h1{font-size:clamp(32px,9vw,42px);font-weight:800;line-height:1.04;letter-spacing:-.03em;color:#fff;font-stretch:96%}
-h1 em{font-style:normal;color:var(--verde)}
-.lead{font-size:16.5px;color:var(--texto2);margin:12px 0 18px}
-.garantias{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:30px}
-.garantias span{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--salvia);background:var(--salvia-fundo);border-radius:99px;padding:6px 11px}
-.garantias svg{width:14px;height:14px}
 
-/* blocos de produto */
-.bloco{background:var(--sup);border:1px solid var(--linha);border-radius:20px;padding:20px 0;margin-bottom:16px;overflow:hidden}
-.bloco .pad{padding:0 18px}
-.etiqueta{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--salvia)}
-.bloco h2{font-size:24px;font-weight:780;line-height:1.12;letter-spacing:-.02em;color:#fff;margin:6px 0 4px}
-.preco{font-size:15px;color:var(--texto2)}
-.preco b{color:#fff;font-weight:750}
+/* hero */
+.hero{position:relative;padding:26px 0 46px;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:-120px 0 auto;height:720px;z-index:-1;pointer-events:none;background:radial-gradient(60% 55% at 50% 18%,rgba(59,229,143,.13),transparent 70%),radial-gradient(40% 40% at 90% 40%,rgba(232,194,106,.06),transparent 70%)}
+.hero .grade{display:grid;gap:34px;align-items:center}
+.pilula{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:650;color:var(--texto2);background:rgba(238,242,236,.05);border:1px solid var(--linha);border-radius:99px;padding:6px 12px 6px 8px}
+.pilula i{width:8px;height:8px;border-radius:50%;background:var(--menta);box-shadow:0 0 0 4px rgba(59,229,143,.16)}
+.hero h1{font-size:clamp(38px,10.4vw,66px);line-height:1.01;margin:18px 0 16px;font-stretch:94%}
+.hero h1 .it{color:var(--menta);font-size:1.1em;line-height:.9}
+.hero .lead{font-size:17.5px}
 
-/* fileira de exemplos que desliza pro lado */
-.fileira{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:16px 18px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+/* as duas escolhas */
+.escolhas{display:grid;gap:10px;margin-top:26px}
+.escolha{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:14px 14px 14px 14px;border-radius:20px;text-decoration:none;transition:transform .15s ease,border-color .2s ease,background .2s ease}
+.escolha:active{transform:scale(.99)}
+.escolha.video{background:var(--tinta3);border:1px solid var(--linha2)}
+.escolha.video:hover{border-color:rgba(59,229,143,.5)}
+.escolha.site{background:var(--creme);color:var(--creme-tinta)}
+.escolha.site:hover{background:#fff}
+.escolha .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center}
+.escolha.video .ic{background:var(--menta);color:var(--menta-tinta)}
+.escolha.site .ic{background:var(--creme-tinta);color:var(--creme)}
+.escolha .ic svg{width:26px;height:26px}
+.escolha b{display:block;font-size:17.5px;font-weight:780;letter-spacing:-.02em;line-height:1.2}
+.escolha small{display:block;font-size:14px;margin-top:3px;color:var(--texto2)}
+.escolha.site small{color:var(--creme-texto)}
+.escolha small strong{font-weight:760;color:var(--ouro)}
+.escolha.site small strong{color:var(--creme-tinta)}
+.escolha .seta{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--linha2)}
+.escolha.site .seta{border-color:rgba(14,31,24,.18)}
+.escolha .seta svg{width:16px;height:16px}
+.garantias{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:20px;font-size:14px;font-weight:600;color:var(--texto2)}
+.garantias span{display:inline-flex;align-items:center;gap:7px}
+.garantias svg{width:16px;height:16px;color:var(--menta)}
+
+/* cena da dupla (vídeo + site do mesmo negócio) */
+.dupla{position:relative;margin:4px 0 0;padding:0 0 34px}
+.dupla .nav{width:88%;transform:rotate(-1.2deg);transform-origin:left bottom}
+.dupla .fone-btn{position:absolute;right:0;bottom:0;width:36%;max-width:190px;transform:rotate(3deg)}
+.dupla figcaption{display:block;margin-top:18px;font-size:13.5px;line-height:1.45;color:var(--texto3);width:60%}
+.dupla figcaption b{color:var(--texto);font-weight:650}
+
+/* moldura de navegador */
+.nav{display:block;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 26px 60px -12px rgba(0,0,0,.6);text-decoration:none}
+.nav .barra{display:flex;align-items:center;gap:5px;height:26px;padding:0 10px;background:#EFEAE0}
+.nav .barra i{width:8px;height:8px;border-radius:50%;background:#D8D0C2}
+.nav .barra i:nth-child(1){background:#F07B6B}.nav .barra i:nth-child(2){background:#F2C25C}.nav .barra i:nth-child(3){background:#7CC983}
+.nav .barra span{flex:1;margin-left:8px;height:15px;border-radius:5px;background:#fff;font-size:9.5px;line-height:15px;font-weight:600;color:#7a7368;padding:0 8px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.nav img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+
+/* celular */
+.fone{display:block;position:relative;border-radius:26px;padding:6px;background:#0A0D0C;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 24px 50px -10px rgba(0,0,0,.65)}
+.fone::before{content:"";position:absolute;top:11px;left:50%;width:30%;height:7px;margin-left:-15%;border-radius:99px;background:#000;z-index:2;opacity:.85}
+.fone .tela{display:block;position:relative;border-radius:20px;overflow:hidden;aspect-ratio:9/16;background:#141a17}
+.fone .tela img{width:100%;height:100%;object-fit:cover}
+.play{position:absolute;left:50%;top:50%;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(6,16,13,.66);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35);display:grid;place-items:center;transition:transform .2s ease,background .2s ease}
+.play svg{width:16px;height:16px;margin-left:3px;color:#fff}
+.fone-btn{display:block;width:100%;text-align:left}
+.fone-btn:hover .play{transform:scale(1.08);background:var(--menta)}
+.fone-btn:hover .play svg{color:var(--menta-tinta)}
+
+@media (min-width:980px){
+  .hero{padding:44px 0 80px}
+  .hero .grade{grid-template-columns:1.02fr .98fr;gap:56px}
+  .escolhas{max-width:540px}
+  .dupla{padding:20px 0 40px 10px}
+}
+
+/* seções */
+.secao{padding:64px 0}
+.cabeca{display:grid;gap:4px;margin-bottom:24px}
+.preco{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-top:6px;font-size:16px;color:var(--texto2)}
+.preco strong{font-size:30px;font-weight:820;letter-spacing:-.03em;color:#fff}
+.preco em{font-style:normal;color:var(--ouro);font-weight:700}
+@media (min-width:980px){.secao{padding:100px 0}.cabeca{grid-template-columns:1fr auto;align-items:end;gap:40px}}
+
+/* vídeos */
+.videos{background:linear-gradient(180deg,var(--tinta) 0%,var(--tinta2) 100%);border-top:1px solid var(--linha)}
+.fileira{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px;padding:6px 18px 18px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .fileira::-webkit-scrollbar{display:none}
-.fileira a{flex:none;scroll-snap-align:start;text-decoration:none;position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--linha);background:var(--sup2)}
-.fileira img{display:block;width:100%;height:100%;object-fit:cover}
-.fileira .rot{position:absolute;left:8px;bottom:8px;font-size:12px;font-weight:700;color:#fff;background:rgba(9,20,17,.78);border-radius:99px;padding:4px 9px}
-.videos a{width:118px;aspect-ratio:9/16}
-.videos .play{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(9,20,17,.72);display:grid;place-items:center}
-.videos .play svg{width:12px;height:12px;margin-left:2px}
-.sites a{width:250px;aspect-ratio:1424/805}
-.deslize{font-size:12.5px;color:var(--texto3);padding:2px 18px 0}
+.vid{flex:none;width:148px;scroll-snap-align:start}
+.vid .fone{border-radius:24px;padding:5px}
+.vid .tela{border-radius:19px}
+.vid .nome{display:block;margin-top:10px;font-size:14.5px;font-weight:700;color:#fff;line-height:1.25}
+.vid .nicho{display:block;font-size:13px;color:var(--texto3)}
+.deslize{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--texto3);margin-top:2px}
+.deslize svg{width:15px;height:15px}
+.beneficios{list-style:none;padding:0;display:grid;gap:12px;margin:26px 0 26px}
+.beneficios li{display:flex;gap:12px;align-items:flex-start;font-size:16px;color:var(--texto2)}
+.beneficios li b{color:#fff;font-weight:650}
+.beneficios .ic{flex:none;width:30px;height:30px;border-radius:9px;background:var(--menta-fundo);color:var(--menta);display:grid;place-items:center}
+.beneficios .ic svg{width:17px;height:17px}
+.acao-linha{display:grid;gap:10px}
+.acao-linha small{display:block;text-align:center;font-size:13.5px;color:var(--texto3)}
+@media (min-width:980px){
+  .fileira{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;overflow:visible;margin:0;padding:6px 0 0}
+  .vid{width:auto}
+  .deslize{display:none}
+  .videos .rodape-sec{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:center;margin-top:40px}
+  .beneficios{margin:0}
+}
 
-.lista{list-style:none;padding:0;margin:14px 0 18px;display:grid;gap:9px}
-.lista li{display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--texto2)}
-.lista svg{flex:none;width:18px;height:18px;margin-top:2px;color:var(--verde)}
-
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;border-radius:14px;background:var(--verde);color:var(--fundo);font-size:17px;font-weight:760;text-decoration:none;padding:14px 18px;transition:background .16s ease}
-.btn:hover{background:var(--verde2)}
-.btn:active{transform:scale(.99)}
-.btn svg{width:18px;height:18px}
-.btn.claro{background:#F5F3ED}
-.btn.claro:hover{background:#fff}
+/* sites (bloco claro) */
+.sites{background:var(--creme);color:var(--creme-texto)}
+.sites .rotulo{color:#5E7A65}
+.sites h2,.sites h3{color:var(--creme-tinta)}
+.sites .lead{color:var(--creme-texto)}
+.sites .preco{color:var(--creme-texto)}
+.sites .preco strong{color:var(--creme-tinta)}
+.sites .preco em{color:#9A6B12}
+.sites .fileira{padding-bottom:22px}
+.site-card{flex:none;width:min(82vw,330px);scroll-snap-align:start;display:block;text-decoration:none;color:var(--creme-tinta);border-radius:24px;background:#fff;box-shadow:0 1px 0 rgba(14,31,24,.06),0 14px 34px -14px rgba(14,31,24,.28);overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}
+.site-card:hover{transform:translateY(-3px);box-shadow:0 1px 0 rgba(14,31,24,.06),0 24px 44px -14px rgba(14,31,24,.34)}
+.site-card .cena{position:relative;padding:20px 18px 0;height:224px;background:var(--fundo,#E9E1D3);overflow:hidden}
+.site-card .cena .nav{width:86%;box-shadow:0 18px 40px -12px rgba(0,0,0,.5)}
+.site-card .cena .nav .barra{height:20px}
+.site-card .cena .nav .barra i{width:6px;height:6px}
+.site-card .cena .nav .barra span{height:12px;font-size:8px;line-height:12px}
+.site-card .cena .fone{position:absolute;right:14px;bottom:-34px;width:28%;padding:4px;border-radius:18px}
+.site-card .cena .fone::before{top:8px;height:5px}
+.site-card .cena .fone .tela{border-radius:14px;aspect-ratio:9/19.5}
+.site-card .cena .fone .tela img{object-position:top}
+.site-card .legenda{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:16px 18px 18px}
+.site-card .legenda b{font-size:18px;font-weight:800;letter-spacing:-.02em}
+.site-card .legenda span{grid-column:1;font-size:14px;color:var(--creme-texto);line-height:1.35}
+.site-card .legenda .ir{grid-row:1/3;grid-column:2;width:40px;height:40px;border-radius:50%;background:var(--creme);display:grid;place-items:center;transition:background .2s ease}
+.site-card:hover .legenda .ir{background:var(--menta)}
+.site-card .legenda .ir svg{width:16px;height:16px}
+.sites .deslize{color:#6E7A73}
+.real{display:grid;gap:18px;align-items:center;margin-top:30px;padding:18px;border-radius:24px;background:var(--creme2);border:1px solid var(--creme3)}
+.real .nav{box-shadow:0 18px 40px -16px rgba(14,31,24,.4)}
+.selo-real{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:750;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--creme-tinta);border-radius:99px;padding:6px 11px}
+.selo-real i{width:7px;height:7px;border-radius:50%;background:var(--menta)}
+.real h3{font-size:24px;margin:10px 0 6px;letter-spacing:-.02em}
+.real p{font-size:15.5px}
+.real a.link{display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-weight:750;color:var(--creme-tinta);text-decoration:none;border-bottom:2px solid var(--menta);padding-bottom:2px}
+.sites .beneficios li{color:var(--creme-texto)}
+.sites .beneficios li b{color:var(--creme-tinta)}
+.sites .beneficios .ic{background:var(--creme-tinta);color:var(--menta)}
+.sites .acao-linha small{color:#6E7A73}
+@media (min-width:980px){
+  .sites .fileira{grid-template-columns:repeat(3,1fr);gap:22px}
+  .site-card{width:auto}
+  .site-card .cena{height:250px}
+  .real{grid-template-columns:1.1fr 1fr;gap:40px;padding:26px 30px}
+  .sites .rodape-sec{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:center;margin-top:44px}
+}
 
 /* como funciona */
-.passos{margin:30px 0 8px}
-.passos h3{font-size:20px;font-weight:760;color:#fff;letter-spacing:-.015em;margin-bottom:14px}
-.passo{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--linha)}
-.passo .n{flex:none;width:34px;height:34px;border-radius:50%;background:var(--sup3);color:var(--verde);font-weight:800;display:grid;place-items:center;font-size:15px}
-.passo b{display:block;color:#fff;font-size:16px;font-weight:700}
-.passo p{font-size:14.5px;color:var(--texto3)}
+.passos{list-style:none;padding:0;display:grid;gap:12px;margin-top:26px;counter-reset:p}
+.passo{position:relative;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:20px;border-radius:var(--raio);background:var(--tinta2);border:1px solid var(--linha)}
+.passo .n{font-family:var(--serifa);font-style:italic;font-size:46px;line-height:.8;color:var(--menta);width:34px}
+.passo b{display:block;font-size:18px;font-weight:760;color:#fff;letter-spacing:-.015em}
+.passo p{font-size:15px;color:var(--texto3);margin-top:3px}
+@media (min-width:980px){.passos{grid-template-columns:repeat(3,1fr);gap:18px}.passo{grid-template-columns:1fr;padding:26px}}
 
-.rodape{margin-top:26px;padding-top:20px;border-top:1px solid var(--linha);text-align:center;font-size:13px;color:var(--texto3)}
+/* quem faz */
+.quem .cartao{display:grid;gap:18px;padding:26px 22px;border-radius:26px;background:linear-gradient(160deg,var(--tinta3),var(--tinta2));border:1px solid var(--linha)}
+.quem .assinatura{display:flex;align-items:center;gap:14px}
+.quem .avatar{width:54px;height:54px;border-radius:16px;background:var(--creme);color:var(--creme-tinta);display:grid;place-items:center;font-weight:800;font-size:20px;letter-spacing:-.04em}
+.quem .assinatura b{display:block;color:#fff;font-size:17px}
+.quem .assinatura small{color:var(--texto3);font-size:14px}
+.quem p{color:var(--texto2);font-size:16px}
+.quem .numeros{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:18px;border-top:1px solid var(--linha)}
+.quem .numeros strong{display:block;font-size:26px;font-weight:820;color:#fff;letter-spacing:-.03em}
+.quem .numeros span{font-size:13px;color:var(--texto3);line-height:1.3;display:block}
+@media (min-width:980px){.quem .cartao{grid-template-columns:1.2fr 1fr;gap:50px;padding:40px 44px;align-items:center}}
+
+/* perguntas */
+.faq .lista{margin-top:20px;border-top:1px solid var(--linha)}
+.faq details{border-bottom:1px solid var(--linha)}
+.faq summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:19px 2px;font-size:16.5px;font-weight:680;color:#fff}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:28px;height:28px;border-radius:50%;background:var(--tinta3) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233BE58F' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M12 6v12M6 12h12'/%3E%3C/svg%3E") center/14px no-repeat;transition:transform .2s ease}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 2px 20px;color:var(--texto2);font-size:15.5px;max-width:64ch}
+@media (min-width:980px){.faq .grade{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px}.faq .lista{margin-top:0}}
+
+/* chamada final */
+.fim .cartao{position:relative;overflow:hidden;text-align:center;padding:44px 22px;border-radius:30px;background:radial-gradient(80% 90% at 50% 0%,rgba(59,229,143,.2),transparent 70%),var(--tinta3);border:1px solid rgba(59,229,143,.22)}
+.fim h2{max-width:15ch;margin-inline:auto}
+.fim .lead{margin:0 auto}
+.fim .botoes{display:grid;gap:10px;margin:26px auto 0;max-width:520px}
+.fim .botoes .btn.creme{background:var(--creme);color:var(--creme-tinta)}
+.fim .botoes .btn.creme:hover{background:#fff}
+@media (min-width:700px){.fim .botoes{grid-template-columns:1fr 1fr}}
+
+.rodape{padding:34px 0 44px;color:var(--texto3);font-size:13.5px}
+.rodape .envelope{display:grid;gap:14px;justify-items:center;text-align:center}
 .rodape a{color:var(--texto2)}
+
+/* player de vídeo */
+dialog.player{border:0;padding:0;background:transparent;color:var(--texto);max-width:none;max-height:none;width:100%;height:100%;margin:0;overflow:auto}
+dialog.player::backdrop{background:rgba(3,8,6,.86);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.player .palco{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:58px 18px 26px}
+.player .quadro{width:min(78vw,340px,calc((100dvh - 290px) * 9 / 16));min-width:200px}
+.player .quadro .fone{padding:6px}
+.player video{display:block;width:100%;height:100%;object-fit:cover;background:#000}
+.player .info{text-align:center;width:100%;max-width:400px}
+.player .info b{display:block;font-size:19px;font-weight:780;color:#fff}
+.player .info span{font-size:14px;color:var(--texto3)}
+.player .botoes{display:grid;gap:8px;width:100%;max-width:400px}
+.player .botoes .btn{min-height:52px;font-size:16px}
+.fechar{position:fixed;top:14px;right:14px;width:46px;height:46px;border-radius:50%;background:rgba(238,242,236,.1);border:1px solid var(--linha2);display:grid;place-items:center;z-index:2}
+.fechar:hover{background:rgba(238,242,236,.18)}
+.fechar svg{width:20px;height:20px}
+
+/* entrada suave, uma vez só */
+.js [data-r]{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js [data-r].vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js [data-r]{opacity:1;transform:none;transition:none}.site-card,.escolha,.btn,.play{transition:none}}
 </style>
 </head>
 <body>
-<main>
-  <header class="topo">
-    <p class="marca">thrust<span>spike</span></p>
-    <a class="insta" href="https://www.instagram.com/thrustspike/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>@thrustspike</a>
-  </header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-marca" viewBox="0 0 32 32"><rect width="32" height="32" rx="9" fill="#3BE58F"/><path d="M5.5 20.5h6l4.5-11 4.5 11h6" fill="none" stroke="#03140B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 4.5v15l13-7.5z" fill="currentColor"/></symbol>
+  <symbol id="i-fone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 9.5v5l4-2.5z" fill="currentColor"/></g></symbol>
+  <symbol id="i-site" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="3"/><path d="M2.5 8.5h19M6 12.5h7M6 16h4"/></g></symbol>
+  <symbol id="i-voz" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></g></symbol>
+  <symbol id="i-olho" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></g></symbol>
+  <symbol id="i-whats" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
+  <symbol id="i-insta" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></g></symbol>
+</svg>
 
-  <h1>Vídeo e site para o seu negócio, <em>prontos antes de você pagar.</em></h1>
-  <p class="lead">Você conta como é o seu negócio, a gente monta e te mostra. Só paga se gostar.</p>
-  <div class="garantias">
-    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Prévia grátis</span>
-    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Com a sua logo e cores</span>
-    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sem mensalidade</span>
+<header class="topo">
+  <div class="envelope">
+    <a class="marca" href="#inicio" aria-label="thrustspike, início"><svg aria-hidden="true"><use href="#i-marca"/></svg><b>thrust<span>spike</span></b></a>
+    <a class="insta" href="https://www.instagram.com/thrustspike/"><svg aria-hidden="true"><use href="#i-insta"/></svg>@thrustspike</a>
   </div>
+</header>
+
+<main id="inicio">
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="t-hero">
+    <div class="envelope grade">
+      <div>
+        <span class="pilula"><i aria-hidden="true"></i>Vídeos e sites para negócios locais</span>
+        <h1 id="t-hero">Vídeo e site pro seu negócio, <span class="it">prontos antes de você pagar.</span></h1>
+        <p class="lead">Você conta como é o seu negócio, a gente monta e te mostra pronto. Só paga se gostar.</p>
+        <nav class="escolhas" aria-label="O que você precisa?">
+          <a class="escolha video" href="#videos">
+            <span class="ic"><svg aria-hidden="true"><use href="#i-fone"/></svg></span>
+            <span><b>Vídeo animado com narração</b><small><strong>R$ 29,90</strong> · pronto pra postar</small></span>
+            <span class="seta" aria-hidden="true"><svg><use href="#i-seta"/></svg></span>
+          </a>
+          <a class="escolha site" href="#sites">
+            <span class="ic"><svg aria-hidden="true"><use href="#i-site"/></svg></span>
+            <span><b>Site profissional</b><small>a partir de <strong>R$ 490</strong> · no ar em 2 dias</small></span>
+            <span class="seta" aria-hidden="true"><svg><use href="#i-seta"/></svg></span>
+          </a>
+        </nav>
+        <div class="garantias">
+          <span><svg aria-hidden="true"><use href="#i-check"/></svg>Prévia grátis</span>
+          <span><svg aria-hidden="true"><use href="#i-check"/></svg>Com a sua logo e cores</span>
+          <span><svg aria-hidden="true"><use href="#i-check"/></svg>Sem mensalidade</span>
+        </div>
+      </div>
+      <figure class="dupla" data-r>
+        <a class="nav" href="/demos/brasa-burger/" aria-label="Abrir o site de exemplo da Brasa Burger">
+          <span class="barra" aria-hidden="true"><i></i><i></i><i></i><span>Brasa Burger · site</span></span>
+          <img src="/capas/brasa-burger.webp" alt="Site de exemplo da hamburgueria Brasa Burger" width="960" height="600" fetchpriority="high">
+        </a>
+        <button class="fone-btn" type="button" data-video="burger" aria-label="Assistir ao vídeo de exemplo da Brasa Burger">
+          <span class="fone"><span class="tela"><img src="https://video.lucaslimaweb.com.br/nichos/burger.jpg" alt="" width="480" height="854"><span class="play" aria-hidden="true"><svg><use href="#i-play"/></svg></span></span></span>
+        </button>
+        <figcaption><b>Brasa Burger</b> · o vídeo e o site do mesmo negócio, com a mesma cara</figcaption>
+      </figure>
+    </div>
+  </section>
 
   <!-- VÍDEOS -->
-  <section class="bloco" aria-labelledby="t-video">
-    <div class="pad">
-      <p class="etiqueta">Vídeos</p>
-      <h2 id="t-video">Vídeo animado com narração</h2>
-      <p class="preco"><b>R$ 29,90</b> por vídeo · pronto pra postar</p>
-    </div>
-    <div class="fileira videos">
-      <a href="https://video.lucaslimaweb.com.br/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links"><img src="https://video.lucaslimaweb.com.br/nichos/barbearia.jpg" alt="Exemplo de vídeo para barbearia" loading="lazy" width="480" height="854"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></span><span class="rot">Barbearia</span></a>
-      <a href="https://video.lucaslimaweb.com.br/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links"><img src="https://video.lucaslimaweb.com.br/nichos/burger.jpg" alt="Exemplo de vídeo para hamburgueria" loading="lazy" width="480" height="854"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></span><span class="rot">Hamburgueria</span></a>
-      <a href="https://video.lucaslimaweb.com.br/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links"><img src="https://video.lucaslimaweb.com.br/nichos/estetica.jpg" alt="Exemplo de vídeo para clínica de estética" loading="lazy" width="480" height="854"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></span><span class="rot">Estética</span></a>
-      <a href="https://video.lucaslimaweb.com.br/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links"><img src="https://video.lucaslimaweb.com.br/nichos/pet.jpg" alt="Exemplo de vídeo para pet shop" loading="lazy" width="480" height="854"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></span><span class="rot">Pet shop</span></a>
-      <a href="https://video.lucaslimaweb.com.br/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links"><img src="https://video.lucaslimaweb.com.br/nichos/moda.jpg" alt="Exemplo de vídeo para loja de roupas" loading="lazy" width="480" height="854"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></span><span class="rot">Moda</span></a>
-      <a href="https://video.lucaslimaweb.com.br/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links"><img src="https://video.lucaslimaweb.com.br/nichos/acai.jpg" alt="Exemplo de vídeo para açaiteria" loading="lazy" width="480" height="854"><span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></span><span class="rot">Açaí</span></a>
-    </div>
-    <p class="deslize">Deslize pro lado pra ver mais →</p>
-    <div class="pad">
-      <ul class="lista">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Voz narrando o seu texto, com a sua logo e as suas cores</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Formato vertical, pronto pra Reels, Stories e status</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Você vê a prévia antes de pagar</li>
-      </ul>
-      <a class="btn" href="https://video.lucaslimaweb.com.br/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links">Quero meu vídeo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <section class="secao videos" id="videos" aria-labelledby="t-video">
+    <div class="envelope">
+      <div class="cabeca">
+        <div data-r>
+          <span class="rotulo">Vídeos</span>
+          <h2 id="t-video">Vídeo animado com <span class="it">narração</span></h2>
+          <p class="lead">Seu texto, sua logo e suas cores num vídeo vertical, narrado, pronto pra Reels, Stories e status.</p>
+        </div>
+        <p class="preco" data-r><strong>R$ 29,90</strong> por vídeo <em>ou 3 por R$ 69,90</em></p>
+      </div>
+      <div class="fileira" id="fileira-videos" aria-label="Exemplos de vídeos"></div>
+      <p class="deslize"><svg aria-hidden="true"><use href="#i-seta"/></svg>Toque pra assistir com som · deslize pra ver mais</p>
+      <div class="rodape-sec">
+        <ul class="beneficios">
+          <li><span class="ic"><svg aria-hidden="true"><use href="#i-voz"/></svg></span><span><b>Narração na voz que você escolher</b>, entre 15 vozes, com o seu texto</span></li>
+          <li><span class="ic"><svg aria-hidden="true"><use href="#i-olho"/></svg></span><span><b>Você vê a prévia antes de pagar</b>, com os seus textos, cores e logo</span></li>
+          <li><span class="ic"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span><b>Pronto em uns 3 minutos</b> depois do pagamento, com 1 revisão grátis</span></li>
+        </ul>
+        <div class="acao-linha">
+          <a class="btn menta" href="https://video.lucaslimaweb.com.br/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links">Quero meu vídeo<svg aria-hidden="true"><use href="#i-seta"/></svg></a>
+          <small>Leva uns 3 minutos pra responder. Pix, cartão ou boleto.</small>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- SITES -->
-  <section class="bloco" aria-labelledby="t-site">
-    <div class="pad">
-      <p class="etiqueta">Sites</p>
-      <h2 id="t-site">Site profissional para o seu negócio</h2>
-      <p class="preco">A partir de <b>R$ 490</b> à vista · ou 3x de R$ 190</p>
-    </div>
-    <div class="fileira sites">
-      <a href="https://lucaslimaweb.com.br/demos/aconchego-pet/"><img src="/capas/aconchego-pet.jpg" alt="Site feito para pet shop" loading="lazy" width="1424" height="805"><span class="rot">Pet shop</span></a>
-      <a href="https://lucaslimaweb.com.br/demos/ydeall/"><img src="/capas/ydeall.jpg" alt="Site feito para loja de moda feminina" loading="lazy" width="1424" height="805"><span class="rot">Moda feminina</span></a>
-      <a href="https://lucaslimaweb.com.br/demos/alvorada-imoveis/"><img src="/capas/alvorada-imoveis.jpg" alt="Site feito para imobiliária" loading="lazy" width="1424" height="805"><span class="rot">Imobiliária</span></a>
-      <a href="https://lucaslimaweb.com.br/demos/modelo-estetica-dourado/"><img src="/capas/modelo-estetica-dourado.jpg" alt="Site feito para clínica de estética" loading="lazy" width="1424" height="805"><span class="rot">Estética</span></a>
-    </div>
-    <p class="deslize">Toque num exemplo pra abrir o site →</p>
-    <div class="pad">
-      <ul class="lista">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Você recebe uma demonstração grátis do seu site, sem compromisso</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Botão de WhatsApp, fotos e os seus serviços, bonito no celular</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Pronto em 2 dias depois do pagamento, com 7 dias de ajustes</li>
-      </ul>
-      <a class="btn claro" href="https://lucaslimaweb.com.br/quiz/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links">Quero meu site<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <section class="secao sites" id="sites" aria-labelledby="t-site">
+    <div class="envelope">
+      <div class="cabeca">
+        <div data-r>
+          <span class="rotulo">Sites</span>
+          <h2 id="t-site">Site profissional pro seu <span class="it">negócio</span></h2>
+          <p class="lead">Bonito no celular, com botão de WhatsApp, seus serviços e fotos. Toque num exemplo pra navegar nele.</p>
+        </div>
+        <p class="preco" data-r>a partir de <strong>R$ 490</strong> <em>ou 3x de R$ 190</em></p>
+      </div>
+      <div class="fileira" aria-label="Exemplos de sites">
+        <a class="site-card" href="/demos/brasa-burger/" style="--fundo:#FFC21A"><div class="cena"><span class="nav"><span class="barra" aria-hidden="true"><i></i><i></i><i></i><span>Brasa Burger</span></span><img src="/capas/brasa-burger.webp" alt="" width="960" height="600" loading="lazy"></span><span class="fone"><span class="tela"><img src="/capas/brasa-burger-cel.webp" alt="" width="400" height="866" loading="lazy"></span></span></div><div class="legenda"><b>Brasa Burger</b><span>Hamburgueria · pedido montado no site e enviado no WhatsApp</span><span class="ir" aria-hidden="true"><svg><use href="#i-seta"/></svg></span></div></a>
+        <a class="site-card" href="/demos/studio-aurora/" style="--fundo:#1F3029"><div class="cena"><span class="nav"><span class="barra" aria-hidden="true"><i></i><i></i><i></i><span>Studio Aurora</span></span><img src="/capas/studio-aurora.webp" alt="" width="960" height="600" loading="lazy"></span><span class="fone"><span class="tela"><img src="/capas/studio-aurora-cel.webp" alt="" width="400" height="866" loading="lazy"></span></span></div><div class="legenda"><b>Studio Aurora</b><span>Clínica de estética · tratamentos, preços e agendamento</span><span class="ir" aria-hidden="true"><svg><use href="#i-seta"/></svg></span></div></a>
+        <a class="site-card" href="/demos/navalha-club/" style="--fundo:#17140F"><div class="cena"><span class="nav"><span class="barra" aria-hidden="true"><i></i><i></i><i></i><span>Navalha Club</span></span><img src="/capas/navalha-club.webp" alt="" width="960" height="600" loading="lazy"></span><span class="fone"><span class="tela"><img src="/capas/navalha-club-cel.webp" alt="" width="400" height="866" loading="lazy"></span></span></div><div class="legenda"><b>Navalha Club</b><span>Barbearia · tabela de preços e clube de assinatura</span><span class="ir" aria-hidden="true"><svg><use href="#i-seta"/></svg></span></div></a>
+        <a class="site-card" href="/demos/patas-e-cia/" style="--fundo:#CFE6F3"><div class="cena"><span class="nav"><span class="barra" aria-hidden="true"><i></i><i></i><i></i><span>Patas &amp; Cia</span></span><img src="/capas/patas-e-cia.webp" alt="" width="960" height="600" loading="lazy"></span><span class="fone"><span class="tela"><img src="/capas/patas-e-cia-cel.webp" alt="" width="400" height="866" loading="lazy"></span></span></div><div class="legenda"><b>Patas &amp; Cia</b><span>Pet shop · preço pelo porte do pet e leva e traz</span><span class="ir" aria-hidden="true"><svg><use href="#i-seta"/></svg></span></div></a>
+        <a class="site-card" href="/demos/acai-do-porto/" style="--fundo:#6C2BEA"><div class="cena"><span class="nav"><span class="barra" aria-hidden="true"><i></i><i></i><i></i><span>Açaí do Porto</span></span><img src="/capas/acai-do-porto.webp" alt="" width="960" height="600" loading="lazy"></span><span class="fone"><span class="tela"><img src="/capas/acai-do-porto-cel.webp" alt="" width="400" height="866" loading="lazy"></span></span></div><div class="legenda"><b>Açaí do Porto</b><span>Açaiteria · monte o seu açaí com o preço na hora</span><span class="ir" aria-hidden="true"><svg><use href="#i-seta"/></svg></span></div></a>
+        <a class="site-card" href="/demos/lume-moda/" style="--fundo:#E3DACB"><div class="cena"><span class="nav"><span class="barra" aria-hidden="true"><i></i><i></i><i></i><span>Lume Moda</span></span><img src="/capas/lume-moda.webp" alt="" width="960" height="600" loading="lazy"></span><span class="fone"><span class="tela"><img src="/capas/lume-moda-cel.webp" alt="" width="400" height="866" loading="lazy"></span></span></div><div class="legenda"><b>Lume Moda</b><span>Loja de roupas · vitrine com tamanhos e desconto no Pix</span><span class="ir" aria-hidden="true"><svg><use href="#i-seta"/></svg></span></div></a>
+      </div>
+      <p class="deslize"><svg aria-hidden="true"><use href="#i-seta"/></svg>Deslize pra ver os 6 exemplos · negócios fictícios</p>
+
+      <div class="real" data-r>
+        <a class="nav" href="/demos/ydeall/" aria-label="Abrir o site da Ydeall Clothes"><span class="barra" aria-hidden="true"><i></i><i></i><i></i><span>Ydeall Clothes</span></span><img src="/capas/ydeall.webp" alt="Site da loja de moda feminina Ydeall Clothes" width="960" height="600" loading="lazy"></a>
+        <div>
+          <span class="selo-real"><i aria-hidden="true"></i>Cliente real</span>
+          <h3>Ydeall Clothes</h3>
+          <p>Loja de moda feminina sob encomenda. Site com coleção, vitrine de peças e pedido direto pelo WhatsApp.</p>
+          <a class="link" href="/demos/ydeall/">Ver o site<svg width="16" height="16" aria-hidden="true"><use href="#i-seta"/></svg></a>
+        </div>
+      </div>
+
+      <div class="rodape-sec">
+        <ul class="beneficios">
+          <li><span class="ic"><svg aria-hidden="true"><use href="#i-olho"/></svg></span><span><b>Demonstração grátis</b> do seu site, sem compromisso</span></li>
+          <li><span class="ic"><svg aria-hidden="true"><use href="#i-whats"/></svg></span><span><b>Botão de WhatsApp</b>, fotos e os seus serviços, bonito no celular</span></li>
+          <li><span class="ic"><svg aria-hidden="true"><use href="#i-check"/></svg></span><span><b>No ar em 2 dias</b> depois do pagamento, com 7 dias de ajustes</span></li>
+        </ul>
+        <div class="acao-linha">
+          <a class="btn escuro" href="https://lucaslimaweb.com.br/quiz/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links">Quero meu site<svg aria-hidden="true"><use href="#i-seta"/></svg></a>
+          <small>Responda 5 perguntas e receba a demonstração no WhatsApp.</small>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- COMO FUNCIONA -->
-  <section class="passos" aria-labelledby="t-passos">
-    <h3 id="t-passos">Como funciona</h3>
-    <div class="passo"><span class="n">1</span><div><b>Você conta do seu negócio</b><p>Nome, o que vende, sua logo. Leva 2 minutos.</p></div></div>
-    <div class="passo"><span class="n">2</span><div><b>A gente monta e te mostra</b><p>Você recebe a prévia pronta, sem pagar nada.</p></div></div>
-    <div class="passo"><span class="n">3</span><div><b>Gostou? Aí você paga</b><p>Pix ou cartão. Não gostou, não paga.</p></div></div>
+  <section class="secao como" aria-labelledby="t-como">
+    <div class="envelope">
+      <span class="rotulo" data-r>Como funciona</span>
+      <h2 id="t-como" data-r>Três passos, <span class="it">zero risco</span></h2>
+      <ol class="passos">
+        <li class="passo" data-r><span class="n" aria-hidden="true">1</span><div><b>Você conta do seu negócio</b><p>Nome, o que vende e a sua logo, se tiver. Leva uns 2 minutos.</p></div></li>
+        <li class="passo" data-r><span class="n" aria-hidden="true">2</span><div><b>A gente monta e te mostra</b><p>Você recebe a prévia pronta, com a sua cara, sem pagar nada.</p></div></li>
+        <li class="passo" data-r><span class="n" aria-hidden="true">3</span><div><b>Gostou? Aí você paga</b><p>Pix ou cartão. Não gostou, não paga.</p></div></li>
+      </ol>
+    </div>
   </section>
 
-  <p class="rodape">Dúvidas? Fale no Instagram <a href="https://www.instagram.com/thrustspike/">@thrustspike</a></p>
+  <!-- QUEM FAZ -->
+  <section class="secao quem" style="padding-top:0" aria-labelledby="t-quem">
+    <div class="envelope">
+      <div class="cartao" data-r>
+        <div>
+          <span class="rotulo">Quem faz</span>
+          <h2 id="t-quem" style="font-size:clamp(28px,6.6vw,40px)">Feito por uma pessoa de <span class="it">verdade</span></h2>
+          <p>A thrustspike é um serviço do Lucas Lima, web designer. Os vídeos saem de um sistema próprio, com roteiro e narração criados a partir das suas respostas. Os sites são feitos sob medida, com o Lucas acompanhando do começo ao fim.</p>
+        </div>
+        <div>
+          <div class="assinatura"><span class="avatar" aria-hidden="true">LL</span><div><b>Lucas Lima</b><small>Web designer · fundador da thrustspike</small></div></div>
+          <div class="numeros" style="margin-top:18px">
+            <div><strong>3 min</strong><span>pro vídeo ficar pronto</span></div>
+            <div><strong>15</strong><span>vozes de narração</span></div>
+            <div><strong>2 dias</strong><span>pro seu site ir ao ar</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERGUNTAS -->
+  <section class="secao faq" style="padding-top:0" aria-labelledby="t-faq">
+    <div class="envelope grade">
+      <div data-r><span class="rotulo">Dúvidas</span><h2 id="t-faq">Antes de <span class="it">começar</span></h2></div>
+      <div class="lista" data-r>
+        <details><summary>Preciso pagar pra ver a prévia?</summary><p>Não. No vídeo, você vê 2 a 3 cenas com os seus textos, cores e logo antes de pagar. No site, você recebe uma demonstração grátis no WhatsApp, sem compromisso.</p></details>
+        <details><summary>Em quanto tempo fica pronto?</summary><p>O vídeo fica pronto em cerca de 3 minutos depois do pagamento. O site vai ao ar em 2 dias depois do pagamento, e você tem 7 dias pra pedir ajustes.</p></details>
+        <details><summary>Preciso ter logo?</summary><p>Não. Sem logo, usamos o nome do seu negócio com as cores que você escolher, ou combinamos as cores pelo seu segmento.</p></details>
+        <details><summary>Tem mensalidade?</summary><p>Não. Você paga uma vez só.</p></details>
+        <details><summary>Como eu pago?</summary><p>Vídeo: Pix na hora, ou cartão e boleto pelo Mercado Pago. Site: R$ 490 à vista no Pix ou em 3x de R$ 190.</p></details>
+        <details><summary>Onde posso postar o vídeo?</summary><p>Ele vem em pé (9:16), no formato de Reels, Stories, TikTok e status do WhatsApp. É seu: baixe e poste quantas vezes quiser.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="secao fim" style="padding-top:0" aria-labelledby="t-fim">
+    <div class="envelope">
+      <div class="cartao" data-r>
+        <svg width="54" height="54" aria-hidden="true" style="margin:0 auto 18px;display:block"><use href="#i-marca"/></svg>
+        <h2 id="t-fim">Bora colocar o seu negócio <span class="it">no ar?</span></h2>
+        <p class="lead">Escolha por onde começar. Você só paga se gostar.</p>
+        <div class="botoes">
+          <a class="btn menta" href="https://video.lucaslimaweb.com.br/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links">Quero meu vídeo</a>
+          <a class="btn creme" href="https://lucaslimaweb.com.br/quiz/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links">Quero meu site</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
+
+<footer class="rodape">
+  <div class="envelope">
+    <a class="marca" href="#inicio" aria-label="Voltar ao início"><svg aria-hidden="true"><use href="#i-marca"/></svg><b>thrust<span>spike</span></b></a>
+    <p>Dúvidas? Fale no Instagram <a href="https://www.instagram.com/thrustspike/">@thrustspike</a></p>
+    <p>Um serviço de Lucas Lima, web designer · <span id="ano">2026</span></p>
+  </div>
+</footer>
+
+<dialog class="player" id="player" aria-labelledby="p-nome">
+  <button class="fechar" type="button" id="p-fechar" aria-label="Fechar o vídeo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="palco" id="p-palco">
+    <div class="quadro"><div class="fone"><div class="tela"><video id="p-video" controls playsinline preload="none"></video></div></div></div>
+    <div class="info"><b id="p-nome">Exemplo</b><span id="p-nicho"></span></div>
+    <div class="botoes">
+      <a class="btn menta" href="https://video.lucaslimaweb.com.br/?utm_source=instagram&amp;utm_medium=bio&amp;utm_campaign=links-player">Quero um vídeo assim · R$ 29,90</a>
+      <a class="btn linha" id="p-site" href="#">Ver o site desse negócio<svg aria-hidden="true"><use href="#i-seta"/></svg></a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  'use strict'
+  document.documentElement.classList.add('js')
+  document.getElementById('ano').textContent=new Date().getFullYear()
+  var BASE='https://video.lucaslimaweb.com.br/nichos/'
+  var VIDEOS=[
+    {id:'burger',nome:'Brasa Burger',de:'da',nicho:'Hamburgueria',site:'/demos/brasa-burger/'},
+    {id:'estetica',nome:'Studio Aurora',de:'do',nicho:'Estética',site:'/demos/studio-aurora/'},
+    {id:'barbearia',nome:'Navalha Club',de:'do',nicho:'Barbearia',site:'/demos/navalha-club/'},
+    {id:'pet',nome:'Patas & Cia',de:'do',nicho:'Pet shop',site:'/demos/patas-e-cia/'},
+    {id:'acai',nome:'Açaí do Porto',de:'do',nicho:'Açaiteria',site:'/demos/acai-do-porto/'},
+    {id:'moda',nome:'Lume Moda',de:'da',nicho:'Loja de roupas',site:'/demos/lume-moda/'}
+  ]
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var fileira=document.getElementById('fileira-videos')
+  fileira.innerHTML=VIDEOS.map(function(v,i){
+    return '<button class="vid fone-btn" type="button" data-video="'+v.id+'" aria-label="Assistir ao vídeo de exemplo: '+esc(v.nome)+', '+esc(v.nicho)+'">'+
+      '<span class="fone"><span class="tela"><img src="'+BASE+v.id+'.jpg" alt="" width="480" height="854"'+(i>2?' loading="lazy"':'')+'><span class="play" aria-hidden="true"><svg><use href="#i-play"/></svg></span></span></span>'+
+      '<span class="nome">'+esc(v.nome)+'</span><span class="nicho">'+esc(v.nicho)+'</span></button>'
+  }).join('')
+
+  var dlg=document.getElementById('player'),vid=document.getElementById('p-video'),abriuDe=null
+  function abrir(id,origem){
+    var v=VIDEOS.filter(function(x){return x.id===id})[0];if(!v)return
+    if(!dlg.showModal){location.href=BASE+id+'.mp4';return}
+    abriuDe=origem||null
+    vid.src=BASE+id+'.mp4';vid.poster=BASE+id+'.jpg'
+    document.getElementById('p-nome').textContent=v.nome
+    document.getElementById('p-nicho').textContent='Vídeo de exemplo · '+v.nicho+' · negócio fictício'
+    var s=document.getElementById('p-site');s.href=v.site;s.firstChild.textContent='Ver o site '+v.de+' '+v.nome+' '
+    dlg.showModal()
+    var p=vid.play();if(p&&p.catch)p.catch(function(){})
+  }
+  function fechar(){vid.pause();vid.removeAttribute('src');vid.load();if(dlg.open)dlg.close()}
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-video]');if(b){e.preventDefault();abrir(b.getAttribute('data-video'),b)}})
+  document.getElementById('p-fechar').addEventListener('click',fechar)
+  dlg.addEventListener('click',function(e){if(e.target===dlg||e.target.id==='p-palco')fechar()})
+  dlg.addEventListener('close',function(){vid.pause();if(abriuDe&&abriuDe.focus)abriuDe.focus({preventScroll:true})})
+
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px'})
+    document.querySelectorAll('[data-r]').forEach(function(n){io.observe(n)})
+  }else{document.querySelectorAll('[data-r]').forEach(function(n){n.classList.add('vis')})}
+})()
+</script>
 </body>
 </html>

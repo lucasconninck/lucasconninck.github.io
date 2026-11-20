@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="pt-BR" data-negocio="O Navalha Club">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Navalha Club · Barbearia clássica</title>
+<meta name="description" content="Corte, barba com toalha quente e o clube de assinatura da Navalha Club. Agende pelo WhatsApp.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0C0B09">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230C0B09' stroke='%23C9A453' stroke-width='3'/%3E%3Ctext x='32' y='41' font-family='Arial' font-weight='700' font-size='24' fill='%23C9A453' text-anchor='middle'%3ENC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero.webp">
+<!-- Site de exemplo (negócio fictício) feito pela thrustspike — 19/11/2026.
+     Mesma identidade do vídeo de exemplo da barbearia: preto, dourado e art déco. -->
+<style>
+:root{
+  --bg:#0C0B09; --bg2:#13110E; --bg3:#1B1814;
+  --ouro:#C9A453; --ouro2:#E3C47E; --ouro3:#8D7234;
+  --creme:#F2E8D5; --texto:rgba(242,232,213,.86); --muted:rgba(242,232,213,.62);
+  --linha:rgba(201,164,83,.26); --linha2:rgba(201,164,83,.5);
+  --deco:"Josefin Sans",system-ui,sans-serif; --corpo:Jost,system-ui,sans-serif;
+  --larg:1180px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:var(--bg);color:var(--texto);font:400 16.5px/1.62 var(--corpo);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ouro2);outline-offset:3px}
+.envelope{width:100%;max-width:var(--larg);margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* tipografia déco */
+.olho{display:flex;align-items:center;gap:12px;font:600 12.5px/1 var(--deco);letter-spacing:.3em;text-transform:uppercase;color:var(--ouro)}
+.olho::before,.olho::after{content:"";width:7px;height:7px;background:var(--ouro);transform:rotate(45deg);flex:none}
+.olho.centro{justify-content:center}
+h1,h2,h3{font-family:var(--deco);font-weight:700;text-transform:uppercase;color:var(--creme);letter-spacing:.02em}
+h2{font-size:clamp(30px,7.4vw,54px);line-height:1.02;margin:16px 0 14px}
+h2 em,h1 em{font-style:normal;color:var(--ouro)}
+.lead{font-size:17.5px;color:var(--muted);max-width:56ch}
+.divisor{display:flex;align-items:center;gap:14px;margin:22px 0;color:var(--ouro)}
+.divisor::before,.divisor::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--linha2))}
+.divisor::after{background:linear-gradient(270deg,transparent,var(--linha2))}
+.divisor i{width:9px;height:9px;border:1px solid var(--ouro);transform:rotate(45deg)}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:16px 26px 14px;font:700 14.5px/1 var(--deco);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ouro);transition:background .2s ease,color .2s ease,border-color .2s ease}
+.btn svg{width:18px;height:18px;margin-top:-3px}
+.btn.cheio{background:var(--ouro);color:#14110B}
+.btn.cheio:hover{background:var(--ouro2);border-color:var(--ouro2)}
+.btn.vazado{color:var(--creme);border-color:var(--linha2)}
+.btn.vazado:hover{border-color:var(--ouro);color:var(--ouro2)}
+
+/* topo */
+.topo{position:fixed;left:0;right:0;top:var(--vt-top,0px);z-index:50;transition:background .3s ease,border-color .3s ease;border-bottom:1px solid transparent}
+.topo.solido{background:rgba(12,11,9,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--linha)}
+.topo .envelope{display:flex;align-items:center;justify-content:space-between;gap:16px;height:74px}
+.marca{display:flex;align-items:center;gap:12px;text-decoration:none}
+.selo{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ouro);display:grid;place-items:center;font:700 16px/1 var(--deco);color:var(--ouro);letter-spacing:.04em;position:relative;padding-top:3px}
+.selo::after{content:"";position:absolute;inset:3px;border-radius:50%;border:1px solid var(--linha)}
+.marca b{display:block;font:700 15px/1.1 var(--deco);letter-spacing:.2em;color:var(--creme);white-space:nowrap}
+.marca small{display:block;font:600 9.5px/1.4 var(--deco);letter-spacing:.24em;text-transform:uppercase;color:var(--ouro);margin-top:4px;white-space:nowrap}
+.menu{display:none;gap:30px;list-style:none;padding:0}
+.menu a{font:600 13px/1 var(--deco);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--texto);padding:8px 0}
+.menu a:hover{color:var(--ouro2)}
+.topo .btn{min-height:44px;padding:13px 18px 11px;font-size:12.5px}
+@media (min-width:980px){.menu{display:flex}}
+
+/* hero: no celular a foto vem inteira em cima e o texto embaixo; no computador o texto vai por cima, à esquerda */
+.hero{position:relative;overflow:hidden;isolation:isolate}
+.hero-foto{position:relative;height:56svh;min-height:330px;max-height:540px;z-index:-1}
+.hero-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%}
+.hero-foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,11,9,.5) 0%,rgba(12,11,9,0) 24%,rgba(12,11,9,0) 58%,var(--bg) 100%)}
+.moldura{position:absolute;inset:12px;border:1px solid var(--linha2);pointer-events:none;z-index:1}
+.moldura::before{content:"";position:absolute;inset:6px;border:1px solid var(--linha)}
+.moldura i{position:absolute;width:11px;height:11px;background:var(--bg);border:1px solid var(--ouro);transform:rotate(45deg)}
+.moldura i:nth-child(1){top:-6px;left:50%;margin-left:-6px}
+.moldura i:nth-child(2){bottom:-6px;left:50%;margin-left:-6px}
+.hero .envelope{position:relative;z-index:2;margin-top:-64px;padding-bottom:60px}
+.hero h1{font-size:clamp(40px,11vw,92px);line-height:.96;margin:18px 0 18px;max-width:11.5ch;text-shadow:0 2px 30px rgba(0,0,0,.45)}
+.hero .lead{color:var(--texto);max-width:42ch}
+.acoes{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.acoes .btn{flex:1 1 220px}
+.provas{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:28px;font-size:14.5px;color:var(--muted)}
+.provas span{display:flex;align-items:center;gap:8px}
+.provas b{color:var(--creme);font-weight:600}
+.estrelas{color:var(--ouro);letter-spacing:.12em}
+@media (min-width:900px){
+  .hero{min-height:min(100svh,900px);display:flex;align-items:center}
+  .hero-foto{position:absolute;inset:0;height:auto;min-height:0;max-height:none}
+  .hero-foto img{object-position:62% 40%}
+  .hero-foto::after{background:linear-gradient(90deg,rgba(12,11,9,.94) 0%,rgba(12,11,9,.74) 34%,rgba(12,11,9,.08) 64%),linear-gradient(180deg,rgba(12,11,9,.5),transparent 28%,transparent 78%,var(--bg))}
+  .hero .envelope{margin-top:0;padding-top:120px;padding-bottom:80px}
+  .acoes .btn{flex:0 0 auto}
+  .moldura{inset:20px}
+}
+
+/* combo */
+.combo{padding:72px 0 40px;overflow:hidden}
+.combo .grade{display:grid;gap:40px;align-items:center}
+.sol{position:relative;width:min(100%,380px);aspect-ratio:1;margin:0 auto;display:grid;place-items:center;text-align:center}
+.sol::before{content:"";position:absolute;inset:-12%;background:repeating-conic-gradient(from 0deg,rgba(201,164,83,.5) 0deg .5deg,transparent .5deg 7.5deg);-webkit-mask:radial-gradient(circle,transparent 46%,#000 47%,#000 58%,transparent 72%);mask:radial-gradient(circle,transparent 46%,#000 47%,#000 58%,transparent 72%)}
+.sol .disco{position:relative;width:78%;aspect-ratio:1;border-radius:50%;border:1.5px solid var(--ouro);display:grid;place-items:center;align-content:center;gap:8px;background:radial-gradient(circle at 50% 35%,#1d1a14,var(--bg) 70%)}
+.sol .disco::after{content:"";position:absolute;inset:8px;border-radius:50%;border:1px solid var(--linha)}
+.sol small{font:600 12px/1.3 var(--deco);letter-spacing:.3em;text-transform:uppercase;color:var(--ouro)}
+.sol strong{font:700 clamp(56px,16vw,88px)/.9 var(--deco);color:var(--ouro2);letter-spacing:-.01em}
+.sol strong sup{font-size:.36em;vertical-align:.95em;margin-right:4px}
+.itens{list-style:none;padding:0;margin:20px 0 28px;display:grid;gap:12px}
+.itens li{display:flex;gap:14px;align-items:baseline;color:var(--texto)}
+.itens li::before{content:"";flex:none;width:7px;height:7px;background:var(--ouro);transform:rotate(45deg) translateY(-2px)}
+@media (min-width:900px){.combo{padding:110px 0 60px}.combo .grade{grid-template-columns:1fr 1.05fr;gap:80px}}
+
+/* serviços */
+.servicos{padding:70px 0}
+.cartaz{position:relative;padding:44px 22px 30px;background:linear-gradient(var(--bg2),var(--bg2)) padding-box,linear-gradient(160deg,var(--ouro),var(--ouro3) 40%,var(--ouro)) border-box;border:1px solid transparent;margin-top:30px}
+.cartaz::before{content:"";position:absolute;inset:7px;border:1px solid var(--linha);pointer-events:none}
+.lista{display:grid;gap:0 70px;list-style:none;padding:0}
+.lista li{padding:18px 0;border-bottom:1px solid var(--linha)}
+.lista li:last-child{border-bottom:0}
+.lista .linha1{display:flex;align-items:baseline;gap:10px}
+.lista h3{font-size:17px;letter-spacing:.12em;line-height:1.2}
+.lista .pontos{flex:1;border-bottom:1px dotted var(--linha2);transform:translateY(-5px);min-width:20px}
+.lista .preco{font:700 19px/1 var(--deco);color:var(--ouro2);white-space:nowrap}
+.lista .preco small{font-size:11px;letter-spacing:.14em;color:var(--muted);margin-right:4px}
+.lista p{font-size:15px;color:var(--muted);margin-top:6px}
+.lista .tag{display:inline-block;font:700 10.5px/1 var(--deco);letter-spacing:.2em;text-transform:uppercase;color:#14110B;background:var(--ouro);padding:5px 8px 3px;margin-left:8px;vertical-align:3px}
+.nota{font-size:14px;color:var(--muted);text-align:center;margin-top:22px}
+@media (min-width:900px){.servicos{padding:100px 0}.lista{grid-template-columns:1fr 1fr}.lista li:nth-last-child(2){border-bottom:0}.cartaz{padding:56px 52px 40px}}
+
+/* ritual */
+.ritual{padding:70px 0;background:var(--bg2);border-block:1px solid var(--linha)}
+.passos{display:grid;gap:18px;margin-top:38px;counter-reset:p}
+.passo{position:relative;background:var(--bg);border:1px solid var(--linha)}
+.passo figure{aspect-ratio:4/5;overflow:hidden;position:relative}
+.passo img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) contrast(1.05);transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.passo:hover img{transform:scale(1.04)}
+.passo .num{position:absolute;top:14px;left:14px;width:46px;height:46px;border-radius:50%;background:rgba(12,11,9,.82);border:1px solid var(--ouro);display:grid;place-items:center;font:700 15px/1 var(--deco);color:var(--ouro);padding-top:3px;letter-spacing:.06em}
+.passo div{padding:20px 20px 24px}
+.passo h3{font-size:18px;letter-spacing:.14em}
+.passo p{font-size:15.5px;color:var(--muted);margin-top:8px}
+@media (min-width:640px){.passos{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.ritual{padding:110px 0}.passos{grid-template-columns:repeat(4,1fr)}}
+
+/* clube */
+.clube{padding:80px 0;position:relative;overflow:hidden}
+.clube::before{content:"";position:absolute;left:50%;top:40px;width:900px;height:900px;margin-left:-450px;background:repeating-conic-gradient(from 0deg,rgba(201,164,83,.10) 0deg .4deg,transparent .4deg 6deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 60%);mask:radial-gradient(circle,#000 0,transparent 60%);pointer-events:none}
+.planos{position:relative;display:grid;gap:18px;margin-top:40px}
+.plano{position:relative;padding:34px 24px 28px;background:var(--bg2);border:1px solid var(--linha2);text-align:center}
+.plano.top{background:linear-gradient(180deg,#1E1A12,var(--bg2));border-color:var(--ouro)}
+.plano .fita{position:absolute;top:-1px;left:50%;transform:translate(-50%,-50%);background:var(--ouro);color:#14110B;font:700 11px/1 var(--deco);letter-spacing:.22em;text-transform:uppercase;padding:8px 14px 6px;white-space:nowrap}
+.plano h3{font-size:19px;letter-spacing:.2em}
+.plano .valor{font:700 54px/1 var(--deco);color:var(--ouro2);margin:16px 0 4px}
+.plano .valor sup{font-size:.36em;vertical-align:1em;margin-right:4px}
+.plano .valor small{font-size:.3em;color:var(--muted);letter-spacing:.12em}
+.plano ul{list-style:none;padding:0;margin:22px 0 26px;display:grid;gap:10px;color:var(--texto);font-size:15.5px}
+.plano li{display:flex;gap:10px;justify-content:center}
+.plano li::before{content:"✦";color:var(--ouro);font-size:12px}
+.plano .btn{width:100%}
+.letras{font-size:13.5px;color:var(--muted);text-align:center;margin-top:20px}
+@media (min-width:800px){.clube{padding:120px 0}.planos{grid-template-columns:1fr 1fr;max-width:860px;margin-inline:auto;gap:26px}}
+
+/* galeria */
+.galeria{padding:70px 0}
+.mosaico{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:34px}
+.mosaico figure{position:relative;overflow:hidden;background:var(--bg3)}
+.mosaico img{width:100%;height:100%;object-fit:cover;aspect-ratio:1;filter:grayscale(.25) contrast(1.05)}
+.mosaico figure:first-child{grid-column:span 2}
+.mosaico figure:first-child img{aspect-ratio:16/10}
+.mosaico figcaption{position:absolute;left:10px;bottom:10px;font:600 11px/1 var(--deco);letter-spacing:.2em;text-transform:uppercase;background:rgba(12,11,9,.8);color:var(--ouro2);padding:7px 9px 5px}
+@media (min-width:900px){
+  .galeria{padding:110px 0}
+  .mosaico{grid-template-columns:repeat(3,1fr);grid-auto-rows:250px;gap:14px}
+  .mosaico img,.mosaico figure:first-child img{aspect-ratio:auto}
+  .mosaico figure:first-child{grid-column:span 2;grid-row:span 2}
+  .mosaico figure:nth-child(5){grid-column:span 2}
+}
+
+/* depoimentos */
+.vozes{padding:70px 0;background:var(--bg2);border-block:1px solid var(--linha)}
+.cards{display:grid;gap:16px;margin-top:36px}
+.voz{padding:28px 24px;border:1px solid var(--linha);background:var(--bg);position:relative}
+.voz::before{content:"\201C";position:absolute;top:6px;right:18px;font:700 76px/1 Georgia,serif;color:var(--linha2)}
+.voz blockquote{font-size:17px;color:var(--creme);line-height:1.55;margin-top:12px}
+.voz cite{display:block;margin-top:16px;font:600 12.5px/1 var(--deco);letter-spacing:.2em;text-transform:uppercase;color:var(--ouro);font-style:normal}
+@media (min-width:900px){.vozes{padding:100px 0}.cards{grid-template-columns:repeat(3,1fr);gap:22px}}
+
+/* visita */
+.visita{padding:80px 0}
+.visita .grade{display:grid;gap:34px}
+.horas{list-style:none;padding:0;margin:22px 0;border-top:1px solid var(--linha)}
+.horas li{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--linha);font-size:16px}
+.horas b{font-weight:500;color:var(--creme)}
+.horas .fechado{color:var(--muted)}
+.endereco{display:flex;gap:12px;align-items:flex-start;font-size:16.5px;color:var(--creme);margin-top:8px}
+.endereco svg{flex:none;width:22px;height:22px;color:var(--ouro);margin-top:2px}
+.mapa{position:relative;aspect-ratio:4/3;border:1px solid var(--linha2);background:var(--bg2);overflow:hidden}
+.mapa svg{width:100%;height:100%}
+@media (min-width:900px){.visita{padding:120px 0}.visita .grade{grid-template-columns:1fr 1.1fr;gap:70px;align-items:center}}
+
+/* chamada final */
+.final{position:relative;padding:90px 0 100px;text-align:center;overflow:hidden;border-top:1px solid var(--linha)}
+.final::before{content:"";position:absolute;left:50%;bottom:-520px;width:1100px;height:1100px;margin-left:-550px;background:repeating-conic-gradient(from 0deg,rgba(201,164,83,.16) 0deg .45deg,transparent .45deg 6deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 62%);mask:radial-gradient(circle,#000 0,transparent 62%);pointer-events:none}
+.final .selo{width:84px;height:84px;font-size:28px;margin:0 auto 26px;background:var(--bg)}
+.final h2{max-width:16ch;margin-inline:auto}
+.final .btn{margin-top:26px}
+.final .arroba{display:block;margin-top:20px;font:600 13px/1 var(--deco);letter-spacing:.24em;color:var(--ouro)}
+
+.rodape{border-top:1px solid var(--linha);padding:30px 0 100px;font-size:14px;color:var(--muted)}
+.rodape .envelope{display:flex;flex-wrap:wrap;gap:16px 30px;justify-content:space-between;align-items:center}
+
+/* whats flutuante */
+.flutua{position:fixed;right:16px;bottom:16px;z-index:40;width:58px;height:58px;border-radius:50%;background:var(--ouro);color:#14110B;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.45);border:2px solid #0C0B09}
+.flutua svg{width:28px;height:28px}
+.flutua:hover{background:var(--ouro2)}
+
+/* entrada suave (uma vez só) */
+.js [data-r]{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.js [data-r].vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js [data-r]{opacity:1;transform:none;transition:none}.passo img{transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-whats" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol></svg>
+<header class="topo" id="topo">
+  <div class="envelope">
+    <a class="marca" href="#inicio" aria-label="Navalha Club, início">
+      <span class="selo" aria-hidden="true">NC</span>
+      <span><b>NAVALHA CLUB</b><small>Barbearia · desde 2014</small></span>
+    </a>
+    <ul class="menu">
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#ritual">O ritual</a></li>
+      <li><a href="#clube">O clube</a></li>
+      <li><a href="#visita">Onde estamos</a></li>
+    </ul>
+    <a class="btn cheio" href="#" data-whats="Olá! Quero agendar um horário no Navalha Club.">Agendar</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero" aria-labelledby="t-hero">
+    <div class="hero-foto"><img src="img/hero.webp" alt="Barbeiro finalizando uma barba com toalha quente" width="1600" height="1200" fetchpriority="high"></div>
+    <div class="moldura" aria-hidden="true"><i></i><i></i></div>
+    <div class="envelope">
+      <p class="olho">Barbearia clássica · Centro</p>
+      <h1 id="t-hero">Seu estilo merece um cuidado <em>de primeira</em></h1>
+      <p class="lead">Corte na tesoura, barba com toalha quente e aquele acabamento que dura a semana inteira. Sem pressa, do jeito antigo.</p>
+      <div class="acoes">
+        <a class="btn cheio" href="#" data-whats="Olá! Quero agendar um horário no Navalha Club.">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg>
+          Agendar pelo WhatsApp</a>
+        <a class="btn vazado" href="#servicos">Ver serviços e preços</a>
+      </div>
+      <div class="provas">
+        <span><span class="estrelas" aria-hidden="true">★★★★★</span><b>4,9</b> · 312 avaliações no Google</span>
+        <span>Ter a sáb · 9h às 20h</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="combo" aria-labelledby="t-combo">
+    <div class="envelope grade">
+      <div class="sol" data-r aria-hidden="true">
+        <div class="disco"><small>O combo completo</small><strong><sup>R$</sup>55</strong><small>Corte + barba</small></div>
+      </div>
+      <div data-r>
+        <p class="olho">O mais pedido da casa</p>
+        <h2 id="t-combo">Corte e barba com <em>toalha quente</em></h2>
+        <p class="lead">Uma hora e pouco só sua: você chega, toma um café e sai de lá outro homem.</p>
+        <ul class="itens">
+          <li>Lavagem com shampoo mentolado</li>
+          <li>Corte na máquina e na tesoura, no seu estilo</li>
+          <li>Barba desenhada na navalha</li>
+          <li>Toalha quente, balm e finalização com pomada</li>
+        </ul>
+        <a class="btn cheio" href="#" data-whats="Olá! Quero agendar o combo corte + barba (R$ 55).">Quero esse combo</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="servicos" id="servicos" aria-labelledby="t-serv">
+    <div class="envelope">
+      <p class="olho centro" data-r>Tabela da casa</p>
+      <h2 id="t-serv" style="text-align:center" data-r>Serviços &amp; preços</h2>
+      <div class="cartaz" data-r>
+        <ul class="lista">
+          <li><div class="linha1"><h3>Corte masculino</h3><span class="pontos"></span><span class="preco">R$ 40</span></div><p>Máquina e tesoura, lavagem inclusa · 40 min</p></li>
+          <li><div class="linha1"><h3>Barba</h3><span class="pontos"></span><span class="preco">R$ 30</span></div><p>Navalha, toalha quente e balm · 30 min</p></li>
+          <li><div class="linha1"><h3>Corte + barba <span class="tag">Mais pedido</span></h3><span class="pontos"></span><span class="preco">R$ 55</span></div><p>O combo completo da casa · 70 min</p></li>
+          <li><div class="linha1"><h3>Barboterapia</h3><span class="pontos"></span><span class="preco">R$ 45</span></div><p>Esfoliação, vapor de ozônio e massagem · 45 min</p></li>
+          <li><div class="linha1"><h3>Pezinho e contorno</h3><span class="pontos"></span><span class="preco">R$ 15</span></div><p>Pra manter o corte entre uma visita e outra · 15 min</p></li>
+          <li><div class="linha1"><h3>Sobrancelha</h3><span class="pontos"></span><span class="preco">R$ 15</span></div><p>Na navalha ou na pinça · 10 min</p></li>
+          <li><div class="linha1"><h3>Corte infantil</h3><span class="pontos"></span><span class="preco">R$ 35</span></div><p>Até 12 anos, com toda a paciência · 30 min</p></li>
+          <li><div class="linha1"><h3>Luzes e platinado</h3><span class="pontos"></span><span class="preco"><small>A PARTIR DE</small>R$ 120</span></div><p>Avaliação na hora, sem compromisso · 2 h</p></li>
+        </ul>
+      </div>
+      <p class="nota">Pix, cartão de débito e crédito ou dinheiro.</p>
+    </div>
+  </section>
+
+  <section class="ritual" id="ritual" aria-labelledby="t-rit">
+    <div class="envelope">
+      <p class="olho" data-r>Como é a sua visita</p>
+      <h2 id="t-rit" data-r>Um ritual de <em>barbearia</em></h2>
+      <p class="lead" data-r>Cada atendimento segue os mesmos quatro tempos. É isso que faz o corte durar.</p>
+      <div class="passos">
+        <article class="passo" data-r><figure><img src="img/salao.webp" alt="Cadeiras clássicas de barbearia sobre piso xadrez" loading="lazy" width="1000" height="1500"><span class="num" aria-hidden="true">I</span></figure><div><h3>A recepção</h3><p>Café passado na hora ou uma cerveja gelada enquanto o seu barbeiro termina o anterior.</p></div></article>
+        <article class="passo" data-r><figure><img src="img/corte.webp" alt="Barbeiro cortando cabelo com tesoura e pente" loading="lazy" width="1000" height="1500"><span class="num" aria-hidden="true">II</span></figure><div><h3>O corte</h3><p>Máquina e tesoura no ponto certo pro seu tipo de cabelo e pro formato do seu rosto.</p></div></article>
+        <article class="passo" data-r><figure><img src="img/navalha.webp" alt="Barbeiro tatuado usando navalha no acabamento" loading="lazy" width="1000" height="1498"><span class="num" aria-hidden="true">III</span></figure><div><h3>A navalha</h3><p>Barba desenhada na navalha, com toalha quente pra abrir os poros e não irritar a pele.</p></div></article>
+        <article class="passo" data-r><figure><img src="img/barba.webp" alt="Barba sendo aparada com tesoura, em preto e branco" loading="lazy" width="1000" height="1506"><span class="num" aria-hidden="true">IV</span></figure><div><h3>O acabamento</h3><p>Pomada, perfume e o espelho de mão pra você conferir a nuca antes de levantar.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="clube" id="clube" aria-labelledby="t-clube">
+    <div class="envelope">
+      <p class="olho centro" data-r>Assinatura mensal</p>
+      <h2 id="t-clube" style="text-align:center" data-r>Seja sócio do <em>clube</em></h2>
+      <p class="lead" style="margin:0 auto;text-align:center" data-r>Cortes ilimitados por um valor fixo no mês. Sem fidelidade: cancela quando quiser.</p>
+      <div class="planos">
+        <article class="plano" data-r>
+          <h3>Sócio corte</h3>
+          <p class="valor"><sup>R$</sup>89<small> /MÊS</small></p>
+          <ul><li>Cortes ilimitados</li><li>Horário com prioridade</li><li>10% em produtos</li></ul>
+          <a class="btn vazado" href="#" data-whats="Olá! Quero ser sócio do clube no plano Sócio Corte (R$ 89/mês).">Quero esse plano</a>
+        </article>
+        <article class="plano top" data-r>
+          <span class="fita">Mais completo</span>
+          <h3>Sócio completo</h3>
+          <p class="valor"><sup>R$</sup>129<small> /MÊS</small></p>
+          <ul><li>Cortes e barbas ilimitados</li><li>Horário com prioridade</li><li>1 barboterapia por mês</li><li>15% em produtos</li></ul>
+          <a class="btn cheio" href="#" data-whats="Olá! Quero ser sócio do clube no plano Sócio Completo (R$ 129/mês).">Quero esse plano</a>
+        </article>
+      </div>
+      <p class="letras">Plano pessoal, pago todo mês no Pix ou cartão.</p>
+    </div>
+  </section>
+
+  <section class="galeria" aria-labelledby="t-gal">
+    <div class="envelope">
+      <p class="olho" data-r>Direto da cadeira</p>
+      <h2 id="t-gal" data-r>O trabalho <em>fala</em></h2>
+      <div class="mosaico">
+        <figure data-r><img src="img/espuma.webp" alt="Pincel espalhando espuma de barbear" loading="lazy" width="1000" height="666"><figcaption>Barba clássica</figcaption></figure>
+        <figure data-r><img src="img/acabamento.webp" alt="Acabamento na nuca com navalha" loading="lazy" width="1000" height="666"><figcaption>Degradê</figcaption></figure>
+        <figure data-r><img src="img/maos.webp" alt="Mãos segurando tesoura e pente" loading="lazy" width="1000" height="800"><figcaption>Tesoura</figcaption></figure>
+        <figure data-r><img src="img/atendimento.webp" alt="Barbeiro atendendo cliente no salão" loading="lazy" width="1000" height="666"><figcaption>O salão</figcaption></figure>
+        <figure data-r><img src="img/ferramentas.webp" alt="Máquinas, tesouras e pomadas sobre a bancada" loading="lazy" width="1000" height="666"><figcaption>A bancada</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="vozes" aria-labelledby="t-voz">
+    <div class="envelope">
+      <p class="olho centro" data-r>Quem senta, volta</p>
+      <h2 id="t-voz" style="text-align:center" data-r>Palavra de <em>cliente</em></h2>
+      <div class="cards">
+        <figure class="voz" data-r><span class="estrelas" aria-label="5 estrelas">★★★★★</span><blockquote>Melhor barba que já fiz na vida. A toalha quente é outro nível, saí de lá renovado.</blockquote><cite>Rafael M.</cite></figure>
+        <figure class="voz" data-r><span class="estrelas" aria-label="5 estrelas">★★★★★</span><blockquote>Agendei pelo WhatsApp em um minuto e fui atendido na hora marcada. Ambiente de respeito.</blockquote><cite>Diego S.</cite></figure>
+        <figure class="voz" data-r><span class="estrelas" aria-label="5 estrelas">★★★★★</span><blockquote>Sou sócio do clube há um ano. Corto a cada 15 dias e nunca mais precisei esperar.</blockquote><cite>Marcos A.</cite></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="visita" id="visita" aria-labelledby="t-vis">
+    <div class="envelope grade">
+      <div data-r>
+        <p class="olho">Onde estamos</p>
+        <h2 id="t-vis">Passa <em>aqui</em></h2>
+        <p class="endereco"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-6.1-7-11.5a7 7 0 0 1 14 0C19 14.9 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Rua das Palmeiras, 214 — Centro<br>Estacionamento conveniado na rua de trás</p>
+        <ul class="horas">
+          <li><span>Terça a sexta</span><b>9h às 20h</b></li>
+          <li><span>Sábado</span><b>8h às 18h</b></li>
+          <li><span>Domingo e segunda</span><b class="fechado">Fechado</b></li>
+        </ul>
+        <a class="btn cheio" href="#" data-whats="Olá! Quero agendar um horário no Navalha Club.">Agendar meu horário</a>
+      </div>
+      <div class="mapa" data-r aria-hidden="true">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="#13110E"/>
+          <g stroke="rgba(201,164,83,.16)" stroke-width="10" fill="none">
+            <path d="M-10 90 L410 60"/><path d="M-10 210 L410 240"/><path d="M110 -10 L80 310"/><path d="M290 -10 L320 310"/>
+          </g>
+          <g stroke="rgba(201,164,83,.09)" stroke-width="5" fill="none">
+            <path d="M-10 150 L410 150"/><path d="M200 -10 L200 310"/><path d="M-10 20 L180 300"/><path d="M240 0 L410 180"/>
+          </g>
+          <g fill="rgba(201,164,83,.06)"><rect x="128" y="96" width="60" height="44"/><rect x="214" y="160" width="62" height="64"/><rect x="128" y="160" width="60" height="58"/><rect x="214" y="80" width="62" height="58"/></g>
+          <circle cx="200" cy="150" r="52" fill="none" stroke="rgba(201,164,83,.35)" stroke-dasharray="2 6"/>
+          <circle cx="200" cy="150" r="24" fill="#0C0B09" stroke="#C9A453" stroke-width="2"/>
+          <text x="200" y="156" text-anchor="middle" font-family="Josefin Sans,Arial" font-weight="700" font-size="15" fill="#C9A453">NC</text>
+          <text x="200" y="196" text-anchor="middle" font-family="Josefin Sans,Arial" font-weight="600" font-size="10" letter-spacing="3" fill="rgba(242,232,213,.7)">RUA DAS PALMEIRAS</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" aria-labelledby="t-fim">
+    <div class="envelope" data-r>
+      <span class="selo" aria-hidden="true">NC</span>
+      <h2 id="t-fim">Chama o Navalha Club e garanta <em>seu horário</em></h2>
+      <a class="btn cheio" href="#" data-whats="Olá! Quero agendar um horário no Navalha Club.">Chamar no WhatsApp</a>
+      <span class="arroba">@NAVALHACLUB</span>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="envelope">
+    <span>© <span id="ano">2026</span> Navalha Club · Barbearia clássica</span>
+    <span>Rua das Palmeiras, 214 — Centro</span>
+  </div>
+</footer>
+
+<a class="flutua" href="#" aria-label="Agendar pelo WhatsApp" data-whats="Olá! Quero agendar um horário no Navalha Club."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg></a>
+
+<script>
+document.documentElement.classList.add('js')
+var topo=document.getElementById('topo')
+function t(){topo.classList.toggle('solido',scrollY>40)}t();addEventListener('scroll',t,{passive:true})
+document.getElementById('ano').textContent=new Date().getFullYear()
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});document.querySelectorAll('[data-r]').forEach(function(n){io.observe(n)})}else{document.querySelectorAll('[data-r]').forEach(function(n){n.classList.add('vis')})}
+</script>
+<script src="../kit/vitrine.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="pt-BR" data-negocio="O Açaí do Porto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Açaí do Porto · Monte o seu açaí</title>
+<meta name="description" content="Monte seu açaí do seu jeito: tamanho, base e acompanhamentos. Entrega grátis no bairro de segunda a quinta.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#6C2BEA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%23fff'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='800' font-size='26' fill='%236C2BEA' text-anchor='middle'%3EAd%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero.webp">
+<!-- Site de exemplo (negócio fictício) feito pela thrustspike — 19/11/2026.
+     Mesma identidade do vídeo de exemplo do açaí: roxo, rosa e letras condensadas. -->
+<style>
+:root{
+  --roxo:#6C2BEA; --roxo2:#5B1FD3; --roxo3:#8A55F2; --noite:#1E0B45; --noite2:#2A1260;
+  --rosa:#FF9EDB; --rosa2:#FFC4EA; --creme:#FFF4FB;
+  --tinta:#1E0B45; --texto:#4A3A6B; --muted:#7D6E99;
+  --linha:rgba(30,11,69,.12); --branco:#fff;
+  --cond:"Barlow Condensed",Impact,sans-serif; --serif:"Instrument Serif",Georgia,serif;
+  --larg:1200px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:var(--creme);color:var(--texto);font:500 16.5px/1.55 Barlow,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--rosa);outline-offset:3px;border-radius:8px}
+.envelope{width:100%;max-width:var(--larg);margin:0 auto;padding:0 20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.cond{font-family:var(--cond);font-weight:900;text-transform:uppercase;letter-spacing:-.005em;line-height:.9}
+.contagem{font:700 12px/1 Barlow,sans-serif;letter-spacing:.14em;color:currentColor;opacity:.7;display:flex;align-items:center;gap:10px}
+.contagem::after{content:"";flex:1;height:1px;background:currentColor;opacity:.4;max-width:120px}
+h2{font-size:clamp(44px,12vw,92px);color:var(--tinta);margin:12px 0 14px}
+h2 em,h1 em{font-style:normal;color:var(--rosa)}
+.it{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;letter-spacing:0}
+.lead{font-size:18px;max-width:50ch}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 26px;border-radius:99px;font:800 19px/1 var(--cond);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:background .2s ease,color .2s ease,transform .15s ease}
+.btn svg{width:20px;height:20px}
+.btn.rosa{background:var(--rosa);color:var(--noite)}
+.btn.rosa:hover{background:var(--rosa2)}
+.btn.roxo{background:var(--roxo);color:#fff}
+.btn.roxo:hover{background:var(--roxo2)}
+.btn.contorno{border:2px solid rgba(255,255,255,.5);color:#fff}
+.btn.contorno:hover{border-color:#fff}
+
+/* topo */
+.topo{position:fixed;left:0;right:0;top:var(--vt-top,0px);z-index:50;transition:background .3s ease,box-shadow .3s ease}
+.topo.solido{background:rgba(108,43,234,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 8px 24px rgba(30,11,69,.2)}
+.topo .envelope{display:flex;align-items:center;justify-content:space-between;gap:12px;height:70px}
+.marca{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.ad{width:44px;height:44px;border-radius:50%;background:#fff;color:var(--roxo);display:grid;place-items:center;font:800 18px/1 Barlow,sans-serif;letter-spacing:-.03em}
+.marca b{font:900 25px/1 var(--cond);text-transform:uppercase;letter-spacing:.01em;white-space:nowrap}
+.menu{display:none;list-style:none;padding:0;gap:28px}
+.menu a{font-weight:600;color:rgba(255,255,255,.88);text-decoration:none}
+.menu a:hover{color:#fff}
+.topo .btn{min-height:44px;padding:0 18px;font-size:17px}
+@media (min-width:960px){.menu{display:flex}}
+
+/* hero */
+.hero{position:relative;background:var(--roxo);color:#fff;padding:96px 0 0;overflow:hidden;isolation:isolate}
+.fundo-letras{position:absolute;inset:0;z-index:-1;display:flex;flex-direction:column;justify-content:space-around;pointer-events:none;overflow:hidden}
+.fundo-letras span{font:900 clamp(120px,34vw,300px)/.8 var(--cond);color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.13);white-space:nowrap;text-transform:uppercase;letter-spacing:-.01em}
+.fundo-letras span:nth-child(2){margin-left:-18%}
+.hero .grade{display:grid;gap:26px;align-items:end}
+.hero .contagem{color:#fff}
+.hero h1{font-size:clamp(58px,17vw,138px);margin:16px 0 18px}
+.hero h1 .it{font-size:.62em;color:var(--rosa2);display:block;margin-bottom:6px}
+.hero .lead{color:rgba(255,255,255,.88)}
+.acoes{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.acoes .btn{flex:1 1 200px}
+.copo{position:relative;justify-self:center;width:min(100%,430px)}
+.copo .foto{border-radius:220px 220px 0 0;overflow:hidden;aspect-ratio:4/5;border:8px solid var(--rosa);border-bottom:0}
+.copo .foto img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.preco-bola{position:absolute;left:-10px;top:20%;width:130px;height:130px;border-radius:50%;background:var(--rosa);color:var(--noite);display:grid;place-items:center;align-content:center;text-align:center;box-shadow:0 18px 40px rgba(30,11,69,.35);transform:rotate(-8deg)}
+.preco-bola small{font:700 11px/1.15 Barlow,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.preco-bola strong{font:900 38px/.95 var(--cond)}
+.preco-bola .it{font-size:15px}
+@media (min-width:960px){.hero{padding:120px 0 0}.hero .grade{grid-template-columns:1.1fr .9fr;gap:40px}.hero .grade>div:first-child{padding-bottom:80px}.acoes .btn{flex:0 0 auto}.preco-bola{left:-50px;width:150px;height:150px}.preco-bola strong{font-size:44px}}
+
+/* promo */
+.promo{background:var(--rosa);color:var(--noite)}
+.promo .envelope{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 18px;padding-top:18px;padding-bottom:18px;text-align:center}
+.promo b{font:900 clamp(26px,7vw,40px)/1 var(--cond);text-transform:uppercase}
+.promo .it{font-size:22px}
+
+/* monte */
+.monte{padding:80px 0}
+.monte .grade{display:grid;gap:26px;margin-top:30px;align-items:start}
+.etapa{background:#fff;border:1px solid var(--linha);border-radius:26px;padding:22px 20px;margin-bottom:14px}
+.etapa h3{display:flex;align-items:baseline;gap:10px;font:900 26px/1 var(--cond);text-transform:uppercase;color:var(--tinta)}
+.etapa h3 span{font:700 13px/1 Barlow,sans-serif;color:var(--roxo);letter-spacing:.06em}
+.etapa .dica{font-size:14.5px;color:var(--muted);margin:6px 0 14px}
+.opcoes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.op{position:relative;text-align:left;border:2px solid var(--linha);border-radius:18px;padding:12px 34px 12px 14px;background:var(--creme);transition:border-color .15s ease,background .15s ease}
+.op b{display:block;font:800 22px/1 var(--cond);text-transform:uppercase;color:var(--tinta)}
+.op small{display:block;font-size:13.5px;color:var(--muted);margin-top:4px}
+.op .preco{font-weight:700;color:var(--roxo)}
+.op[aria-pressed="true"],.op[aria-checked="true"]{border-color:var(--roxo);background:#F1E9FF}
+.op[aria-checked="true"]::after,.op[aria-pressed="true"]::after{content:"✓";position:absolute;top:10px;right:12px;width:22px;height:22px;border-radius:50%;background:var(--roxo);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:800}
+.op .destaque{display:inline-block;margin-top:6px;font-size:11.5px;font-weight:700;background:var(--rosa);color:var(--noite);border-radius:99px;padding:3px 8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:2px solid var(--linha);border-radius:99px;padding:9px 14px;font-weight:600;font-size:15px;background:var(--creme);color:var(--tinta);transition:border-color .15s ease,background .15s ease}
+.chip[aria-pressed="true"]{border-color:var(--roxo);background:var(--roxo);color:#fff}
+.chip small{font-size:12px;opacity:.75;margin-left:2px}
+.contador{font-size:14px;font-weight:700;color:var(--roxo);margin-top:12px}
+.resumo{position:sticky;top:calc(var(--vt-top,0px) + 86px);background:var(--noite);color:#fff;border-radius:28px;padding:24px 22px;overflow:hidden}
+.resumo::before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,158,219,.35),transparent 70%);right:-80px;top:-90px}
+.resumo h3{font:900 30px/1 var(--cond);text-transform:uppercase;position:relative}
+.resumo ul{list-style:none;padding:0;margin:16px 0;display:grid;gap:8px;position:relative}
+.resumo li{display:flex;justify-content:space-between;gap:12px;font-size:15px;color:rgba(255,255,255,.82);border-bottom:1px dashed rgba(255,255,255,.18);padding-bottom:8px}
+.resumo li b{color:#fff;font-weight:600;text-align:right}
+.qtd{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:6px 0 16px;position:relative}
+.qtd .passo{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.1);border-radius:99px;padding:4px}
+.qtd .passo button{width:36px;height:36px;border-radius:50%;font-size:20px;font-weight:800;color:#fff}
+.qtd .passo button:hover{background:rgba(255,255,255,.12)}
+.qtd output{min-width:24px;text-align:center;font-weight:800}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;position:relative;margin-bottom:16px}
+.total small{color:rgba(255,255,255,.7);font-size:14px}
+.total strong{font:900 46px/1 var(--cond);color:var(--rosa)}
+.resumo .btn{width:100%;position:relative}
+@media (min-width:960px){.monte{padding:120px 0}.monte .grade{grid-template-columns:1.35fr .65fr;gap:30px}.opcoes{grid-template-columns:repeat(4,1fr)}.opcoes.tres{grid-template-columns:repeat(4,1fr)}}
+
+/* bowls */
+.bowls{background:var(--roxo);color:#fff;padding:80px 0;position:relative;overflow:hidden}
+.bowls .contagem{color:#fff}
+.bowls h2{color:#fff}
+.bowls .lead{color:rgba(255,255,255,.85)}
+.vitrine{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:30px -20px 0;padding:0 20px 10px;scrollbar-width:none}
+.vitrine::-webkit-scrollbar{display:none}
+.bowl{flex:none;width:260px;scroll-snap-align:start;background:var(--noite2);border-radius:26px;overflow:hidden;border:1px solid rgba(255,255,255,.12)}
+.bowl img{width:100%;aspect-ratio:1;object-fit:cover}
+.bowl .corpo{padding:16px 18px 20px}
+.bowl h3{font:900 27px/1 var(--cond);text-transform:uppercase}
+.bowl p{font-size:14.5px;color:rgba(255,255,255,.75);margin:6px 0 14px;min-height:44px}
+.bowl .base{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bowl .base strong{font:900 30px/1 var(--cond);color:var(--rosa)}
+.bowl .btn{min-height:44px;padding:0 16px;font-size:16px}
+.arraste{font-size:14px;color:rgba(255,255,255,.7);margin-top:8px}
+@media (min-width:1100px){.bowls{padding:120px 0}.vitrine{display:grid;grid-template-columns:repeat(5,1fr);overflow:visible;margin:30px 0 0;padding:0}.bowl{width:auto}.arraste{display:none}}
+
+/* entrega */
+.entrega{padding:80px 0}
+.entrega .cards{display:grid;gap:14px;margin-top:28px}
+.ent{background:#fff;border:1px solid var(--linha);border-radius:26px;padding:24px}
+.ent .n{font:900 56px/.9 var(--cond);color:var(--roxo)}
+.ent b{display:block;font:900 24px/1.05 var(--cond);text-transform:uppercase;color:var(--tinta);margin-top:10px}
+.ent p{font-size:15.5px;color:var(--texto);margin-top:6px}
+@media (min-width:900px){.entrega{padding:120px 0}.entrega .cards{grid-template-columns:repeat(3,1fr);gap:18px}}
+
+/* depoimentos */
+.vozes{padding:0 0 80px}
+.vozes .lista{display:grid;gap:14px;margin-top:26px}
+.voz{border-radius:26px;padding:24px;background:var(--rosa2);color:var(--noite)}
+.voz:nth-child(2){background:#E4D6FF}
+.voz:nth-child(3){background:#FFE3F3}
+.voz p{font:400 25px/1.2 var(--serif);font-style:italic}
+.voz small{display:block;margin-top:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:12.5px}
+@media (min-width:900px){.vozes{padding:0 0 120px}.vozes .lista{grid-template-columns:repeat(3,1fr);gap:18px}}
+
+/* final */
+.final{background:var(--noite);color:#fff;text-align:center;padding:90px 0 80px;position:relative;overflow:hidden;isolation:isolate}
+.final .fundo-letras span{-webkit-text-stroke-color:rgba(255,255,255,.08)}
+.final .ad{width:84px;height:84px;font-size:34px;margin:0 auto 24px}
+.final h2{color:#fff;max-width:13ch;margin-inline:auto}
+.final .btn{margin-top:14px}
+.final .infos{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 26px;margin-top:30px;color:rgba(255,255,255,.75);font-size:15px}
+.final .infos b{color:#fff}
+.final .arroba{margin-top:20px;font:800 16px/1 Barlow,sans-serif;letter-spacing:.12em;color:var(--rosa)}
+.rodape{background:var(--noite);color:rgba(255,255,255,.55);font-size:14px;padding:22px 0 110px;border-top:1px solid rgba(255,255,255,.1)}
+.rodape .envelope{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px}
+
+.flutua{position:fixed;right:16px;bottom:16px;z-index:40;width:60px;height:60px;border-radius:50%;background:var(--rosa);color:var(--noite);display:grid;place-items:center;box-shadow:0 14px 30px rgba(30,11,69,.35)}
+.flutua svg{width:28px;height:28px}
+
+.js [data-r]{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js [data-r].vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.js [data-r]{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-whats" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
+</svg>
+
+<header class="topo" id="topo">
+  <div class="envelope">
+    <a class="marca" href="#inicio" aria-label="Açaí do Porto, início"><span class="ad" aria-hidden="true">Ad</span><b>Açaí do Porto</b></a>
+    <ul class="menu">
+      <li><a href="#monte">Monte o seu</a></li>
+      <li><a href="#bowls">Bowls da casa</a></li>
+      <li><a href="#entrega">Entrega</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <a class="btn rosa" href="#monte">Pedir</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero" aria-labelledby="t-hero">
+    <div class="fundo-letras" aria-hidden="true"><span>Açaí açaí açaí</span><span>Do porto do porto</span><span>Açaí açaí açaí</span></div>
+    <div class="envelope grade">
+      <div>
+        <p class="contagem">01 / 06</p>
+        <h1 id="t-hero" class="cond"><span class="it">bateu aquela</span>Vontade de um <em>açaí?</em></h1>
+        <p class="lead">Açaí cremoso de verdade, batido na hora, com os acompanhamentos que você quiser. Monte o seu e chega rapidinho na sua casa.</p>
+        <div class="acoes">
+          <a class="btn rosa" href="#monte">Montar meu açaí</a>
+          <a class="btn contorno" href="#" data-whats="Oi! Quero pedir um açaí do Porto."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg>WhatsApp</a>
+        </div>
+      </div>
+      <div class="copo">
+        <div class="foto"><img src="img/hero.webp" alt="Mão segurando tigela de açaí com manga, mirtilo, coco e granola" width="1200" height="954" fetchpriority="high"></div>
+        <div class="preco-bola" aria-hidden="true"><small>Meio litro +<br>3 acomp.</small><strong>R$15,90</strong><span class="it">combo</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="promo"><div class="envelope"><span class="it">de segunda a quinta,</span><b>entrega no bairro grátis</b></div></div>
+
+  <section class="monte" id="monte" aria-labelledby="t-monte">
+    <div class="envelope">
+      <p class="contagem" style="color:var(--roxo)" data-r>02 / 06</p>
+      <h2 id="t-monte" class="cond" data-r><span class="it" style="color:var(--roxo)">monte o seu</span> do seu <em style="color:var(--roxo)">jeito</em></h2>
+      <p class="lead" data-r>Escolha o tamanho, a base e os acompanhamentos. O preço aparece na hora e o pedido vai prontinho pro nosso WhatsApp.</p>
+      <div class="grade">
+        <div>
+          <div class="etapa" data-r>
+            <h3><span>1</span>Tamanho</h3>
+            <p class="dica">O de 500 ml é o combo: 3 acompanhamentos grátis.</p>
+            <div class="opcoes" id="tamanhos" role="radiogroup" aria-label="Tamanho"></div>
+          </div>
+          <div class="etapa" data-r>
+            <h3><span>2</span>Base</h3>
+            <p class="dica">Batido na hora, cremoso, sem gelo picado.</p>
+            <div class="opcoes" id="bases" role="radiogroup" aria-label="Base"></div>
+          </div>
+          <div class="etapa" data-r>
+            <h3><span>3</span>Acompanhamentos</h3>
+            <p class="dica">Os 3 primeiros são grátis. Depois, R$ 2,50 cada.</p>
+            <div class="chips" id="acomps"></div>
+            <p class="contador" id="contador" aria-live="polite"></p>
+          </div>
+          <div class="etapa" data-r>
+            <h3><span>4</span>Cobertura extra</h3>
+            <p class="dica">Opcional. R$ 4 cada.</p>
+            <div class="chips" id="extras"></div>
+          </div>
+        </div>
+        <aside class="resumo" aria-label="Resumo do pedido" data-r>
+          <h3>Seu açaí</h3>
+          <ul id="itens-resumo"></ul>
+          <div class="qtd"><span>Quantidade</span><div class="passo"><button type="button" id="menos" aria-label="Diminuir">−</button><output id="q">1</output><button type="button" id="mais" aria-label="Aumentar">+</button></div></div>
+          <div class="total"><small>Total</small><strong id="total">R$ 15,90</strong></div>
+          <button class="btn rosa" type="button" id="pedir"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg>Pedir no WhatsApp</button>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="bowls" id="bowls" aria-labelledby="t-bowls">
+    <div class="fundo-letras" aria-hidden="true"><span>Bowls bowls</span><span>da casa da casa</span></div>
+    <div class="envelope">
+      <p class="contagem" data-r>03 / 06</p>
+      <h2 id="t-bowls" class="cond" data-r><span class="it" style="color:var(--rosa2)">sem pensar muito?</span> Bowls da <em>casa</em></h2>
+      <p class="lead" data-r>Combinações que o pessoal mais pede, já montadas pra você.</p>
+      <div class="vitrine">
+        <article class="bowl" data-r><img src="img/bowl-galaxia.webp" alt="Açaí roxo com estrelas de carambola e banana" loading="lazy" width="900" height="620"><div class="corpo"><h3>Galáxia</h3><p>Açaí com banana, coco em lascas e estrelinhas de carambola.</p><div class="base"><strong>R$ 21,90</strong><a class="btn rosa" href="#" data-whats="Oi! Quero o bowl Galáxia (R$ 21,90).">Pedir</a></div></div></article>
+        <article class="bowl" data-r><img src="img/bowl-tropical.webp" alt="Bowl com açaí, frutas vermelhas, manga e granola" loading="lazy" width="900" height="642"><div class="corpo"><h3>Tropical</h3><p>Manga, mirtilo, framboesa, granola e mel.</p><div class="base"><strong>R$ 23,90</strong><a class="btn rosa" href="#" data-whats="Oi! Quero o bowl Tropical (R$ 23,90).">Pedir</a></div></div></article>
+        <article class="bowl" data-r><img src="img/bowl-coco.webp" alt="Açaí servido na casca de coco com granola e goji" loading="lazy" width="900" height="600"><div class="corpo"><h3>Coco</h3><p>Servido na cuia de coco, com coco ralado, goji e granola.</p><div class="base"><strong>R$ 24,90</strong><a class="btn rosa" href="#" data-whats="Oi! Quero o bowl Coco (R$ 24,90).">Pedir</a></div></div></article>
+        <article class="bowl" data-r><img src="img/bowl-morango.webp" alt="Tigela de açaí com kiwi e morango" loading="lazy" width="900" height="600"><div class="corpo"><h3>Morango</h3><p>Morango fresco, kiwi, leite em pó e leite condensado.</p><div class="base"><strong>R$ 19,90</strong><a class="btn rosa" href="#" data-whats="Oi! Quero o bowl Morango (R$ 19,90).">Pedir</a></div></div></article>
+        <article class="bowl" data-r><img src="img/bowls-dupla.webp" alt="Dois bowls de açaí com banana e frutas vermelhas" loading="lazy" width="900" height="1200"><div class="corpo"><h3>Pra dividir</h3><p>Dois bowls de 400 ml com banana, morango e granola.</p><div class="base"><strong>R$ 34,90</strong><a class="btn rosa" href="#" data-whats="Oi! Quero o combo Pra Dividir (R$ 34,90).">Pedir</a></div></div></article>
+      </div>
+      <p class="arraste">Arraste pro lado pra ver todos →</p>
+    </div>
+  </section>
+
+  <section class="entrega" id="entrega" aria-labelledby="t-ent">
+    <div class="envelope">
+      <p class="contagem" style="color:var(--roxo)" data-r>04 / 06</p>
+      <h2 id="t-ent" class="cond" data-r><span class="it" style="color:var(--roxo)">não fica só na vontade</span> pede pelo <em style="color:var(--roxo)">delivery</em></h2>
+      <div class="cards">
+        <div class="ent" data-r><span class="n">0</span><b>Taxa no bairro</b><p>De segunda a quinta a entrega no Porto e bairros vizinhos sai totalmente grátis.</p></div>
+        <div class="ent" data-r><span class="n">30'</span><b>Chega rapidinho</b><p>Em média 30 minutos, em embalagem térmica pra não derreter no caminho.</p></div>
+        <div class="ent" data-r><span class="n">Pix</span><b>Paga como quiser</b><p>Pix, cartão na entrega ou dinheiro. Pedido mínimo de R$ 15.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vozes" aria-labelledby="t-voz">
+    <div class="envelope">
+      <p class="contagem" style="color:var(--roxo)" data-r>05 / 06</p>
+      <h2 id="t-voz" class="cond" data-r>Quem prova, <em style="color:var(--roxo)">volta</em></h2>
+      <div class="lista">
+        <figure class="voz" data-r><p>“O mais cremoso da cidade. E o monte o seu é viciante.”</p><small>Larissa · pede toda sexta</small></figure>
+        <figure class="voz" data-r><p>“Chegou firme, sem derreter, com tudo que eu escolhi.”</p><small>Gustavo · bairro do Porto</small></figure>
+        <figure class="voz" data-r><p>“O combo de R$ 15,90 é a melhor coisa da semana.”</p><small>Ana Clara · cliente desde 2023</small></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="final" id="contato" aria-labelledby="t-fim">
+    <div class="fundo-letras" aria-hidden="true"><span>Açaí açaí açaí</span><span>Do porto do porto</span></div>
+    <div class="envelope" data-r>
+      <p class="contagem" style="justify-content:center">06 / 06</p>
+      <span class="ad" aria-hidden="true">Ad</span>
+      <h2 id="t-fim" class="cond">Chama agora mesmo o <em>Açaí do Porto</em></h2>
+      <a class="btn rosa" href="#" data-whats="Oi! Quero pedir um açaí do Porto."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg>No WhatsApp</a>
+      <div class="infos"><span><b>Endereço</b> · Rua do Cais, 58 — Porto</span><span><b>Todo dia</b> · 13h às 23h</span></div>
+      <p class="arroba">@ACAIDOPORTO</p>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape"><div class="envelope"><span>© <span id="ano">2026</span> Açaí do Porto</span><span>Rua do Cais, 58 — Porto</span></div></footer>
+<a class="flutua" href="#" aria-label="Pedir pelo WhatsApp" data-whats="Oi! Quero pedir um açaí do Porto."><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><use href="#i-whats"/></svg></a>
+
+<script>
+document.documentElement.classList.add('js')
+var topo=document.getElementById('topo');function t(){topo.classList.toggle('solido',scrollY>30)}t();addEventListener('scroll',t,{passive:true})
+document.getElementById('ano').textContent=new Date().getFullYear()
+var TAM=[{n:'300 ml',p:12.9},{n:'500 ml',p:15.9,d:'Combo'},{n:'700 ml',p:19.9},{n:'1 litro',p:26.9}]
+var BASE=[{n:'Tradicional',p:0,s:'Açaí puro'},{n:'Com banana',p:0,s:'Mais cremoso'},{n:'Zero açúcar',p:2,s:'+ R$ 2'},{n:'Cupuaçu',p:0,s:'Azedinho'}]
+var ACOMP=['Granola','Banana','Morango','Leite em pó','Leite condensado','Paçoca','Kiwi','Coco ralado','Amendoim','Mel','Bolinha de chocolate','Confete']
+var EXTRA=['Creme de avelã','Creme de leite em pó','Calda de morango','Calda de chocolate']
+var est={t:1,b:0,a:['Granola','Banana','Leite condensado'],e:[],q:1}
+function brl(v){return 'R$ '+v.toFixed(2).replace('.',',')}
+function opcoes(el,lista,chave){
+  el.innerHTML=lista.map(function(o,i){return '<button type="button" class="op" role="radio" aria-checked="'+(est[chave]===i)+'" data-i="'+i+'"><b>'+o.n+'</b><small>'+(o.s?o.s:'<span class="preco">'+brl(o.p)+'</span>')+'</small>'+(o.d?'<span class="destaque">'+o.d+'</span>':'')+'</button>'}).join('')
+  el.onclick=function(ev){var b=ev.target.closest('.op');if(!b)return;est[chave]=Number(b.dataset.i);opcoes(el,lista,chave);calc()}
+}
+function chips(el,lista,chave,rot){
+  el.innerHTML=lista.map(function(n){return '<button type="button" class="chip" aria-pressed="'+(est[chave].indexOf(n)>-1)+'">'+n+(rot?'<small> '+rot+'</small>':'')+'</button>'}).join('')
+  el.onclick=function(ev){var b=ev.target.closest('.chip');if(!b)return;var n=lista[[].indexOf.call(el.children,b)],i=est[chave].indexOf(n);if(i>-1)est[chave].splice(i,1);else est[chave].push(n);chips(el,lista,chave,rot);calc()}
+}
+function calc(){
+  var unit=TAM[est.t].p+BASE[est.b].p+Math.max(0,est.a.length-3)*2.5+est.e.length*4
+  var tot=unit*est.q
+  var gratis=Math.min(3,est.a.length),pagos=Math.max(0,est.a.length-3)
+  document.getElementById('contador').textContent=gratis+' de 3 grátis'+(pagos?' · '+pagos+' adicional'+(pagos>1?'is':'')+' (+'+brl(pagos*2.5)+')':'')
+  var linhas=[['Tamanho',TAM[est.t].n],['Base',BASE[est.b].n],['Acompanhamentos',est.a.length?est.a.join(', '):'nenhum']]
+  if(est.e.length)linhas.push(['Cobertura',est.e.join(', ')])
+  document.getElementById('itens-resumo').innerHTML=linhas.map(function(l){return '<li><span>'+l[0]+'</span><b>'+l[1]+'</b></li>'}).join('')
+  document.getElementById('q').textContent=est.q
+  document.getElementById('total').textContent=brl(tot)
+  return {tot:tot,linhas:linhas}
+}
+document.getElementById('mais').onclick=function(){est.q=Math.min(20,est.q+1);calc()}
+document.getElementById('menos').onclick=function(){est.q=Math.max(1,est.q-1);calc()}
+document.getElementById('pedir').onclick=function(){
+  var r=calc()
+  var msg='Oi! Quero pedir '+est.q+'x açaí:\n\n'+r.linhas.map(function(l){return '• '+l[0]+': '+l[1]}).join('\n')+'\n\nTotal: '+brl(r.tot)+'\nÉ pra entrega.'
+  if(window.vitrine)window.vitrine.whats(msg)
+}
+opcoes(document.getElementById('tamanhos'),TAM,'t')
+opcoes(document.getElementById('bases'),BASE,'b')
+chips(document.getElementById('acomps'),ACOMP,'a')
+chips(document.getElementById('extras'),EXTRA,'e','+R$ 4')
+calc()
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});document.querySelectorAll('[data-r]').forEach(function(n){io.observe(n)})}else{document.querySelectorAll('[data-r]').forEach(function(n){n.classList.add('vis')})}
+</script>
+<script src="../kit/vitrine.js" defer></script>
+</body>
+</html>
